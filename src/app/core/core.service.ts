@@ -1,17 +1,37 @@
 import { isPlatformBrowser } from '@angular/common';
-import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
+import { inject, Inject, Injectable, PLATFORM_ID } from '@angular/core';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CoreService {
   constructor(@Inject(PLATFORM_ID) private platformId: any) {}
-
+  spinService = inject(NgxSpinnerService);
   loadFlowbite(callback: (flowbite: any) => void) {
     if (isPlatformBrowser(this.platformId)) {
-      import('flowbite').then(flowbite => {
+      import('flowbite').then((flowbite) => {
         callback(flowbite);
       });
+    }
+  }
+  RequestCount = 1;
+  loading() {
+    this.RequestCount++;
+
+    this.spinService.show(undefined, {
+      bdColor: 'rgba(0, 0, 0, 0.4)',
+      size: 'large',
+      color: '#fff',
+      type: '',
+      fullScreen: true,
+    });
+  }
+  hideLoader() {
+    this.RequestCount--;
+    if (this.RequestCount <= 1) {
+      this.RequestCount = 0;
+      this.spinService.hide();
     }
   }
 }

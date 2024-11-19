@@ -23,17 +23,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   constructor(private cdr: ChangeDetectorRef) {}
   ngOnInit(): void {
     this.checkScreenSize();
-    if (this.isDarkMode && this.isDarkChecked) {
-      // Check if isDarkChecked is defined
-      setTimeout(() => {
-        if (this.isDarkChecked?.nativeElement) {
-          // Ensure nativeElement is available
-          this.isDarkChecked.nativeElement.checked = true;
-        }
-      }, 10);
-    }
-    this.cdr.detectChanges();
-    // Check and apply the saved theme on initialization
+    
     if (typeof localStorage !== 'undefined') {
       const savedTheme = localStorage.getItem('theme');
       if (savedTheme) {
@@ -50,6 +40,19 @@ export class NavbarComponent implements OnInit, OnDestroy {
         window.addEventListener('resize', this.resizeListener);
       }
     }
+   
+    if (this.isDarkMode) {
+      // Check if isDarkChecked is defined
+      setTimeout(() => {
+        if (this.isDarkChecked?.nativeElement) {
+          // Ensure nativeElement is available
+          this.isDarkChecked.nativeElement.checked = true;
+        }
+      }, 10);
+    }
+    // this.cdr.detectChanges();
+    // Check and apply the saved theme on initialization
+   
   }
 
 

@@ -9,7 +9,6 @@ import { PriceComponent } from './price/price.component';
 import { RouterModule } from '@angular/router';
 import { NotfoundComponent } from './notfound/notfound.component';
 import { ToastrModule } from 'ngx-toastr';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -24,7 +23,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
   imports: [
     CommonModule,
     RouterModule,
-    BrowserAnimationsModule,
     ToastrModule.forRoot({
       positionClass: 'toast-top-right', // Position of the toast
       preventDuplicates: false, // Prevent duplicate toasts

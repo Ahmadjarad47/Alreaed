@@ -1,14 +1,18 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, inject, OnInit } from '@angular/core';
 import { CoreService } from './core/core.service';
+
+import { NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router } from '@angular/router';
 declare var AOS: any;
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
-export class AppComponent  implements  OnInit {
+export class AppComponent  implements  AfterViewInit {
   constructor(private flowbiteService: CoreService) {}
-  ngOnInit(): void {
+  router=inject(Router)
+  spin=inject(CoreService)
+  ngAfterViewInit(): void {
     this.flowbiteService.loadFlowbite((flowbite) => {});
     if (typeof AOS !== 'undefined') {
       AOS.init({
@@ -18,6 +22,16 @@ export class AppComponent  implements  OnInit {
         mirror: false, // Repeat animation on scroll up
       });
     }
+    this.router.events.subscribe(ev=>{
+      if(ev instanceof NavigationStart){
+        this.spin.loading()
+      }else if (ev instanceof NavigationEnd || ev instanceof NavigationCancel || ev instanceof NavigationError) {
+        this.spin.hideLoader();
+      }
+      if (typeof AOS !== 'undefined') {
+      AOS.refresh();
+      }
+    })
   }
   
 }
