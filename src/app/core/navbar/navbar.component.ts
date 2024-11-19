@@ -64,7 +64,10 @@ export class NavbarComponent
 
   checkScreenSize(): void {
     // Update the isDesktop flag based on window width
-    this.isDesktop = window.innerWidth > 800;
+    setTimeout(()=>{
+
+      this.isDesktop = window.innerWidth > 800;
+    },1)
   }
 
   toggleTheme(event: any): void {
