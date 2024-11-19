@@ -34,40 +34,43 @@ export class NavbarComponent
         }
       }, 10);
     }
-    this.cdr.detectChanges()
+    this.cdr.detectChanges();
   }
 
   ngAfterViewInit(): void {
     this.checkScreenSize();
 
     // Check and apply the saved theme on initialization
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme) {
-      document.documentElement.classList.add(savedTheme);
-
-      this.isDarkMode = savedTheme === 'dark';
-    } else {
-      document.documentElement.classList.add('light');
+    if(typeof(localStorage)!=='undefined'){
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme) {
+        document.documentElement.classList.add(savedTheme);
+  
+        this.isDarkMode = savedTheme === 'dark';
+      } else {
+        document.documentElement.classList.add('light');
+      }
+  
+      // Add resize event listener
+      this.resizeListener = () => this.checkScreenSize();
+      if(typeof(window)!=='undefined'){
+      window.addEventListener('resize', this.resizeListener);
+      }
     }
-
-    // Add resize event listener
-    this.resizeListener = () => this.checkScreenSize();
-    window.addEventListener('resize', this.resizeListener);
+ 
   }
 
   ngOnDestroy(): void {
     // Remove the resize listener when the component is destroyed
-    if (this.resizeListener) {
+    if (this.resizeListener &&typeof(window)!=='undefined') {
       window.removeEventListener('resize', this.resizeListener);
     }
   }
 
   checkScreenSize(): void {
-    // Update the isDesktop flag based on window width
-    setTimeout(()=>{
-
-      this.isDesktop = window.innerWidth > 800;
-    },1)
+    if (typeof(window)!=='undefined') {
+    this.isDesktop = window.innerWidth > 800;
+    }
   }
 
   toggleTheme(event: any): void {
@@ -83,6 +86,7 @@ export class NavbarComponent
   }
 
   private applyTheme(theme: string): void {
+    if(typeof(localStorage)!=='undefined'){
     if (theme === 'dark') {
       document.documentElement.classList.add('dark');
       document.documentElement.classList.remove('light');
@@ -92,4 +96,5 @@ export class NavbarComponent
     }
     localStorage.setItem('theme', theme);
   }
+}
 }
