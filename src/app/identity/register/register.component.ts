@@ -37,9 +37,9 @@ export class RegisterComponent implements AfterContentInit {
           [
             Validators.required,
             Validators.minLength(8), // Changed to match the pattern
-            // Validators.pattern(
-            //   /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
-            // ),
+            Validators.pattern(
+            /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])(?=.*\.)[A-Za-z\d@$!%*?&.]{8,}$/
+            ),
           ],
         ],
         confirmPassword: ['', Validators.required],
@@ -76,7 +76,7 @@ export class RegisterComponent implements AfterContentInit {
         uppercase: /[A-Z]/.test(password),
         lowercase: /[a-z]/.test(password),
         digit: /[0-9]/.test(password),
-        specialChar: /[!@#$%^&*]/.test(password),
+        specialChar:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])(?=.*\.)[A-Za-z\d@$!%*?&.]{8,}$/.test(password),
       };
       // Increment strength based on criteria met
       (Object.keys(checks) as (keyof typeof checks)[]).forEach((check) => {

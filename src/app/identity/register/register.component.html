@@ -228,7 +228,7 @@
 
                         </li>
                         <li class="flex items-center mb-1">
-                            @if (isPasswordStrong() >= 4) {
+                            @if (!_password.hasError('pattern')) {
                             <svg class="w-3.5 h-3.5 me-2 text-green-400 dark:text-green-500" aria-hidden="true"
                                 xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 12">
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
@@ -245,10 +245,10 @@
 
                             <span [ngClass]="
                             {
-                               'text-red-500':isPasswordStrong() < 4,
-                               'text-green-500':isPasswordStrong() >= 4,
+                               'text-red-500':_password.hasError('pattern')===true,
+                               'text-green-500':_password.hasError('pattern')===false,
                            }
-                            "> A symbol (#$&)</span>
+                            "> A symbol (#$&)and dot (.)</span>
 
 
                         </li>
@@ -272,7 +272,7 @@
                 <div class="flex">
                     <span
                         class="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 border rounded-e-0 border-gray-300 border-e-0 rounded-s-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
-                        <svg class="w-4 h-4 text-cyan-500 dark:text-gray-400" aria-hidden="true"
+                        <svg class="w-4 h-4 text-cyan-400 dark:text-gray-400" aria-hidden="true"
                             xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
                             viewBox="0 0 24 24">
                             <path fill-rule="evenodd"
@@ -294,7 +294,7 @@
 
                 </div>
 
-                <button type="submit"
+                <button type="submit" [disabled]="registerGroup.invalid||registerGroup.untouched"
                     class="text-white bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-purple-300 dark:focus:ring-purple-800 shadow-lg shadow-purple-500/50 dark:shadow-lg dark:shadow-purple-800/80 
                font-medium rounded-lg w-full flex justify-center cursor-pointer text-sm px-5 py-2.5 text-center me-2 mb-2">Register<svg class="w-6 h-6 text-gray-800 dark:text-white"
                         aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -307,7 +307,7 @@
 
 
                 <p class="text-sm font-light text-gray-500 dark:text-gray-400">
-                    Already have an account? <a href="#"
+                    Already have an account? <a routerLink="/account/login"
                         class="font-medium text-primary-600 hover:underline dark:text-primary-500">Login here</a>
                 </p>
             </form>
