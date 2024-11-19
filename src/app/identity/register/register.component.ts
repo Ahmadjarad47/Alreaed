@@ -13,7 +13,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class RegisterComponent implements AfterContentInit {
   fb = inject(FormBuilder);
-  toast=inject(ToastrService)
+  toast = inject(ToastrService);
   registerGroup: FormGroup;
   popoverVisible = false;
   InputType = 'password';
@@ -38,7 +38,7 @@ export class RegisterComponent implements AfterContentInit {
             Validators.required,
             Validators.minLength(8), // Changed to match the pattern
             Validators.pattern(
-            /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])(?=.*\.)[A-Za-z\d@$!%*?&.]{8,}$/
+              /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])(?=.*\.)[A-Za-z\d@$!%*?&.]{8,}$/
             ),
           ],
         ],
@@ -46,7 +46,6 @@ export class RegisterComponent implements AfterContentInit {
       },
       { validator: this.passwordMatchValidator }
     );
-
   }
 
   passwordMatchValidator(form: FormGroup) {
@@ -59,11 +58,8 @@ export class RegisterComponent implements AfterContentInit {
     }
   }
   onSubmit(): void {
-    console.log(this.registerGroup.value);
-    console.log(this.registerGroup.valid);
-   
-  
-     this.toast.info("User Register Successfuly",'success'.toUpperCase())
+   debugger
+    this.toast.info('User Register Successfuly', 'success'.toUpperCase());
   }
 
   isPasswordStrong() {
@@ -76,7 +72,10 @@ export class RegisterComponent implements AfterContentInit {
         uppercase: /[A-Z]/.test(password),
         lowercase: /[a-z]/.test(password),
         digit: /[0-9]/.test(password),
-        specialChar:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])(?=.*\.)[A-Za-z\d@$!%*?&.]{8,}$/.test(password),
+        specialChar:
+          /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])(?=.*\.)[A-Za-z\d@$!%*?&.]{8,}$/.test(
+            password
+          ),
       };
       // Increment strength based on criteria met
       (Object.keys(checks) as (keyof typeof checks)[]).forEach((check) => {
@@ -89,7 +88,6 @@ export class RegisterComponent implements AfterContentInit {
 
     return 3;
   }
-
 
   // Toggle popover visibility
   togglePopover(visible: boolean) {
@@ -107,14 +105,11 @@ export class RegisterComponent implements AfterContentInit {
     }
   }
 
-
-
   ClosePop() {
     const popover = document.getElementById('popover-password');
     popover.classList.remove('invisible', 'opacity-0');
     popover.classList.add('visible', 'opacity-100');
   }
-
 
   get _username() {
     return this.registerGroup.get('username');

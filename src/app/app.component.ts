@@ -6,12 +6,10 @@ declare var AOS: any;
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
-export class AppComponent  implements AfterViewInit, OnInit {
+export class AppComponent  implements  OnInit {
   constructor(private flowbiteService: CoreService) {}
   ngOnInit(): void {
     this.flowbiteService.loadFlowbite((flowbite) => {});
-  }
-  ngAfterViewInit(): void {
     if (typeof AOS !== 'undefined') {
       AOS.init({
         duration: 800, // Animation duration
@@ -20,6 +18,6 @@ export class AppComponent  implements AfterViewInit, OnInit {
         mirror: false, // Repeat animation on scroll up
       });
     }
-   
   }
+  
 }

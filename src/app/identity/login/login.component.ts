@@ -8,26 +8,34 @@ import { ToastrService } from 'ngx-toastr';
   styleUrl: './login.component.css',
 })
 export class LoginComponent implements AfterContentInit {
+  fb = inject(FormBuilder);
+  toast = inject(ToastrService);
+  registerGroup: FormGroup;
+  //for forget password
+  emailModel = '';
   ngAfterContentInit(): void {
     this.registerGroup = this.fb.group({
       email: [
         '',
         [Validators.required, Validators.email, Validators.maxLength(35)],
       ],
-      password: [
-        '',
-        [
-          Validators.required,
-        
-        ],
-      ],
+      password: ['', [Validators.required]],
       confirmPassword: ['', Validators.required],
     });
   }
-  fb = inject(FormBuilder);
-  toast = inject(ToastrService);
-  registerGroup: FormGroup;
-  onSubmit(){
+
+  onSubmit() {
+    this.toast.info("Login success",'Welcome-Back')
+  }
+  onSubmitForgetPassword() {
+   const regexp = new RegExp(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
+    if(regexp.test(this.emailModel)){
+      this.toast.info("Email send Success",'SUCCESS')
+
+    }else{
+      this.toast.error("Email Format Invalid",'ERROR')
+
+    }
 
   }
 }

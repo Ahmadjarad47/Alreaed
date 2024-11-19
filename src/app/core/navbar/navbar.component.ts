@@ -1,5 +1,4 @@
 import {
-  AfterViewChecked,
   AfterViewInit,
   ChangeDetectorRef,
   Component,
@@ -14,9 +13,7 @@ import {
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css',
 })
-export class NavbarComponent
-  implements AfterViewInit, OnDestroy, AfterViewChecked
-{
+export class NavbarComponent implements OnInit, OnDestroy {
   @ViewChild('themeToggle', { static: false })
   themeToggle!: ElementRef<HTMLInputElement>;
   @ViewChild('isDarkChecked') isDarkChecked!: ElementRef<HTMLInputElement>;
@@ -24,7 +21,8 @@ export class NavbarComponent
   isDarkMode: boolean = false;
   resizeListener: any;
   constructor(private cdr: ChangeDetectorRef) {}
-  ngAfterViewChecked(): void {
+  ngOnInit(): void {
+    this.checkScreenSize();
     if (this.isDarkMode && this.isDarkChecked) {
       // Check if isDarkChecked is defined
       setTimeout(() => {
@@ -35,41 +33,36 @@ export class NavbarComponent
       }, 10);
     }
     this.cdr.detectChanges();
-  }
-
-  ngAfterViewInit(): void {
-    this.checkScreenSize();
-
     // Check and apply the saved theme on initialization
-    if(typeof(localStorage)!=='undefined'){
+    if (typeof localStorage !== 'undefined') {
       const savedTheme = localStorage.getItem('theme');
       if (savedTheme) {
         document.documentElement.classList.add(savedTheme);
-  
+
         this.isDarkMode = savedTheme === 'dark';
       } else {
         document.documentElement.classList.add('light');
       }
-  
+
       // Add resize event listener
       this.resizeListener = () => this.checkScreenSize();
-      if(typeof(window)!=='undefined'){
-      window.addEventListener('resize', this.resizeListener);
+      if (typeof window !== 'undefined') {
+        window.addEventListener('resize', this.resizeListener);
       }
     }
- 
   }
+
 
   ngOnDestroy(): void {
     // Remove the resize listener when the component is destroyed
-    if (this.resizeListener &&typeof(window)!=='undefined') {
+    if (this.resizeListener && typeof window !== 'undefined') {
       window.removeEventListener('resize', this.resizeListener);
     }
   }
 
   checkScreenSize(): void {
-    if (typeof(window)!=='undefined') {
-    this.isDesktop = window.innerWidth > 800;
+    if (typeof window !== 'undefined') {
+      this.isDesktop = window.innerWidth > 800;
     }
   }
 
@@ -86,15 +79,15 @@ export class NavbarComponent
   }
 
   private applyTheme(theme: string): void {
-    if(typeof(localStorage)!=='undefined'){
-    if (theme === 'dark') {
-      document.documentElement.classList.add('dark');
-      document.documentElement.classList.remove('light');
-    } else {
-      document.documentElement.classList.add('light');
-      document.documentElement.classList.remove('dark');
+    if (typeof localStorage !== 'undefined') {
+      if (theme === 'dark') {
+        document.documentElement.classList.add('dark');
+        document.documentElement.classList.remove('light');
+      } else {
+        document.documentElement.classList.add('light');
+        document.documentElement.classList.remove('dark');
+      }
+      localStorage.setItem('theme', theme);
     }
-    localStorage.setItem('theme', theme);
   }
-}
 }
