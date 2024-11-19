@@ -1,0 +1,48 @@
+/* Parallax and Animation Styles */
+@keyframes slide-down {
+    0% { transform: translateY(-40px); opacity: 0; }
+    100% { transform: translateY(0); opacity: 1; }
+}
+.animate-slide-down { animation: slide-down 1s ease-out forwards; }
+
+@keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+.animate-fade-in { animation: fade-in 1.5s ease-out forwards; }
+
+@keyframes slide-in {
+    from { transform: translateX(40px); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+.animate-slide-in { animation: slide-in 1.2s ease-out forwards; }
+
+/* Image Floating Effect */
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+.animate-float { animation: float 3s ease-in-out infinite; }
+
+/* Gradient Border on Hover */
+.hover\\:border-gradient:hover {
+    border-image: linear-gradient(45deg, #6b46c1, #3182ce) 1;
+}
+
+/* Bubbles */
+.bubble {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 20%, transparent 70%);
+    border-radius: 50%;
+    animation: float-bubble 10s infinite ease-in-out;
+}
+.bubble:nth-child(2) { width: 150px; height: 150px; animation-duration: 12s; }
+.bubble:nth-child(3) { width: 80px; height: 80px; animation-duration: 8s; }
+.bubble:nth-child(4) { width: 120px; height: 120px; animation-duration: 14s; }
+
+@keyframes float-bubble {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+}

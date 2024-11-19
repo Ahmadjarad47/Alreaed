@@ -1,1 +1,97 @@
-/* You can add global styles to this file, and also import other style files */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+html {
+  scroll-behavior: smooth;
+}
+.toastToast {
+  z-index: 10000;
+  @apply relative flex items-center justify-between gap-4 px-6 py-4 rounded-2xl shadow-lg transition-all duration-300 ease-in-out transform hover:scale-105 bg-white dark:bg-gray-900;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1); /* More pronounced soft shadow */
+  border: 1px solid rgba(0, 0, 0, 0.1); /* Light border for a cleaner look */
+}
+
+.toast-success {
+  @apply border-l-8 border-blue-600 bg-gradient-to-r from-blue-200 to-blue-100 text-blue-800 dark:from-blue-800 dark:to-blue-700 dark:text-blue-200;
+  box-shadow: 0 6px 15px rgba(59, 130, 246, 0.2); /* Elegant blue shadow for info */
+}
+
+.toast-error {
+  @apply border-l-8 border-red-600 bg-gradient-to-r from-red-200 to-red-100 text-red-800 dark:from-red-800 dark:to-red-700 dark:text-red-200;
+  box-shadow: 0 6px 15px rgba(220, 38, 38, 0.2); /* Elegant red shadow for error */
+}
+
+.toast-info {
+  @apply border-l-8 border-blue-600 bg-gradient-to-r from-blue-200 to-blue-300 text-blue-800 dark:from-blue-800 dark:to-blue-700 dark:text-blue-800;
+  box-shadow: 0 6px 15px rgba(59, 130, 246, 0.2); /* Elegant blue shadow for info */
+}
+.toast-info .messageToast {
+  color: rgb(41, 126, 254) !important;
+}
+.toast-info .titleToast {
+  color: rgb(41, 172, 254) !important;
+}
+
+.toast-warning {
+  @apply border-l-8 border-yellow-600 bg-gradient-to-r from-yellow-200 to-yellow-100 text-yellow-800 dark:from-yellow-800 dark:to-yellow-700 dark:text-yellow-200;
+  box-shadow: 0 6px 15px rgba(252, 211, 77, 0.2); /* Elegant yellow shadow for warning */
+}
+.toast-warning .titleToast{
+  color: rgb(247, 255, 130) !important
+}
+.toast-warning .messageToast{
+  color: rgb(186, 189, 150) !important
+}
+.toast-progress-bar {
+  @apply absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 via-purple-600 to-pink-600;
+  border-radius: 10px; /* Smooth rounded corners for the progress bar */
+  animation: progress-bar 4s linear infinite; /* Smooth progress bar animation */
+}
+.toast-error .messageToast {
+  color: rgb(254, 41, 101) !important;
+}
+.toast-error .titleToast {
+  color: rgb(254, 41, 101) !important;
+}
+@keyframes progress-bar {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+.titleToast {
+  @apply font-extrabold text-xl uppercase tracking-wider dark:text-gray-50;
+  letter-spacing: 1px; /* Wider letter-spacing for a more elegant appearance */
+  font-family: "Poppins", sans-serif; /* Clean, modern font */
+}
+
+.messageToast {
+  @apply text-sm font-medium dark:text-gray-300;
+  font-family: "Roboto", sans-serif; /* Light font for message */
+  line-height: 1.5; /* Improved line-height for better readability */
+}
+
+.toast-close-btn {
+  @apply flex items-center justify-center w-10 h-10 rounded-full text-gray-600 hover:bg-gray-200 dark:hover:bg-gray-700 dark:text-gray-400 transition-all duration-300;
+  background-color: rgba(
+    0,
+    0,
+    0,
+    0.1
+  ); /* Light background for the close button */
+  transform: scale(0.95); /* Subtle scaling effect on close button */
+  transition: transform 0.3s ease-in-out;
+}
+
+.toast-close-btn:hover {
+  transform: scale(1.15); /* Slightly larger on hover for interactive feel */
+  background-color: rgba(0, 0, 0, 0.2); /* Darken background on hover */
+}
+
+.toast-close-btn:focus {
+  outline: none; /* Remove focus outline */
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5); /* Add focus ring for accessibility */
+}

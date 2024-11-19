@@ -1,0 +1,68 @@
+/* Custom CSS for Enhanced Pricing Card Styles */
+
+/* Card base styles */
+.card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Hover effects for smooth scaling and shadow */
+.card:hover {
+    transform: translateY(-10px) scale(1.05);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1), 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+/* Background gradient for cards */
+.card-background {
+    background: linear-gradient(135deg, rgba(72, 61, 139, 0.1) 0%, rgba(0, 153, 255, 0.2) 100%);
+}
+
+/* Add a glowing hover effect on the header */
+.card-header:hover {
+    text-shadow: 0 0 10px rgba(0, 153, 255, 0.7);
+}
+
+/* Enhanced button styling */
+.card-btn {
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 50px;
+    padding: 12px 30px;
+    text-align: center;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+/* Hover effect for buttons */
+.card-btn:hover {
+    background-color: #45a049;
+    transform: translateY(-5px);
+}
+
+/* Card icon styling */
+.card-icon {
+    color: #4CAF50;
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+/* Hover effect for icons */
+.card-icon:hover {
+    color: #388e3c;
+    transform: scale(1.1);
+}
+
+/* Custom glow effect on list items */
+.card-list-item:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Add smooth transitions for text and prices */
+.card-price {
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+/* Price hover effect */
+.card-price:hover {
+    color: #4CAF50;
+    transform: scale(1.05);
+}
