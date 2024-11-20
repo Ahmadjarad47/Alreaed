@@ -3,7 +3,7 @@
       transform: translateY(0px);
     }
     50% {
-      transform: translateY(-15px);
+      transform: translateY(-50px);
     }
     100% {
       transform: translateY(0px);
@@ -11,6 +11,6 @@
   }
   
   .animate-bubble {
-    animation: bubble 4s infinite ease-in-out;
+    animation: bubble 20s infinite ease-in-out;
   }
   

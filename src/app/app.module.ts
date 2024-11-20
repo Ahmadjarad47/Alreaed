@@ -20,6 +20,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     CoreModule,
     NgxSpinnerModule,
     BrowserAnimationsModule,
+    
 ],
   providers: [
     provideClientHydration(),

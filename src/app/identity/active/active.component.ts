@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrl: './active.component.css'
 })
 export class ActiveComponent {
-
+isAccountActive: boolean = false;
 }

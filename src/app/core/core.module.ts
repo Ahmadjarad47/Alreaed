@@ -9,6 +9,7 @@ import { PriceComponent } from './price/price.component';
 import { RouterModule } from '@angular/router';
 import { NotfoundComponent } from './notfound/notfound.component';
 import { ToastrModule } from 'ngx-toastr';
+import { BubbleComponent } from './shared/bubble/bubble.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { ToastrModule } from 'ngx-toastr';
     AboutComponent,
     PriceComponent,
     NotfoundComponent,
+    BubbleComponent,
   ],
   imports: [
     CommonModule,
@@ -35,6 +37,6 @@ import { ToastrModule } from 'ngx-toastr';
       toastClass: 'toastToast',
     }),
   ],
-  exports: [NavbarComponent, FooterComponent],
+  exports: [NavbarComponent, FooterComponent,BubbleComponent],
 })
 export class CoreModule {}

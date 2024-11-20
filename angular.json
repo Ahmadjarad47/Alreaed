@@ -61,8 +61,8 @@
               "node_modules/ngx-toastr/toastr.css"
             ],
             "scripts": [
-              "node_modules/aos/dist/aos.js",
               "node_modules/flowbite/dist/flowbite.min.js",
+              "node_modules/aos/dist/aos.js",
               "node_modules/@fortawesome/fontawesome-free/js/all.min.js"
             ],
             "server": "src/main.server.ts",

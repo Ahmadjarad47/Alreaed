@@ -19,8 +19,11 @@ export class loadingWithCredentialInterceptor implements HttpInterceptor {
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
     this._service.loading();
-
-    return next.handle(request).pipe(
+    request = request.clone({
+      withCredentials: true,
+    });
+    return next.handle(request)
+    .pipe(
       finalize(() => {
         this._service.hideLoader();
       })

@@ -1,5 +1,8 @@
-<app-navbar></app-navbar>
-<ngx-spinner>
+@if (!isAccountPages()) {
+
+    <app-navbar ></app-navbar>
+}
+<ngx-spinner type="square-jelly-box.css">
 <div id="page">
         <div id="container">
             <div id="ring"></div>
@@ -10,5 +13,8 @@
         </div>
 </div>
 </ngx-spinner>
+
+  
 <router-outlet></router-outlet>
+
 <app-footer></app-footer>

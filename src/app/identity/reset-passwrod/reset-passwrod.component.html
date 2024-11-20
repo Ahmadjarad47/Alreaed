@@ -1,1 +1,248 @@
-<p>reset-passwrod works!</p>
+<section
+    class="bg-gradient-to-r from-cyan-200 via-white to-cyan-200 dark:bg-gradient-to-r dark:from-gray-900 dark:via-black dark:to-gray-900 relative overflow-hidden">
+    <!-- Glowing particle effect -->
+    <div
+        class="absolute inset-0 bg-gradient-to-r from-cyan-200 via-white to-cyan-200 opacity-30 animate-pulse dark:bg-gradient-to-r dark:from-gray-900 dark:via-black dark:to-gray-900 dark:opacity-30">
+    </div>
+
+    <!-- Floating bubble effect (animated circles) -->
+    <div
+        class="absolute top-20 left-20 w-8 h-8 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-full opacity-60 animate-bubble">
+    </div>
+    <div
+        class="absolute top-40 right-40 w-10 h-10 bg-gradient-to-r from-green-500 to-teal-500 rounded-full opacity-60 animate-bubble">
+    </div>
+    <div
+        class="absolute bottom-10 left-60 w-12 h-12 bg-gradient-to-r from-pink-400 to-purple-500 rounded-full opacity-60 animate-bubble">
+    </div>
+    <div
+        class="absolute bottom-40 right-10 w-14 h-14 bg-gradient-to-r from-yellow-400 to-red-500 rounded-full opacity-60 animate-bubble">
+    </div>
+
+    <!-- Content container with flex layout -->
+    <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0 relative z-10">
+        <a routerLink="/"
+            class="flex items-center mb-6 text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-indigo-600 dark:from-purple-500 dark:to-pink-400 transition-all hover:scale-105 duration-300">
+            <img class="w-10 h-10 mr-3" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/logo.svg" alt="logo">
+            alraed
+        </a>
+
+        <div
+            class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+            <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
+                <h1
+                    class="text-xl flex justify-center font-bold leading-tight tracking-tight text-cyan-400 md:text-2xl dark:text-white">
+                    Reset-password
+                    <svg class="w-6 h-6 text-cyan-400 dark:text-white" aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                        <path stroke="currentColor" stroke-width="2"
+                            d="M7 17v1a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1a3 3 0 0 0-3-3h-4a3 3 0 0 0-3 3Zm8-9a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                    </svg>
+
+
+                </h1>
+                <form (ngSubmit)="onSubmit()" class="space-y-4 md:space-y-2" novalidate
+                 [formGroup]="ResetPassowrdGroup">
+
+
+
+
+
+
+
+
+                    <label for="password"
+                    class="block mb-2 text-sm font-medium text-cyan-500 dark:text-white">Password</label>
+                <div class="flex">
+                    <span
+                        class="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 border rounded-e-0 border-gray-300 border-e-0 rounded-s-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
+                        <svg class="w-4 h-4 text-cyan-500 dark:text-gray-400" aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                            viewBox="0 0 24 24">
+                            <path fill-rule="evenodd"
+                                d="M8 10V7a4 4 0 1 1 8 0v3h1a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h1Zm2-3a2 2 0 1 1 4 0v3h-4V7Zm2 6a1 1 0 0 1 1 1v3a1 1 0 1 1-2 0v-3a1 1 0 0 1 1-1Z"
+                                clip-rule="evenodd" />
+                        </svg>
+                    </span>
+                    <input [ngClass]="{
+                        
+                        'border-green-300 text-green-900 focus:ring-green-500 focus:border-green-500 dark:border-green-600 dark:placeholder-gray-400 dark:text-green-500 dark:focus:ring-green-500 dark:focus:border-green-500': _password?.valid,
+                        'border-red-300 text-red-900 focus:ring-red-500 focus:border-red-500 dark:border-red-600 dark:placeholder-gray-400 dark:text-red-500 dark:focus:ring-red-500 dark:focus:border-red-500': _password?.invalid && _password?.touched
+                
+                        }" formControlName="password" (focus)="togglePopover(true)" (blur)="togglePopover(false)"
+                         id="password"[type]="InputType"
+                        class="rounded-none rounded-e-lg border block flex-1 min-w-0 w-full text-sm p-2.5 dark:bg-gray-700 bg-gray-50 text-gray-700 dark:text-white"
+                        placeholder="••••••••" aria-describedby="popover-password">
+
+                      
+                            
+                </div>
+          
+                <div id="popover-password"
+                    class="absolute z-10 invisible opacity-0 transition-opacity duration-300 text-sm text-gray-500 bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-600 dark:text-gray-400 w-72 p-3 space-y-2">
+                    <div class="flex justify-between">
+                        <h3 class="font-semibold text-gray-900 dark:text-white">Password Strong</h3>
+                        <svg (click)="ClosePop()" class="cursor-pointer w-6 h-6 text-gray-800 dark:text-white"
+                            aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+                            viewBox="0 0 24 24">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                stroke-width="2" d="m15 9-6 6m0-6 6 6m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                        </svg>
+
+                    </div>
+
+
+                    <div class="grid grid-cols-4 gap-2">
+                        <div [ngClass]="{
+                            'bg-red-800 w-2 dark:bg-red-800': isPasswordStrong() == 0,
+                            'bg-pink-300 w-16 dark:bg-red-300': isPasswordStrong() == 1,
+                            'bg-red-300 w-32 dark:bg-red-500': isPasswordStrong() == 2,
+                            'bg-cyan-300 w-56 dark:bg-cyan-500': isPasswordStrong() == 3,
+                            'bg-green-500 w-60 dark:bg-green-700': isPasswordStrong() == 4
+                          }" class="h-1 duration-300"></div>
+                    </div>
+                    <p>It’s better to have:</p>
+                    <ul>
+                        <li class="flex items-center">
+                            <!-- @if (ResetPassowrdGroup.value.password.length >= 8) {
+
+                            <svg class="w-3.5 h-3.5 me-2 text-green-400 dark:text-green-500" aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 12">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="2" d="M1 5.917 5.724 10.5 15 1.5" />
+                            </svg>
+                            }@else {
+                            <svg class="w-3.5 h-3.5 text-red-400 dark:text-red-700" aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+                                viewBox="0 0 24 24">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="2" d="M6 18 17.94 6M18 18 6.06 6" />
+                            </svg>
+
+                            } -->
+
+                            <!-- <span [ngClass]="
+                         {
+                            'text-red-500':ResetPassowrdGroup.value.password.length < 8,
+                            'text-green-500':ResetPassowrdGroup.value.password.length >= 8,
+                        }
+                         ">A longer password (min. 8 chars.)</span> -->
+                        </li>
+                        <li class="flex items-center mb-1">
+                            @if (isPasswordStrong() >= 2) {
+                            <svg class="w-3.5 h-3.5 me-2 text-green-400 dark:text-green-500" aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 12">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="2" d="M1 5.917 5.724 10.5 15 1.5" />
+                            </svg>
+                            }@else {
+                            <svg class="w-3.5 h-3.5 text-red-400 dark:text-red-700" aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+                                viewBox="0 0 24 24">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="2" d="M6 18 17.94 6M18 18 6.06 6" />
+                            </svg>
+
+                            }
+
+                            <span [ngClass]="
+                         {
+                            'text-red-500':isPasswordStrong() < 2,
+                            'text-green-500':isPasswordStrong() >= 2,
+                        }
+                         "> Upper & lower case letters</span>
+
+                        </li>
+                        <li class="flex items-center mb-1">
+                            @if (!_password.hasError('pattern')) {
+                            <svg class="w-3.5 h-3.5 me-2 text-green-400 dark:text-green-500" aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 12">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="2" d="M1 5.917 5.724 10.5 15 1.5" />
+                            </svg>}@else {
+                            <svg class="w-3.5 h-3.5 text-red-400 dark:text-red-700" aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+                                viewBox="0 0 24 24">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="2" d="M6 18 17.94 6M18 18 6.06 6" />
+                            </svg>
+                            }
+
+
+                            <span [ngClass]="
+                            {
+                               'text-red-500':_password.hasError('pattern')===true,
+                               'text-green-500':_password.hasError('pattern')===false,
+                           }
+                            "> A symbol (#$&)and dot (.)</span>
+
+
+                        </li>
+                    </ul>
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <label for="confirmpassword"
+                        class="block mb-2 text-sm font-medium text-cyan-500 dark:text-white">confirm-password</label>
+                    <div class="flex">
+                        <span
+                            class="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 border rounded-e-0 border-gray-300 border-e-0 rounded-s-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
+                            <svg class="w-4 h-4 text-cyan-500 dark:text-gray-400" aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                                viewBox="0 0 24 24">
+                                <path fill-rule="evenodd"
+                                    d="M8 10V7a4 4 0 1 1 8 0v3h1a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h1Zm2-3a2 2 0 1 1 4 0v3h-4V7Zm2 6a1 1 0 0 1 1 1v3a1 1 0 1 1-2 0v-3a1 1 0 0 1 1-1Z"
+                                    clip-rule="evenodd" />
+                            </svg>
+                        </span>
+                        <input [ngClass]="{
+                        'border-red-600':_confirmPassword?.invalid==true,
+                        'border-green-600':_confirmPassword?.invalid!=true,
+                        }" formControlName="confirmPassword" id="password" type="password"
+                            class="rounded-none rounded-e-lg border block flex-1 min-w-0 w-full text-sm p-2.5 dark:bg-gray-700 bg-gray-50 text-gray-700 dark:text-white"
+                            placeholder="••••••••" aria-describedby="popover-password">
+
+
+
+                    </div>
+                    <div *ngIf="_confirmPassword.touched &&_confirmPassword?.invalid" class="text-red-600 text-xs mt-2">
+                        Password not matched
+    
+                    </div>
+                    <button type="submit" [disabled]="ResetPassowrdGroup.invalid||ResetPassowrdGroup.untouched"
+                        class="text-white bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-purple-300 dark:focus:ring-purple-800 shadow-lg shadow-purple-500/50 dark:shadow-lg dark:shadow-purple-800/80 
+               font-medium rounded-lg w-full flex justify-center cursor-pointer text-sm px-5 py-2.5 text-center me-2 mb-2">Save Changes
+               <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                <path stroke="currentColor" stroke-linecap="square" stroke-linejoin="round" stroke-width="2" d="M7 19H5a1 1 0 0 1-1-1v-1a3 3 0 0 1 3-3h1m4-6a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm7.441 1.559a1.907 1.907 0 0 1 0 2.698l-6.069 6.069L10 19l.674-3.372 6.07-6.07a1.907 1.907 0 0 1 2.697 0Z"/>
+              </svg>
+              
+
+                    </button>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+

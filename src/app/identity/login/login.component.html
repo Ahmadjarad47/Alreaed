@@ -21,10 +21,10 @@
 
     <!-- Content container with flex layout -->
     <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0 relative z-10">
-        <a routerLink="/account/register"
+        <a routerLink="/"
             class="flex items-center mb-6 text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-indigo-600 dark:from-purple-500 dark:to-pink-400 transition-all hover:scale-105 duration-300">
             <img class="w-10 h-10 mr-3" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/logo.svg" alt="logo">
-            Flowbite
+            alreaed
         </a>
 
         <div
@@ -41,7 +41,7 @@
 
 
                 </h1>
-                <form (ngSubmit)="onSubmit()" class="space-y-4 md:space-y-2" [formGroup]="registerGroup">
+                <form (ngSubmit)="onSubmit()" class="space-y-4 md:space-y-2" [formGroup]="LoginGroup">
 
 
 
@@ -93,25 +93,15 @@
 
                     </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-                    <button type="submit" [disabled]="registerGroup.invalid||registerGroup.untouched"
+                    <button type="submit" [disabled]="LoginGroup.invalid||LoginGroup.untouched"
                         class="text-white bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-purple-300 dark:focus:ring-purple-800 shadow-lg shadow-purple-500/50 dark:shadow-lg dark:shadow-purple-800/80 
                font-medium rounded-lg w-full flex justify-center cursor-pointer text-sm px-5 py-2.5 text-center me-2 mb-2">login
-               <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12H4m12 0-4 4m4-4-4-4m3-4h2a3 3 0 0 1 3 3v10a3 3 0 0 1-3 3h-2"/>
-              </svg>
-              
+                        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M16 12H4m12 0-4 4m4-4-4-4m3-4h2a3 3 0 0 1 3 3v10a3 3 0 0 1-3 3h-2" />
+                        </svg>
+
                     </button>
 
 
@@ -119,6 +109,12 @@
                         class="cursor-pointer text-sm font-light text-gray-500 dark:text-gray-400">
                         Forget password? <a
                             class="font-medium text-primary-600 hover:underline dark:text-primary-500">Reset-password</a>
+                    </p>
+
+                    <p routerLink="/account/register"
+                        class="cursor-pointer text-sm font-light text-gray-500 dark:text-gray-400">
+                        you don't have account? <a
+                            class="font-medium text-primary-600 hover:underline dark:text-primary-500">Create account</a>
                     </p>
                 </form>
             </div>
@@ -128,9 +124,9 @@
 
 
 
-<div id="popup-modal" tabindex="-1"
+<div id="popup-modal" tabindex="-1" 
     class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-    <div class="relative p-4 w-full max-w-md max-h-full">
+    <div class="relative p-4 w-full max-w-md max-h-full ">
         <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
             <button type="button"
                 class="absolute top-3 end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
@@ -158,19 +154,19 @@
                     <input [(ngModel)]="emailModel" type="email" id="input-group-1"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         placeholder="name@alreaed.com">
-                      
-                      
-                      
+
+
+
                 </div>
-              <div class="flex justify-between">
-                <button (click)="onSubmitForgetPassword()" type="button" class="text-white w-52 bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none
+                <div class="flex justify-between">
+                    <button (click)="onSubmitForgetPassword()" type="button" class="text-white w-52 bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none
                 focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm
                  px-5 py-2.5 text-center me-2 mb-2">Send </button>
-                 <button type="button" class="text-white w-52 bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm px-5 py-2.5
-                  text-center me-2 mb-2"   data-modal-hide="popup-modal">Cancel</button>
+                    <button type="button" class="text-white w-52 bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm px-5 py-2.5
+                  text-center me-2 mb-2" data-modal-hide="popup-modal">Cancel</button>
 
-              </div>
-                
+                </div>
+
             </div>
         </div>
     </div>

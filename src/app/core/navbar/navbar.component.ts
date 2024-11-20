@@ -1,12 +1,18 @@
+import { isPlatformBrowser } from '@angular/common';
 import {
+  AfterViewChecked,
   AfterViewInit,
   ChangeDetectorRef,
   Component,
   ElementRef,
+  Inject,
   OnDestroy,
   OnInit,
+  PLATFORM_ID,
   ViewChild,
 } from '@angular/core';
+import { initFlowbite } from 'flowbite';
+import { CoreService } from '../core.service';
 
 @Component({
   selector: 'app-navbar',
@@ -15,15 +21,18 @@ import {
 })
 export class NavbarComponent implements OnInit, OnDestroy {
   @ViewChild('themeToggle', { static: false })
+  isAuth = false;
   themeToggle!: ElementRef<HTMLInputElement>;
   @ViewChild('isDarkChecked') isDarkChecked!: ElementRef<HTMLInputElement>;
   isDesktop: boolean = true;
   isDarkMode: boolean = false;
   resizeListener: any;
-  constructor(private cdr: ChangeDetectorRef) {}
+ 
+  
   ngOnInit(): void {
+   
     this.checkScreenSize();
-    
+
     if (typeof localStorage !== 'undefined') {
       const savedTheme = localStorage.getItem('theme');
       if (savedTheme) {
@@ -40,7 +49,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
         window.addEventListener('resize', this.resizeListener);
       }
     }
-   
+
     if (this.isDarkMode) {
       // Check if isDarkChecked is defined
       setTimeout(() => {
@@ -50,11 +59,9 @@ export class NavbarComponent implements OnInit, OnDestroy {
         }
       }, 10);
     }
-    // this.cdr.detectChanges();
+    //  this.cdr.detectChanges();
     // Check and apply the saved theme on initialization
-   
   }
-
 
   ngOnDestroy(): void {
     // Remove the resize listener when the component is destroyed

@@ -6,27 +6,36 @@ import { NgxSpinnerService } from 'ngx-spinner';
   providedIn: 'root',
 })
 export class CoreService {
+  private flowbiteLoaded = false;
+
+  // Dependency Injection of Spinner Service
   constructor(@Inject(PLATFORM_ID) private platformId: any) {}
+
+  // Injecting the spinner service
   spinService = inject(NgxSpinnerService);
+
   loadFlowbite(callback: (flowbite: any) => void) {
     if (isPlatformBrowser(this.platformId)) {
-      import('flowbite').then((flowbite) => {
+      import('flowbite').then(flowbite => {
         callback(flowbite);
+       
       });
     }
   }
+
   RequestCount = 1;
+
   loading() {
     this.RequestCount++;
-
     this.spinService.show(undefined, {
       bdColor: 'rgba(0, 0, 0, 0.4)',
       size: 'large',
       color: '#fff',
-      type: '',
+      type: 'square-jelly-box.css',
       fullScreen: true,
     });
   }
+
   hideLoader() {
     this.RequestCount--;
     if (this.RequestCount <= 1) {

@@ -1,11 +1,8 @@
 <!-- Hero Section -->
 <section id="a" class="relative bg-gradient-to-r from-blue-500 via-teal-500 to-purple-500 dark:bg-gray-900 text-white py-20 overflow-hidden">
   <!-- Animated Bubbles -->
-  <div class="absolute inset-0 pointer-events-none">
-    <div  class="absolute bg-gradient-to-r from-green-400 to-blue-500 opacity-30 w-[350px] h-[350px] rounded-full -top-24 -left-24 animate-pulse"></div>
-    <div class="absolute bg-gradient-to-r from-purple-400 to-pink-500 opacity-40 w-[450px] h-[450px] rounded-full top-32 right-16 animate-ping"></div>
-    <div  class="absolute bg-gradient-to-r from-yellow-400 to-red-500 opacity-20 w-[250px] h-[250px] rounded-full bottom-10 left-32 animate-bounce"></div>
-  </div>
+  <app-bubble [top]="50" [top2]="52" [bottom2]="56"[bottom]="62" ></app-bubble>
+
   <!-- Content -->
   <div class="relative z-10 grid max-w-screen-xl px-8 mx-auto lg:grid-cols-12 gap-16 items-center">
     <!-- Text Section -->
@@ -71,6 +68,8 @@
 
 <!-- Section with Gradient Background -->
 <section class="bg-gradient-to-b from-gray-50 via-white to-gray-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 py-16">
+  <app-bubble [top]="50" [top2]="52" [bottom2]="56"[bottom]="62" ></app-bubble>
+
   <div class="px-6 mx-auto max-w-screen-xl">
       <div class="text-center max-w-screen-md mx-auto mb-12" data-aos="fade-up">
           <h2 class="mb-6 text-5xl font-bold tracking-tight text-gray-800 dark:text-white">
@@ -148,6 +147,7 @@
           </div>
       </div>
   </div>
+  
 </section>
 
 
@@ -168,6 +168,8 @@
 
 
 <section class="bg-gradient-to-r from-blue-50 to-indigo-100 dark:bg-gradient-to-r dark:from-gray-800 dark:to-gray-900 py-16">
+  <app-bubble [top]="50" [top2]="52" [bottom2]="56"[bottom]="62" ></app-bubble>
+
   <div class="gap-16 items-center px-6 mx-auto max-w-screen-xl lg:grid lg:grid-cols-2 lg:px-8">
       <!-- Text Content -->
       <div class="font-light text-gray-600 dark:text-gray-300 lg:pr-12" data-aos="fade-right">
@@ -200,8 +202,8 @@
 
 
 
-
 <section class="bg-gradient-to-b from-gray-50 via-white to-gray-100 py-16 antialiased dark:bg-gray-900 dark:from-gray-800 dark:to-gray-900">
+  
   <div class="mx-auto max-w-screen-lg px-6 2xl:px-0">
       <!-- Questions Container -->
       <div class="space-y-12">
@@ -283,7 +285,8 @@
 
   
   
-  
+<app-bubble [top]="50" [top2]="52" [bottom2]="56"[bottom]="62" ></app-bubble>
+
 
 <div id="question-modal" tabindex="-1" aria-hidden="true" class="fixed left-0 right-0 top-0 z-50 hidden h-[calc(100%-1rem)] max-h-full w-full items-center justify-center overflow-y-auto overflow-x-hidden antialiased  md:inset-0">
   <div class="relative max-h-full w-full max-w-xl p-4">
