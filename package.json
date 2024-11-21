@@ -23,12 +23,15 @@
     "@angular/ssr": "^18.2.11",
     "@fortawesome/fontawesome-free": "^6.7.0",
     "aos": "^2.3.4",
+    "apexcharts": "^4.0.0",
     "express": "^4.18.2",
     "flowbite": "^2.5.2",
     "ngx-spinner": "^17.0.0",
     "ngx-toastr": "^19.0.0",
     "rxjs": "~7.8.0",
+    "simple-datatables": "^9.2.1",
     "tslib": "^2.3.0",
+    "xlsx": "^0.18.5",
     "zone.js": "~0.14.10"
   },
   "devDependencies": {

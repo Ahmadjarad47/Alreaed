@@ -52,6 +52,6 @@ export class AppComponent implements AfterViewInit {
   }
 
   isAccountPages(): boolean {
-    return this.router.url.includes('/account');
+    return this.router.url.includes('/account')||this.router.url.includes('/admin');
   }
 }

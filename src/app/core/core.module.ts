@@ -10,6 +10,7 @@ import { RouterModule } from '@angular/router';
 import { NotfoundComponent } from './notfound/notfound.component';
 import { ToastrModule } from 'ngx-toastr';
 import { BubbleComponent } from './shared/bubble/bubble.component';
+import { ContactComponent } from './contact/contact.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { BubbleComponent } from './shared/bubble/bubble.component';
     PriceComponent,
     NotfoundComponent,
     BubbleComponent,
+    ContactComponent,
   ],
   imports: [
     CommonModule,

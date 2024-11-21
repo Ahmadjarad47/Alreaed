@@ -5,6 +5,7 @@ import { ServiceComponent } from './core/service/service.component';
 import { AboutComponent } from './core/about/about.component';
 import { PriceComponent } from './core/price/price.component';
 import { NotfoundComponent } from './core/notfound/notfound.component';
+import { ContactComponent } from './core/contact/contact.component';
 
   const routes: Routes = [
     { path: '', component: HomeComponent },
@@ -20,6 +21,12 @@ import { NotfoundComponent } from './core/notfound/notfound.component';
       loadChildren: () =>
         import('./identity/identity.module').then((mod) => mod.IdentityModule),
     },
+    {
+      path: 'admin',
+      loadChildren: () =>
+        import('./admin/admin.module').then((mod) => mod.AdminModule),
+    },
+    { path: 'contact', component: ContactComponent },
     { path: '**', component: NotfoundComponent },
   ];
 
