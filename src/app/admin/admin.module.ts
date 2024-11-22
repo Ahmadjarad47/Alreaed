@@ -5,6 +5,7 @@ import { AdminRoutingModule } from './admin-routing.module';
 import { HomeComponent } from './home/home.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { UsersComponent } from './users/users.component';
+import { RouterModule } from '@angular/router';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { UsersComponent } from './users/users.component';
   ],
   imports: [
     CommonModule,
-    AdminRoutingModule
+    AdminRoutingModule,
+    RouterModule
   ],exports:[
     NavbarComponent
   ]

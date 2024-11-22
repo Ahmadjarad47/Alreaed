@@ -1,19 +1,14 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import ApexCharts from 'apexcharts';
+import { DataTable } from 'simple-datatables';
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
 })
-export class HomeComponent implements OnInit, AfterViewInit {
+export class HomeComponent implements AfterViewInit {
   constructor() {}
-  ngOnInit(): void {
-    if (typeof window !== 'undefined') {
-      this.initFirstChart();
-      this.initSecondChart();
-      this.initThreeChart();
-    }
-  }
 
   initFirstChart() {
     const options = {
@@ -107,7 +102,8 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
     if (
       document.getElementById('data-series-chart') &&
-      typeof ApexCharts !== 'undefined'
+      typeof ApexCharts !== 'undefined' &&
+      typeof window !== 'undefined'
     ) {
       const chart = new ApexCharts(
         document.getElementById('data-series-chart'),
@@ -177,7 +173,8 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
     if (
       document.getElementById('pie-chart') &&
-      typeof ApexCharts !== 'undefined'
+      typeof ApexCharts !== 'undefined' &&
+      typeof window !== 'undefined'
     ) {
       const chart = new ApexCharts(
         document.getElementById('pie-chart'),
@@ -281,7 +278,8 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
     if (
       document.getElementById('bar-chart') &&
-      typeof ApexCharts !== 'undefined'
+      typeof ApexCharts !== 'undefined' &&
+      typeof window !== 'undefined'
     ) {
       const chart = new ApexCharts(
         document.getElementById('bar-chart'),
@@ -292,9 +290,13 @@ export class HomeComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    const dataTable = new DataTable('#sorting-table', {
-      sortable: true,
-    });
+    if (typeof window !== 'undefined') {
+      this.initFirstChart();
+      this.initSecondChart();
+      this.initThreeChart();
+      const dataTable = new DataTable('#sorting-table', {
+        sortable: true,
+      });
+    }
   }
 }
-import { DataTable } from 'simple-datatables';

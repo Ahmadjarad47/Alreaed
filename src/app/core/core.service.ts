@@ -18,7 +18,7 @@ export class CoreService {
     if (isPlatformBrowser(this.platformId)) {
       import('flowbite').then(flowbite => {
         callback(flowbite);
-       
+     
       });
     }
   }

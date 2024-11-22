@@ -50,9 +50,12 @@ module.exports = {
     }
   },
   plugins: [
+    // require('flowbite-typography'),
     require('flowbite/plugin')({
+      // wysiwyg: true,
       charts: true,
       datatables: true,
+      tooltips: true
     })
   ],
 }
