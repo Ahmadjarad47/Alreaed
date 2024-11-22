@@ -1,14 +1,15 @@
+
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import ApexCharts from 'apexcharts';
 import { DataTable } from 'simple-datatables';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrl: './home.component.css',
+  selector: 'app-admin-home',
+  templateUrl: './admin-home.component.html',
+  styleUrl: './admin-home.component.css'
 })
-export class HomeComponent implements AfterViewInit {
-  constructor() {}
+export class AdminHomeComponent implements AfterViewInit {
+
 
   initFirstChart() {
     const options = {
@@ -290,13 +291,16 @@ export class HomeComponent implements AfterViewInit {
   }
 
   ngAfterViewInit() {
-    if (typeof window !== 'undefined') {
-      this.initFirstChart();
-      this.initSecondChart();
-      this.initThreeChart();
-      const dataTable = new DataTable('#sorting-table', {
-        sortable: true,
-      });
-    }
+    setTimeout(()=>{
+      if (typeof window !== 'undefined') {
+        this.initFirstChart();
+        this.initSecondChart();
+        this.initThreeChart();
+        const dataTable = new DataTable('#sorting-table', {
+          sortable: true,
+        });
+      }
+    },100)
+   
   }
 }

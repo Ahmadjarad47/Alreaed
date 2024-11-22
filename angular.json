@@ -58,8 +58,8 @@
               "node_modules/ngx-spinner/animations/square-jelly-box.css",
               "src/styles.css",
               "node_modules/aos/dist/aos.css",
-              "node_modules/ngx-toastr/toastr.css",
-                "node_modules/simple-datatables/dist/style.css"
+              "node_modules/ngx-toastr/toastr.css"
+               
             ],
             "scripts": [
               "node_modules/flowbite/dist/flowbite.min.js",
@@ -68,10 +68,11 @@
 
             ],
             "server": "src/main.server.ts",
-            "prerender": true,
+            "prerender": false,
             "ssr": {
               "entry": "server.ts"
-            }
+            },
+            "verbose": true
           },
           "configurations": {
             "production": {
@@ -136,6 +137,6 @@
     }
   },
   "cli": {
-    "analytics": false
+    "analytics": "97e8bfe5-ab91-401e-8407-98ee764f9608"
   }
 }

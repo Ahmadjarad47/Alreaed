@@ -7,31 +7,32 @@ import { PriceComponent } from './core/price/price.component';
 import { NotfoundComponent } from './core/notfound/notfound.component';
 import { ContactComponent } from './core/contact/contact.component';
 
-  const routes: Routes = [
-    { path: '', component: HomeComponent },
-    { path: 'about', component: AboutComponent },
-    { path: 'pricing', component: PriceComponent },
-    {
-      path: 'service',
-      component: ServiceComponent,
-    },
+const routes: Routes = [
+  { path: '', component: HomeComponent },
+  { path: 'about', component: AboutComponent },
+  { path: 'pricing', component: PriceComponent },
+  { path: 'contact', component: ContactComponent },
+  {
+    path: 'service',
+    component: ServiceComponent,
+  },
 
-    {
-      path: 'account',
-      loadChildren: () =>
-        import('./identity/identity.module').then((mod) => mod.IdentityModule),
-    },
-    {
-      path: 'admin',
-      loadChildren: () =>
-        import('./admin/admin.module').then((mod) => mod.AdminModule),
-    },
-    { path: 'contact', component: ContactComponent },
-    { path: '**', component: NotfoundComponent },
-  ];
+  {
+    path: 'account',
+    loadChildren: () =>
+      import('./identity/identity.module').then((mod) => mod.IdentityModule),
+  },
+  {
+    path: 'admin',
+    loadChildren: () =>
+      import('./admin/admin.module').then((mod) => mod.AdminModule),
+  },
+
+  { path: '**', component: NotfoundComponent },
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

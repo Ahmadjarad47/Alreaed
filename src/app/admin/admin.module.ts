@@ -2,17 +2,18 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { AdminRoutingModule } from './admin-routing.module';
-import { HomeComponent } from './home/home.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { UsersComponent } from './users/users.component';
 import { RouterModule } from '@angular/router';
+import { AdminHomeComponent } from './admin-home/admin-home.component';
 
 
 @NgModule({
   declarations: [
-    HomeComponent,
+  
     NavbarComponent,
-    UsersComponent
+    UsersComponent,
+    AdminHomeComponent
   ],
   imports: [
     CommonModule,

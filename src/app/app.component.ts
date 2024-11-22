@@ -1,7 +1,6 @@
 import { AfterViewInit, Component, inject } from '@angular/core';
 import { CoreService } from './core/core.service';
 import { Router, NavigationStart, NavigationEnd, NavigationCancel, NavigationError } from '@angular/router';
-import { initFlowbite } from 'flowbite';
 declare var AOS: any;
 
 @Component({
@@ -30,7 +29,8 @@ export class AppComponent implements AfterViewInit {
     }
 
    // Optionally, subscribe to router events for loading spinner and AOS refresh
-    this.router.events.subscribe((ev) => {
+   this.router.events.subscribe({
+    next: (ev) => {
       if (ev instanceof NavigationStart) {
         this.flowbiteServiceAndSpin.loading();
       } else if (
@@ -38,17 +38,26 @@ export class AppComponent implements AfterViewInit {
         ev instanceof NavigationCancel ||
         ev instanceof NavigationError
       ) {
-        this.flowbiteServiceAndSpin.loadFlowbite(f=>{f.initFlowbite()})
-
+        this.flowbiteServiceAndSpin.loadFlowbite((f) => {
+          if (f && typeof f.initFlowbite === 'function') {
+            f.initFlowbite();
+          } else {
+            console.error('Flowbite is not initialized correctly');
+          }
+        });
+  
         this.flowbiteServiceAndSpin.hideLoader();
       }
-
-      // Refresh AOS animations after route change
+  
       if (typeof AOS !== 'undefined') {
-       
         AOS.refresh();
       }
-    });
+    },
+    error: (err) => {
+      console.error('Router event error:', err);
+    },
+  });
+  
   }
 
   isAccountPages(): boolean {
