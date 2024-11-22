@@ -13,14 +13,16 @@ import { AdminHomeComponent } from './admin-home/admin-home.component';
   
     NavbarComponent,
     UsersComponent,
-    AdminHomeComponent
+    AdminHomeComponent,
+ 
   ],
   imports: [
     CommonModule,
     AdminRoutingModule,
     RouterModule
   ],exports:[
-    NavbarComponent
+    NavbarComponent,
+    // ChartsComponent
   ]
 })
 export class AdminModule { }
