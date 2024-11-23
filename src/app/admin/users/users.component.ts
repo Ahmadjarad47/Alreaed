@@ -19,14 +19,14 @@ import FontFamily from '@tiptap/extension-font-family';
 import { Color } from '@tiptap/extension-color';
 import { Bold } from '@tiptap/extension-bold';
 import { CoreService } from '../../core/core.service';
-declare var Dropdown:any
+declare var Dropdown: any;
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
   styleUrl: './users.component.css',
 })
-export class UsersComponent implements AfterViewInit, OnInit {
-  ngOnInit(): void {}
+export class UsersComponent implements AfterViewInit {
+
   isOpenDailogColorView = false;
   isOpenDailogAaView = false;
   openColor = false;
@@ -300,12 +300,13 @@ export class UsersComponent implements AfterViewInit, OnInit {
   ];
 
   ngAfterViewInit(): void {
+    this.inItDateTable();
     this.flow.loadFlowbite((f) => {
       f.initModals();
     });
-
     this.InitEditor();
-    this.inItDateTable();
+
+  
   }
 
   exportAsJson() {
@@ -508,7 +509,7 @@ export class UsersComponent implements AfterViewInit, OnInit {
           StarterKit.configure({ bold: false }),
 
           // Include the custom Bold extension
-           CustomBold,
+          CustomBold,
           Highlight,
           Underline,
           Subscript,
