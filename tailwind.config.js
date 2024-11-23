@@ -54,7 +54,7 @@ module.exports = {
     require('flowbite/plugin')({
       wysiwyg: true,
       charts: true,
-      datatables: true,
+       datatables: true,
       tooltips: true
     })
   ],
