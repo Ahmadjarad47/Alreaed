@@ -1,0 +1,13 @@
+C:\FreeLance\alraed\back\alraed\alraed.Core\bin\Debug\net9.0\alraed.Core.deps.json
+C:\FreeLance\alraed\back\alraed\alraed.Core\bin\Debug\net9.0\alraed.Core.dll
+C:\FreeLance\alraed\back\alraed\alraed.Core\bin\Debug\net9.0\alraed.Core.pdb
+C:\FreeLance\alraed\back\alraed\alraed.Core\obj\Debug\net9.0\alraed.Core.csproj.AssemblyReference.cache
+C:\FreeLance\alraed\back\alraed\alraed.Core\obj\Debug\net9.0\alraed.Core.GeneratedMSBuildEditorConfig.editorconfig
+C:\FreeLance\alraed\back\alraed\alraed.Core\obj\Debug\net9.0\alraed.Core.AssemblyInfoInputs.cache
+C:\FreeLance\alraed\back\alraed\alraed.Core\obj\Debug\net9.0\alraed.Core.AssemblyInfo.cs
+C:\FreeLance\alraed\back\alraed\alraed.Core\obj\Debug\net9.0\alraed.Core.csproj.CoreCompileInputs.cache
+C:\FreeLance\alraed\back\alraed\alraed.Core\obj\Debug\net9.0\alraed.Core.sourcelink.json
+C:\FreeLance\alraed\back\alraed\alraed.Core\obj\Debug\net9.0\alraed.Core.dll
+C:\FreeLance\alraed\back\alraed\alraed.Core\obj\Debug\net9.0\refint\alraed.Core.dll
+C:\FreeLance\alraed\back\alraed\alraed.Core\obj\Debug\net9.0\alraed.Core.pdb
+C:\FreeLance\alraed\back\alraed\alraed.Core\obj\Debug\net9.0\ref\alraed.Core.dll

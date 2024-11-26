@@ -1,0 +1,39 @@
+{
+  "profiles": {
+    "http": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "dotnetRunMessages": true,
+      "applicationUrl": "http://localhost:5267"
+    },
+    "https": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "Secret": "b28f56f1- a913- 45b6- b7a8-& &&&^213091 23  %#$@3a 6ec61c 8_@J WT!Secret _# 2 024 +Sec u re$",
+        "Issuer": "https://localhost:44344",
+        "Audience": "https://localhost:4200",
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "dotnetRunMessages": true,
+      "applicationUrl": "https://localhost:7126;http://localhost:5267"
+    },
+    "IIS Express": {
+      "commandName": "IISExpress",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    }
+  },
+  "$schema": "https://json.schemastore.org/launchsettings.json",
+  "iisSettings": {
+    "windowsAuthentication": false,
+    "anonymousAuthentication": true,
+    "iisExpress": {
+      "applicationUrl": "http://localhost:51538/",
+      "sslPort": 44387
+    }
+  }
+}
