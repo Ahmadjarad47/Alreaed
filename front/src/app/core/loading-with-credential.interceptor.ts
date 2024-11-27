@@ -22,7 +22,9 @@ export class loadingWithCredentialInterceptor implements HttpInterceptor {
   ): Observable<HttpEvent<any>> {
     this._service.loading();
 
-    
+    request=request.clone({
+      withCredentials:true
+    })
 
     return next.handle(request).pipe(
       finalize(() => {

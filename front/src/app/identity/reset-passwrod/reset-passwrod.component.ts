@@ -1,6 +1,9 @@
 import { Component, OnInit, ChangeDetectorRef, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { active } from '../Models/active';
+import { ActivatedRoute, Router } from '@angular/router';
+import { IdentityService } from '../identity.service';
 
 @Component({
   selector: 'app-reset-passwrod',
@@ -10,12 +13,19 @@ import { ToastrService } from 'ngx-toastr';
 export class ResetPasswrodComponent implements OnInit {
   ResetPassowrdGroup: FormGroup;
   fb = inject(FormBuilder);
+  _service = inject(IdentityService);
   toast = inject(ToastrService);
   cdr = inject(ChangeDetectorRef);
+  router = inject(ActivatedRoute);
+  route = inject(Router);
+  param = new active();
   popoverVisible = false;
   InputType = 'password';
-
   constructor() {
+    this.router.queryParams.subscribe((param) => {
+      this.param.email = param['email'];
+      this.param.token = param['token'];
+    });
     this.ResetPassowrdGroup = this.fb.group(
       {
         password: [
@@ -92,6 +102,8 @@ export class ResetPasswrodComponent implements OnInit {
     }
   }
 
+
+  
   ClosePop() {
     const popover = document.getElementById('popover-password');
     if (popover) {
@@ -99,7 +111,27 @@ export class ResetPasswrodComponent implements OnInit {
       popover.classList.add('invisible', 'opacity-0');
     }
   }
-  onSubmit(){
-    this.toast.info('Reset-password','success'.toUpperCase())
+
+
+
+  onSubmit() {
+    const data: any ={
+      password:this.ResetPassowrdGroup.value.password,
+      email:this.param.email,
+      token:this.param.token
+    }
+    console.log('data', data);
+
+    if (this.ResetPassowrdGroup.valid) {
+      this._service.ResetPassword(data).subscribe({
+        next: (res: any) => {
+          this.route.navigateByUrl("/account/login")
+          this.toast.info(res.message, 'success'.toUpperCase());
+        },
+        error: (err: any) => {
+          console.log(err);
+        },
+      });
+    }
   }
 }

@@ -65,12 +65,11 @@ export class NavbarComponent implements OnInit, OnDestroy {
       }, 10);
     }
 
-    this.getUserName.getUserInfo().subscribe();
+    // this.getUserName.getUserInfo().subscribe();
     this.getUserName.userName$.subscribe((m) => {
-      if(m){
-        this.userinfo.name = m.name||'';
-        this.userinfo.email = m.email||'';
-
+      if (m) {
+        this.userinfo.name = m.name || '';
+        this.userinfo.email = m.email || '';
       }
     });
     //  this.cdr.detectChanges();

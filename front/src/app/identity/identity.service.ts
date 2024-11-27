@@ -27,7 +27,7 @@ export class IdentityService {
   }
 
   ResetPassword(form: FormGroup) {
-    return this.http.post(`${this.url}Reset-Password`, form);
+    return this.http.post(`${this.url}reset-password`, form);
   }
 
   Active(model: active) {
@@ -38,6 +38,8 @@ export class IdentityService {
     return this.http.get<userInfo>(`${this.url}get-user-info`).pipe(
       map((m) => {
         this.userNameObservable.next(m); // Updates observable with the response
+        console.log(m);
+        
       })
     );
   }
@@ -52,7 +54,7 @@ export class IdentityService {
   }
 
   forgetPassword(email: string) {
-    this.http.get(`${this.url}forget-password?email=${email}`);
+    return this.http.get(`${this.url}forget-password?email=${email}`);
   }
   private checkAuthenticationStatus(): void {
     const url = environment.baseAccountURL + 'isAuth';

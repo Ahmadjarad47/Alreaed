@@ -67,7 +67,14 @@ export class LoginComponent implements AfterContentInit {
       /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
     );
     if (regexp.test(this.emailModel)) {
-      this.toast.info('Email send Success', 'SUCCESS');
+      this._service.forgetPassword(this.emailModel).subscribe({
+        next: (res) => {
+          this.toast.info('Check your mail Please', 'SUCCESS');
+        },
+        error: (err) => {
+          this.toast.error(err.error.message, 'ERROR');
+        },
+      });
     } else {
       this.toast.error('Email Format Invalid', 'ERROR');
     }

@@ -9,7 +9,6 @@ import { loadingWithCredentialInterceptor } from './core/loading-with-credential
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { CredentailInterceptor } from './core/credentail.interceptor';
 
 @NgModule({
   declarations: [
@@ -28,7 +27,6 @@ import { CredentailInterceptor } from './core/credentail.interceptor';
     provideHttpClient(withInterceptorsFromDi(),withFetch()),
     provideAnimationsAsync(),
     { provide: HTTP_INTERCEPTORS, useClass: loadingWithCredentialInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: CredentailInterceptor, multi: true },
 
   ],
   bootstrap: [AppComponent]
