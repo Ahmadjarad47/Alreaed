@@ -1,0 +1,95 @@
+<app-navbar />
+<div class="p-8 sm:ml-64 bg-gray-100 dark:bg-gray-900 min-h-screen">
+  <!-- Main Container -->
+  <div
+    class="max-w-7xl mx-auto border-4 border-gray-300 dark:border-gray-700 rounded-xl shadow-xl bg-white dark:bg-gray-800">
+    <div class="p-8">
+      <!-- Title -->
+      <h2 class="text-4xl font-extrabold text-gray-800 dark:text-gray-100 mb-6 text-center">
+        Notifications Center
+      </h2>
+
+      <!-- Unread Notifications Section -->
+      <div>
+        <h3 class="text-2xl font-bold text-red-600 dark:text-red-400 mb-4">Unread Notifications</h3>
+        <div *ngIf="unreadNotifications.length > 0; else noUnreadNotifications">
+          <div *ngFor="let notification of unreadNotifications"
+            class="flex items-start justify-between bg-red-50 dark:bg-red-900 border border-red-200 dark:border-red-700 p-6 rounded-lg mb-6 hover:shadow-2xl transition-all duration-300 transform hover:scale-105">
+            <!-- Notification Details -->
+            <div class="w-3/4">
+              <p class="text-lg text-gray-900 dark:text-gray-200 font-semibold mb-2">
+                <span class="font-bold text-indigo-600 dark:text-indigo-400">Message:</span>
+                <span [innerHTML]="notification.message"></span>
+              </p>
+              <p class="text-md text-gray-700 dark:text-gray-400 mb-1">
+                <span class="font-bold">Created By:</span> {{ notification.createdByWho }}
+              </p>
+              <p class="text-sm text-gray-600 dark:text-gray-500">
+                <span class="font-bold">Date:</span>   {{ notification.createdAt | date:'yyyy/MM/dd hh:mm a' }}
+              </p>
+            </div>
+            <!-- Actions -->
+            <div class="flex items-center space-x-4">
+              <span
+                class="px-5 py-2 rounded-full text-lg font-bold uppercase tracking-wider bg-red-300 text-red-900 dark:bg-red-800 dark:text-red-200">
+                Unread
+              </span>
+              <button
+                class="px-4 py-2 bg-indigo-600 text-white rounded-lg font-semibold hover:bg-indigo-500 focus:ring focus:ring-indigo-300 transition-all"
+                (click)="ReadNotification(notification.id)">
+                <i class="fas fa-check mr-2"></i> Mark as Read
+              </button>
+            </div>
+          </div>
+        </div>
+        <!-- No Unread Notifications Fallback -->
+        <ng-template #noUnreadNotifications>
+          <p class="text-lg font-medium text-gray-600 dark:text-gray-400 text-center">
+            No unread notifications found.
+          </p>
+        </ng-template>
+      </div>
+
+      <!-- Divider -->
+      <hr class="my-8 border-gray-300 dark:border-gray-700">
+
+      <!-- Read Notifications Section -->
+      <div>
+        <h3 class="text-2xl font-bold text-green-600 dark:text-green-400 mb-4">Read Notifications</h3>
+        <div *ngIf="readNotifications.length > 0; else noReadNotifications">
+          <div *ngFor="let notification of readNotifications"
+            class="flex items-start justify-between bg-green-50 dark:bg-green-900 border border-green-200 dark:border-green-700 p-6 rounded-lg mb-6 hover:shadow-2xl transition-all duration-300 transform hover:scale-105">
+            <!-- Notification Details -->
+            <div class="w-3/4">
+              <p class="text-lg text-gray-900 dark:text-gray-200 font-semibold mb-2">
+                <span class="font-bold text-indigo-600 dark:text-indigo-400">Message:</span>
+                {{ notification.message }}
+              </p>
+              <p class="text-md text-gray-700 dark:text-gray-400 mb-1">
+                <span class="font-bold">Created By:</span> {{ notification.createdByWho }}
+              </p>
+              <p class="text-sm text-gray-600 dark:text-gray-500">
+                <span class="font-bold">Date:</span>
+                 {{ notification.createdAt | date:'yyyy/MM/dd hh:mm a' }}
+              </p>
+            </div>
+            <!-- Notification Status -->
+            <div class="flex items-center">
+              <span
+                class="px-5 py-2 rounded-full text-lg font-bold uppercase tracking-wider bg-green-300 text-green-900 dark:bg-green-800 dark:text-green-200">
+                Read
+              </span>
+            </div>
+          </div>
+        </div>
+        <!-- No Read Notifications Fallback -->
+        <ng-template #noReadNotifications>
+          <p class="text-lg font-medium text-gray-600 dark:text-gray-400 text-center">
+            No read notifications found.
+          </p>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+
+</div>

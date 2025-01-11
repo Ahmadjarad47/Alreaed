@@ -1,0 +1,331 @@
+<app-navbar></app-navbar>
+<div class="p-4 sm:ml-64 min-h-screen bg-gray-900 text-gray-100">
+  <div class="p-4 mt-14">
+    <mat-stepper [linear]="false" id="bbg" #stepper>
+      <!-- Step 1: Order Details -->
+      <mat-step [completed]="selectedCard!=0" label="Step 1: Car Details">
+        <div class="container mx-auto px-4 py-8">
+          <h1 class="mb-4 text-3xl font-extrabold text-gray-900 dark:text-white
+           md:text-5xl lg:text-6xl">
+            Select <span class="text-transparent bg-clip-text bg-gradient-to-r
+           to-emerald-600 from-sky-400">Your Vehicle  </span></h1>
+          <div class="grid xl:grid-cols-5 lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-4">
+            <!-- Card 1 -->
+            <div>
+              <div
+                class="p-[5px] card hover:from-[#1E3A8A] hover:to-[#2563EB] hover:bg-gradient-to-br rounded-[15px] transition-all"
+                [ngClass]="{ 'active': selectedCard === 1 }" (click)="selectCard(1)">
+                <div
+                  class="p-8 flex justify-center items-center bg-[#1A202C] rounded-xl cursor-pointer h-[250px] transition-all flex-col gap-2">
+                  <div>
+                    <i class="fas fa-car text-6xl text-[#2563EB]"></i>
+                  </div>
+                  <div>
+                    <span class="text-xl text-[#2563EB] font-extrabold">Auto</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div>
+              <div
+                class="p-[5px] card hover:from-[#1E3A8A] hover:to-[#2563EB] hover:bg-gradient-to-br rounded-[15px] transition-all"
+                [ngClass]="{ 'active': selectedCard === 2 }" (click)="selectCard(2)">
+                <div
+                  class="p-8 flex justify-center items-center bg-[#1A202C] rounded-xl cursor-pointer h-[250px] transition-all flex-col gap-2">
+                  <div>
+                    <i class="fas fa-tractor text-6xl text-[#2563EB]"></i>
+                  </div>
+                  <div>
+                    <span class="text-xl text-[#2563EB] font-extrabold">Manual</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div>
+              <div
+                class="p-[5px] card hover:from-[#1E3A8A] hover:to-[#2563EB] hover:bg-gradient-to-br rounded-[15px] transition-all"
+                [ngClass]="{ 'active': selectedCard === 3 }" (click)="selectCard(3)">
+                <div
+                  class="p-8 flex justify-center items-center bg-[#1A202C] rounded-xl cursor-pointer h-[250px] transition-all flex-col gap-2">
+                  <div>
+                    <i class="fas fa-truck text-6xl text-[#2563EB]"></i>
+                  </div>
+                  <div>
+                    <span class="text-xl text-[#2563EB] font-extrabold">Profile</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 4 -->
+            <div>
+              <div
+                class="p-[5px] card hover:from-[#1E3A8A] hover:to-[#2563EB] hover:bg-gradient-to-br rounded-[15px] transition-all"
+                [ngClass]="{ 'active': selectedCard === 4 }" (click)="selectCard(4)">
+                <div
+                  class="p-8 flex justify-center items-center bg-[#1A202C] rounded-xl cursor-pointer h-[250px] transition-all flex-col gap-2">
+                  <div>
+                    <i class="fas  fa-motorcycle text-6xl text-[#2563EB]"></i>
+                  </div>
+                  <div>
+                    <span class="text-xl text-[#2563EB] font-extrabold">Settings</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 5 -->
+            <div>
+              <div
+                class="p-[5px] card hover:from-[#1E3A8A] hover:to-[#2563EB] hover:bg-gradient-to-br rounded-[15px] transition-all"
+                [ngClass]="{ 'active': selectedCard === 5 }" (click)="selectCard(5)">
+                <div
+                  class="p-8 flex justify-center items-center bg-[#1A202C] rounded-xl cursor-pointer h-[250px] transition-all flex-col gap-2">
+                  <div>
+                    <i class="fas fa-chart-line text-6xl text-[#2563EB]"></i>
+                  </div>
+                  <div>
+                    <span class="text-xl text-[#2563EB] font-extrabold">Analytics</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+
+        </div>
+
+        <button mat-raised-button color="primary" matStepperNext
+          class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all duration-300 ease-in-out">
+          Next
+
+          <ng-container *ngIf="selectedCard!=0">
+            <i class="text-primary-500  fas fa-check-circle"></i>
+          </ng-container>
+        </button>
+
+
+      </mat-step>
+
+
+
+      <mat-step [stepControl]="step1Form" label="Step 2: Order Details">
+        <h1 class="mb-4 text-3xl font-extrabold text-gray-900 dark:text-white
+        md:text-5xl lg:text-6xl">
+          Add <span class="text-transparent bg-clip-text bg-gradient-to-r
+        to-emerald-600 from-sky-400">Vehicle details </span></h1>
+        <form [formGroup]="step1Form" (ngSubmit)="onStep2Complete()" class=" p-6 rounded-2xl shadow-lg">
+          <mat-form-field appearance="fill" class="w-full mb-6">
+            <mat-label class="text-gray-300">Order Name</mat-label>
+            <input matInput formControlName="orderName" placeholder="Enter order name"
+              class="bg-gray-700 text-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50">
+          </mat-form-field>
+
+          <mat-form-field appearance="fill" class="w-full mb-6">
+            <mat-label class="text-gray-300">Licence Plate</mat-label>
+            <input matInput formControlName="licencePlate" placeholder="Enter licence plate"
+              class="bg-gray-700 text-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50">
+          </mat-form-field>
+
+          <mat-form-field appearance="fill" class="w-full mb-6">
+            <mat-label class="text-gray-300">VIM</mat-label>
+            <input matInput formControlName="vim" placeholder="Enter VIM"
+              class="bg-gray-700 text-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50">
+          </mat-form-field>
+
+          <mat-form-field appearance="fill" class="w-full mb-6">
+            <mat-label class="text-gray-300">ECU</mat-label>
+            <input matInput formControlName="ecu" placeholder="Enter ECU"
+              class="bg-gray-700 text-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50">
+          </mat-form-field>
+
+          <button mat-raised-button color="primary" matStepperNext [disabled]="!step1Form.valid"
+            class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all duration-300 ease-in-out">
+            Next
+            <ng-container *ngIf="step1Form.valid">
+              <i class="text-primary-500  fas fa-check-circle"></i>
+            </ng-container>
+          </button>
+
+        </form>
+
+      </mat-step>
+
+      <!-- Step 2: File Upload -->
+      <mat-step [stepControl]="step2Form" (ngSubmit)="onStep3Complete()" label="Step 3: File Upload">
+        <h1 class="mb-4 text-3xl font-extrabold text-gray-900 dark:text-white
+        md:text-5xl lg:text-6xl">
+        Upload  <span class="text-transparent bg-clip-text bg-gradient-to-r
+        to-emerald-600 from-sky-400">File</span></h1>
+        <form [formGroup]="step2Form" class="space-y-6 p-6  rounded-2xl shadow-lg">
+          <div class="file-upload text-center">
+            <i
+              class="fas fa-cloud text-gray-300 text-6xl mb-4 transition-transform transform hover:scale-110"></i>
+            <mat-label class="block text-lg font-semibold text-gray-300">
+              Upload File
+            </mat-label>
+            <input type="file" (change)="onFileChange($event)" accept=".rar,.zip"
+              class="block w-full mt-4 text-sm text-gray-600 bg-gray-700 border border-gray-600 rounded-lg cursor-pointer hover:bg-gray-600 transition-all duration-200" />
+            <small class="block mt-2 text-gray-400">
+              Supported formats: <strong>RAR, ZIP</strong>
+            </small>
+          </div>
+
+          <!-- Progress Bar -->
+          <div *ngIf="uploading" class="relative w-full mt-6">
+            <mat-progress-bar mode="determinate" [value]="uploadProgress"
+              class="h-2 bg-blue-500 rounded-full"></mat-progress-bar>
+            <p class="absolute w-full text-center text-sm font-medium mt-1 text-blue-400">
+              {{ uploadProgress }}% uploaded
+            </p>
+          </div>
+
+          <!-- Success/Failure Messages -->
+          <div *ngIf="uploadProgress === 100" class="flex items-center space-x-2 mt-6">
+            <i class="fas  fa-check-circle text-green-500"></i>
+            <p class="text-green-500 font-medium">File read successfully!</p>
+          </div>
+
+          <div *ngIf="uploadProgress === 0 && !uploading" class="flex items-center space-x-2 mt-6">
+            <mat-icon class="text-red-500">error</mat-icon>
+            <p class="text-red-500 font-medium">
+              Invalid file type. Only RAR and ZIP files are allowed.
+            </p>
+          </div>
+
+          <!-- Next Button -->
+          <div class="text-left">
+            <button mat-raised-button color="primary" matStepperNext [disabled]="!step2Form.valid || uploading"
+              class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all duration-300 ease-in-out">
+              Next
+              <ng-container *ngIf="step2Form.valid">
+                <i class="text-primary-500  fas fa-check-circle"></i>
+              </ng-container>
+            </button>
+          </div>
+        </form>
+      </mat-step>
+
+      <!-- Step 3: Select Vehicle -->
+      <mat-step [stepControl]="step3Form" label="Step 4: Select Vehicle">
+        <h1 class="mb-4 text-3xl font-extrabold text-gray-900 dark:text-white
+        md:text-5xl lg:text-6xl">
+        Select  <span class="text-transparent bg-clip-text bg-gradient-to-r
+        to-emerald-600 from-sky-400">Vehicle Type </span></h1>
+        <form [formGroup]="step3Form" (ngSubmit)="onStep3Complete()" class=" p-6 rounded-2xl shadow-lg">
+          <!-- Vehicle Selection -->
+          <mat-form-field appearance="fill" class="w-full mb-6">
+            <mat-label class="text-gray-300">Select Vehicle</mat-label>
+            <mat-select formControlName="selectedVehicle" (selectionChange)="onVehicleSelect($event.value)"
+              class="text-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50">
+              <mat-option *ngIf="isLoadingVehicles" disabled>Loading vehicles...</mat-option>
+              <mat-option *ngFor="let vehicle of vehicals" [value]="vehicle.id">
+                {{ vehicle.brandName }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="isFieldInvalid(step3Form, 'selectedVehicle')" class="text-red-500">
+              Vehicle selection is required.
+            </mat-error>
+          </mat-form-field>
+
+          <!-- Reading Device Selection -->
+          <mat-form-field appearance="fill" class="w-full mb-6">
+            <mat-label class="text-gray-300">Select Reading Device</mat-label>
+            <mat-select formControlName="selectedReadingDevice" (selectionChange)="onReadingDeviceChange($event.value)"
+              class="text-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50">
+              <mat-option *ngFor="let device of readingDevices" [value]="device.id">
+                {{ device.name }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="isFieldInvalid(step3Form, 'selectedReadingDevice')" class="text-red-500">
+              Reading device selection is required.
+            </mat-error>
+          </mat-form-field>
+
+          <!-- Vehicle Model Selection -->
+          <mat-form-field appearance="fill" class="w-full mb-6" *ngIf="VModel.length > 0">
+            <mat-label class="text-gray-300">Select Vehicle Model</mat-label>
+            <mat-select formControlName="selectedVehicleModel"
+              class="text-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50">
+              <mat-option *ngIf="isLoadingModels" disabled>Loading models...</mat-option>
+              <mat-option *ngFor="let model of VModel" [value]="model.id">
+                {{ model.model }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="isFieldInvalid(step3Form, 'selectedVehicleModel')" class="text-red-500">
+              Vehicle model selection is required.
+            </mat-error>
+          </mat-form-field>
+
+          <!-- Gearboxes Selection -->
+          <mat-form-field appearance="fill" class="w-full mb-6" *ngIf="gearboxes.length > 0">
+            <mat-label class="text-gray-300">Select Gearboxes</mat-label>
+            <mat-select formControlName="selectedGearboxes"
+              class="text-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50">
+              <mat-option *ngFor="let model of gearboxes" [value]="model.id">
+                {{ model.name }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="isFieldInvalid(step3Form, 'selectedGearboxes')" class="text-red-500">
+              Gearboxes selection is required.
+            </mat-error>
+          </mat-form-field>
+
+          <!-- Year of Car Model Selection -->
+          <mat-form-field appearance="fill" class="w-full mb-6">
+            <mat-label class="text-gray-300">Select Year of Car Model</mat-label>
+            <mat-select formControlName="selectedCarYear"
+              class="text-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50">
+              <mat-option *ngFor="let year of carYears" [value]="year">
+                {{ year }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="isFieldInvalid(step3Form, 'selectedCarYear')" class="text-red-500">
+              Year selection is required.
+            </mat-error>
+          </mat-form-field>
+
+          <!-- Next Button -->
+          <button mat-raised-button color="primary" matStepperNext [disabled]="!step3Form.valid"
+            class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all duration-300 ease-in-out">
+            Next
+            <ng-container *ngIf="step3Form.valid">
+              <i class="text-primary-500  fas fa-check-circle"></i>
+            </ng-container>
+          </button>
+        </form>
+      </mat-step>
+
+      <!-- Final Step: Done -->
+      <mat-step label="Step 5: Leave a comment" [completed]="true">
+        <h1 class="mb-4 text-3xl font-extrabold text-gray-900 dark:text-white
+        md:text-5xl lg:text-6xl">
+        Leave a  <span class="text-transparent bg-clip-text bg-gradient-to-r
+        to-emerald-600 from-sky-400">Message or note</span></h1>
+        <mat-form-field class="w-full">
+          <mat-label>Leave a Meesage or Note</mat-label>
+          <textarea [(ngModel)]="note" class="w-full" matInput placeholder="Ex. It makes me feel..."></textarea>
+        </mat-form-field>
+        <button (click)="logNote()" mat-raised-button color="primary" matStepperNext [disabled]="note.length<1"
+          class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all duration-300 ease-in-out">
+          Next
+          <ng-container *ngIf="note.length>1">
+            <i class="text-primary-500  fas fa-check-circle"></i>
+          </ng-container>
+        </button>
+      </mat-step>
+      <mat-step>
+        <ng-template matStepLabel class="text-gray-300">Done</ng-template>
+        <p class="text-gray-300">You are now done.</p>
+        <button mat-button matStepperPrevious
+          class="text-gray-300 hover:text-gray-500 transition-all duration-200">Back</button>
+        <button mat-button class="text-gray-300 hover:text-gray-500 transition-all duration-200">done</button>
+      </mat-step>
+    </mat-stepper>
+  </div>
+</div>

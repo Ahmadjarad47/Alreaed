@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, inject } from '@angular/core';
+import { AfterViewInit, Component, inject, OnInit } from '@angular/core';
 import { Editor } from '@tiptap/core';
 import StarterKit from '@tiptap/starter-kit';
 import Highlight from '@tiptap/extension-highlight';
@@ -10,22 +10,49 @@ import FontFamily from '@tiptap/extension-font-family';
 import { Color } from '@tiptap/extension-color';
 import { Bold } from '@tiptap/extension-bold';
 import { CoreService } from '../../core/core.service';
+import { ReadMessage } from '../core/Models/Message';
+import { AdminService } from '../admin.service';
+import { ToastrService } from 'ngx-toastr';
+import { DomSanitizer } from '@angular/platform-browser';
+
 declare var Dropdown: any;
 @Component({
   selector: 'app-inbox',
   templateUrl: './inbox.component.html',
   styleUrl: './inbox.component.css',
 })
-export class InboxComponent implements AfterViewInit {
+export class InboxComponent implements AfterViewInit, OnInit {
   isOpenDailogColorView = false;
   isOpenDailogAaView = false;
   openColor = false;
+  idDeleteMessage = 0;
+  toast = inject(ToastrService);
+
+  Messages: ReadMessage[] = [];
+  _service = inject(AdminService);
   flow = inject(CoreService);
+  constructor(public sanitizer: DomSanitizer) {}
   ngAfterViewInit(): void {
-    this.flow.loadFlowbite((f) => {
-      f.initModals();
-    });
+    setTimeout(() => {
+      this.flow.loadFlowbite((f) => {
+        f.initModals();
+      });
+    }, 1000);
+
     this.InitEditor();
+  }
+
+  ngOnInit(): void {
+    this.getAll();
+  }
+
+  getAll() {
+    this._service.getAllMessages().subscribe({
+      next: (res) => {
+        this.Messages = res;
+        console.log(res);
+      },
+    });
   }
   logcontent() {
     var editorDiv = document.querySelector('#wysiwyg-text-example');
@@ -33,6 +60,17 @@ export class InboxComponent implements AfterViewInit {
     // Get the inner HTML, which includes tags like <p> and <br>
     var content = editorDiv.innerHTML;
     console.log(content);
+  }
+  onDeleteMessageSubmit() {
+    this._service.DeleteMessageFromAdmin(this.idDeleteMessage).subscribe({
+      next: (res) => {
+        this.toast.info('Message Was Deleted Successfuly', 'SUCCESS');
+        this.getAll();
+      },
+      error: (err) => {
+        this.toast.warning('Something whent wrong ', 'ERROR');
+      },
+    });
   }
   InitEditor() {
     if (

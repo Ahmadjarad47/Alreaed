@@ -9,7 +9,7 @@
         <!-- component -->
         <div class="w-full bg-white dark:bg-gray-800 shadow-xl rounded-lg flex overflow-x-auto custom-scrollbar">
 
-            <div class="flex-2 px-2">
+            <div class="flex-2 px-2 w-full">
                 <div class="h-16 flex items-center justify-between">
                     <div class="flex items-center">
 
@@ -113,8 +113,10 @@
                 </div>
                 <div class="bg-gray-100 dark:bg-gray-800 mb-6">
                     <ul>
-
+                        @for (item of Messages; track $index) {
+                        @if (item.isReadByAdmin) {
                         <li
+                            routerLink="/admin/inbox/create" [queryParams]="{'id':item.id}"
                             class="flex items-center border-y hover:bg-gray-200 dark:hover:bg-gray-700 px-2 py-3 transition-all duration-300">
                             <input type="checkbox" class="focus:ring-0 border-2 border-gray-400 rounded-sm"
                                 aria-label="Select All">
@@ -149,14 +151,11 @@
 
                                     <!-- User Details Section -->
                                     <div class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2">
-                                        <span class="w-56 pr-2 truncate dark:text-gray-100 text-gray-900 font-semibold"
-                                            aria-label="User Name">William Livingston</span>
-                                        <span class="w-64 truncate text-gray-700 dark:text-gray-100"
-                                            aria-label="Short description">Lorem ipsum dolor sit amet</span>
-                                        <span class="mx-1 text-gray-500 dark:text-gray-100">-</span>
-                                        <span class="w-96 text-gray-600 dark:text-gray-100 text-sm truncate"
-                                            aria-label="Full description">Sed ut perspiciatis unde omnis iste natus
-                                            error sit voluptatem</span>
+                                        <span class="w-40 pr-2 truncate dark:text-gray-100 text-gray-900 font-semibold"
+                                            aria-label="User Name">{{item.emailForUser}}</span>
+                                        <span class="w-96 truncate text-gray-700 dark:text-gray-100"
+                                            aria-label="Short description" [innerHTML]="item.userMessage"></span>
+
                                     </div>
                                 </div>
 
@@ -167,7 +166,8 @@
                                         :class="messageHover ? 'opacity-100' : ''">
                                         <!-- Archive, Delete, Mark Unread, Snooze Buttons -->
 
-                                        <button title="Delete" aria-label="Delete email">
+                                        <button (click)="idDeleteMessage=item.id" data-modal-target="popup-modal"
+                                            data-modal-toggle="popup-modal" title="Delete" aria-label="Delete email">
                                             <svg xmlns="http://www.w3.org/2000/svg"
                                                 class="text-gray-500 hover:text-red-500 h-5 w-5 transition-colors duration-300"
                                                 fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -189,13 +189,14 @@
                                     </div>
                                     <span x-show="!messageHover" class="text-sm text-gray-500"
                                         aria-label="Message time">
-                                        3:05 PM
+                                        {{item.createdAt|date:'YYYY/MM/dd HH:mm'}}
                                     </span>
                                 </div>
                             </div>
                         </li>
-
+                        }@else {
                         <li
+                        routerLink="/admin/inbox/create" [queryParams]="{'id':item.id}"
                             class="flex items-center border-y hover:bg-gray-200 dark:hover:bg-gray-700 px-2 py-3 transition-all duration-300">
                             <input type="checkbox" class="focus:ring-0 border-2 border-gray-400 rounded-sm"
                                 aria-label="Select All">
@@ -230,14 +231,13 @@
 
                                     <!-- User Details Section -->
                                     <div class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2">
-                                        <span class="w-56 pr-2 truncate dark:text-gray-500 text-gray-900 font-semibold"
-                                            aria-label="User Name">William Livingston</span>
-                                        <span class="w-64 truncate text-gray-700 dark:text-gray-500"
-                                            aria-label="Short description">Lorem ipsum dolor sit amet</span>
-                                        <span class="mx-1 text-gray-500 dark:text-gray-500">-</span>
-                                        <span class="w-96 text-gray-600 dark:text-gray-500 text-sm truncate"
-                                            aria-label="Full description">Sed ut perspiciatis unde omnis iste natus
-                                            error sit voluptatem</span>
+                                        <span class="w-40 pr-2 truncate dark:text-gray-300 text-gray-600 font-semibold"
+                                            aria-label="User Name">{{item.emailForUser}}</span>
+                                        <p class="w-96 truncate text-gray-700 dark:text-gray-300"
+                                            aria-label="Short description" [innerHTML]="item.userMessage"></p>
+
+
+
                                     </div>
                                 </div>
 
@@ -248,7 +248,8 @@
                                         :class="messageHover ? 'opacity-100' : ''">
                                         <!-- Archive, Delete, Mark Unread, Snooze Buttons -->
 
-                                        <button title="Delete" aria-label="Delete email">
+                                        <button (click)="idDeleteMessage=item.id" data-modal-target="popup-modal"
+                                            data-modal-toggle="popup-modal" title="Delete" aria-label="Delete email">
                                             <svg xmlns="http://www.w3.org/2000/svg"
                                                 class="text-gray-500 hover:text-red-500 h-5 w-5 transition-colors duration-300"
                                                 fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -270,731 +271,13 @@
                                     </div>
                                     <span x-show="!messageHover" class="text-sm text-gray-500"
                                         aria-label="Message time">
-                                        3:05 PM
+                                        {{item.createdAt|date:'YYYY/MM/dd HH:mm'}}
                                     </span>
                                 </div>
                             </div>
                         </li>
-                        <li
-                            class="flex items-center border-y hover:bg-gray-200 dark:hover:bg-gray-700 px-2 py-3 transition-all duration-300">
-                            <input type="checkbox" class="focus:ring-0 border-2 border-gray-400 rounded-sm"
-                                aria-label="Select All">
-
-                            <div x-data="{ messageHover: false }" mouseover="messageHover = true"
-                                mouseleave="messageHover = false"
-                                class="w-full flex items-center justify-between p-1 my-1 cursor-pointer">
-
-                                <!-- Left Section: Icon and Text -->
-                                <div class="flex items-center space-x-4">
-                                    <div class="flex items-center space-x-2 mr-4 ml-1">
-                                        <!-- Starred/Important Button -->
-                                        <button title="Not starred" aria-label="Mark as not starred">
-                                            <svg xmlns="http://www.w3.org/2000/svg"
-                                                class="text-gray-500 hover:text-yellow-500 h-5 w-5 transition-colors duration-300"
-                                                fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z">
-                                                </path>
-                                            </svg>
-                                        </button>
-                                        <button title="Click to mark this email as important"
-                                            aria-label="Mark as important">
-                                            <svg xmlns="http://www.w3.org/2000/svg"
-                                                class="text-gray-500 hover:text-blue-500 h-5 w-5 transition-colors duration-300"
-                                                fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"></path>
-                                            </svg>
-                                        </button>
-                                    </div>
-
-                                    <!-- User Details Section -->
-                                    <div class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2">
-                                        <span class="w-56 pr-2 truncate dark:text-gray-500 text-gray-900 font-semibold"
-                                            aria-label="User Name">William Livingston</span>
-                                        <span class="w-64 truncate text-gray-700 dark:text-gray-500"
-                                            aria-label="Short description">Lorem ipsum dolor sit amet</span>
-                                        <span class="mx-1 text-gray-500 dark:text-gray-500">-</span>
-                                        <span class="w-96 text-gray-600 dark:text-gray-500 text-sm truncate"
-                                            aria-label="Full description">Sed ut perspiciatis unde omnis iste natus
-                                            error sit voluptatem</span>
-                                    </div>
-                                </div>
-
-                                <!-- Right Section: Time and Actions -->
-                                <div class="flex items-center space-x-2 sm:space-x-4">
-                                    <div x-show="messageHover"
-                                        class="flex items-center space-x-3 opacity-0 transition-opacity duration-200"
-                                        :class="messageHover ? 'opacity-100' : ''">
-                                        <!-- Archive, Delete, Mark Unread, Snooze Buttons -->
-
-                                        <button title="Delete" aria-label="Delete email">
-                                            <svg xmlns="http://www.w3.org/2000/svg"
-                                                class="text-gray-500 hover:text-red-500 h-5 w-5 transition-colors duration-300"
-                                                fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16">
-                                                </path>
-                                            </svg>
-                                        </button>
-                                        <button title="Mark As Unread" aria-label="Mark as unread">
-                                            <svg xmlns="http://www.w3.org/2000/svg"
-                                                class="text-gray-500 hover:text-yellow-500 h-5 w-5 transition-colors duration-300"
-                                                fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z">
-                                                </path>
-                                            </svg>
-                                        </button>
-
-                                    </div>
-                                    <span x-show="!messageHover" class="text-sm text-gray-500"
-                                        aria-label="Message time">
-                                        3:05 PM
-                                    </span>
-                                </div>
-                            </div>
-                        </li>
-                        <li
-                            class="flex items-center border-y hover:bg-gray-200 dark:hover:bg-gray-700 px-2 py-3 transition-all duration-300">
-                            <input type="checkbox" class="focus:ring-0 border-2 border-gray-400 rounded-sm"
-                                aria-label="Select All">
-
-                            <div x-data="{ messageHover: false }" mouseover="messageHover = true"
-                                mouseleave="messageHover = false"
-                                class="w-full flex items-center justify-between p-1 my-1 cursor-pointer">
-
-                                <!-- Left Section: Icon and Text -->
-                                <div class="flex items-center space-x-4">
-                                    <div class="flex items-center space-x-2 mr-4 ml-1">
-                                        <!-- Starred/Important Button -->
-                                        <button title="Not starred" aria-label="Mark as not starred">
-                                            <svg xmlns="http://www.w3.org/2000/svg"
-                                                class="text-gray-500 hover:text-yellow-500 h-5 w-5 transition-colors duration-300"
-                                                fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z">
-                                                </path>
-                                            </svg>
-                                        </button>
-                                        <button title="Click to mark this email as important"
-                                            aria-label="Mark as important">
-                                            <svg xmlns="http://www.w3.org/2000/svg"
-                                                class="text-gray-500 hover:text-blue-500 h-5 w-5 transition-colors duration-300"
-                                                fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"></path>
-                                            </svg>
-                                        </button>
-                                    </div>
-
-                                    <!-- User Details Section -->
-                                    <div class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2">
-                                        <span class="w-56 pr-2 truncate dark:text-gray-500 text-gray-900 font-semibold"
-                                            aria-label="User Name">William Livingston</span>
-                                        <span class="w-64 truncate text-gray-700 dark:text-gray-500"
-                                            aria-label="Short description">Lorem ipsum dolor sit amet</span>
-                                        <span class="mx-1 text-gray-500 dark:text-gray-500">-</span>
-                                        <span class="w-96 text-gray-600 dark:text-gray-500 text-sm truncate"
-                                            aria-label="Full description">Sed ut perspiciatis unde omnis iste natus
-                                            error sit voluptatem</span>
-                                    </div>
-                                </div>
-
-                                <!-- Right Section: Time and Actions -->
-                                <div class="flex items-center space-x-2 sm:space-x-4">
-                                    <div x-show="messageHover"
-                                        class="flex items-center space-x-3 opacity-0 transition-opacity duration-200"
-                                        :class="messageHover ? 'opacity-100' : ''">
-                                        <!-- Archive, Delete, Mark Unread, Snooze Buttons -->
-
-                                        <button title="Delete" aria-label="Delete email">
-                                            <svg xmlns="http://www.w3.org/2000/svg"
-                                                class="text-gray-500 hover:text-red-500 h-5 w-5 transition-colors duration-300"
-                                                fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16">
-                                                </path>
-                                            </svg>
-                                        </button>
-                                        <button title="Mark As Unread" aria-label="Mark as unread">
-                                            <svg xmlns="http://www.w3.org/2000/svg"
-                                                class="text-gray-500 hover:text-yellow-500 h-5 w-5 transition-colors duration-300"
-                                                fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z">
-                                                </path>
-                                            </svg>
-                                        </button>
-
-                                    </div>
-                                    <span x-show="!messageHover" class="text-sm text-gray-500"
-                                        aria-label="Message time">
-                                        3:05 PM
-                                    </span>
-                                </div>
-                            </div>
-                        </li>
-                        <li
-                            class="flex items-center border-y hover:bg-gray-200 dark:hover:bg-gray-700 px-2 py-3 transition-all duration-300">
-                            <input type="checkbox" class="focus:ring-0 border-2 border-gray-400 rounded-sm"
-                                aria-label="Select All">
-
-                            <div x-data="{ messageHover: false }" mouseover="messageHover = true"
-                                mouseleave="messageHover = false"
-                                class="w-full flex items-center justify-between p-1 my-1 cursor-pointer">
-
-                                <!-- Left Section: Icon and Text -->
-                                <div class="flex items-center space-x-4">
-                                    <div class="flex items-center space-x-2 mr-4 ml-1">
-                                        <!-- Starred/Important Button -->
-                                        <button title="Not starred" aria-label="Mark as not starred">
-                                            <svg xmlns="http://www.w3.org/2000/svg"
-                                                class="text-gray-500 hover:text-yellow-500 h-5 w-5 transition-colors duration-300"
-                                                fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z">
-                                                </path>
-                                            </svg>
-                                        </button>
-                                        <button title="Click to mark this email as important"
-                                            aria-label="Mark as important">
-                                            <svg xmlns="http://www.w3.org/2000/svg"
-                                                class="text-gray-500 hover:text-blue-500 h-5 w-5 transition-colors duration-300"
-                                                fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"></path>
-                                            </svg>
-                                        </button>
-                                    </div>
-
-                                    <!-- User Details Section -->
-                                    <div class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2">
-                                        <span class="w-56 pr-2 truncate dark:text-gray-500 text-gray-900 font-semibold"
-                                            aria-label="User Name">William Livingston</span>
-                                        <span class="w-64 truncate text-gray-700 dark:text-gray-500"
-                                            aria-label="Short description">Lorem ipsum dolor sit amet</span>
-                                        <span class="mx-1 text-gray-500 dark:text-gray-500">-</span>
-                                        <span class="w-96 text-gray-600 dark:text-gray-500 text-sm truncate"
-                                            aria-label="Full description">Sed ut perspiciatis unde omnis iste natus
-                                            error sit voluptatem</span>
-                                    </div>
-                                </div>
-
-                                <!-- Right Section: Time and Actions -->
-                                <div class="flex items-center space-x-2 sm:space-x-4">
-                                    <div x-show="messageHover"
-                                        class="flex items-center space-x-3 opacity-0 transition-opacity duration-200"
-                                        :class="messageHover ? 'opacity-100' : ''">
-                                        <!-- Archive, Delete, Mark Unread, Snooze Buttons -->
-
-                                        <button title="Delete" aria-label="Delete email">
-                                            <svg xmlns="http://www.w3.org/2000/svg"
-                                                class="text-gray-500 hover:text-red-500 h-5 w-5 transition-colors duration-300"
-                                                fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16">
-                                                </path>
-                                            </svg>
-                                        </button>
-                                        <button title="Mark As Unread" aria-label="Mark as unread">
-                                            <svg xmlns="http://www.w3.org/2000/svg"
-                                                class="text-gray-500 hover:text-yellow-500 h-5 w-5 transition-colors duration-300"
-                                                fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z">
-                                                </path>
-                                            </svg>
-                                        </button>
-
-                                    </div>
-                                    <span x-show="!messageHover" class="text-sm text-gray-500"
-                                        aria-label="Message time">
-                                        3:05 PM
-                                    </span>
-                                </div>
-                            </div>
-                        </li>
-                        <li
-                            class="flex items-center border-y hover:bg-gray-200 dark:hover:bg-gray-700 px-2 py-3 transition-all duration-300">
-                            <input type="checkbox" class="focus:ring-0 border-2 border-gray-400 rounded-sm"
-                                aria-label="Select All">
-
-                            <div x-data="{ messageHover: false }" mouseover="messageHover = true"
-                                mouseleave="messageHover = false"
-                                class="w-full flex items-center justify-between p-1 my-1 cursor-pointer">
-
-                                <!-- Left Section: Icon and Text -->
-                                <div class="flex items-center space-x-4">
-                                    <div class="flex items-center space-x-2 mr-4 ml-1">
-                                        <!-- Starred/Important Button -->
-                                        <button title="Not starred" aria-label="Mark as not starred">
-                                            <svg xmlns="http://www.w3.org/2000/svg"
-                                                class="text-gray-500 hover:text-yellow-500 h-5 w-5 transition-colors duration-300"
-                                                fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z">
-                                                </path>
-                                            </svg>
-                                        </button>
-                                        <button title="Click to mark this email as important"
-                                            aria-label="Mark as important">
-                                            <svg xmlns="http://www.w3.org/2000/svg"
-                                                class="text-gray-500 hover:text-blue-500 h-5 w-5 transition-colors duration-300"
-                                                fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"></path>
-                                            </svg>
-                                        </button>
-                                    </div>
-
-                                    <!-- User Details Section -->
-                                    <div class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2">
-                                        <span class="w-56 pr-2 truncate dark:text-gray-500 text-gray-900 font-semibold"
-                                            aria-label="User Name">William Livingston</span>
-                                        <span class="w-64 truncate text-gray-700 dark:text-gray-500"
-                                            aria-label="Short description">Lorem ipsum dolor sit amet</span>
-                                        <span class="mx-1 text-gray-500 dark:text-gray-500">-</span>
-                                        <span class="w-96 text-gray-600 dark:text-gray-500 text-sm truncate"
-                                            aria-label="Full description">Sed ut perspiciatis unde omnis iste natus
-                                            error sit voluptatem</span>
-                                    </div>
-                                </div>
-
-                                <!-- Right Section: Time and Actions -->
-                                <div class="flex items-center space-x-2 sm:space-x-4">
-                                    <div x-show="messageHover"
-                                        class="flex items-center space-x-3 opacity-0 transition-opacity duration-200"
-                                        :class="messageHover ? 'opacity-100' : ''">
-                                        <!-- Archive, Delete, Mark Unread, Snooze Buttons -->
-
-                                        <button title="Delete" aria-label="Delete email">
-                                            <svg xmlns="http://www.w3.org/2000/svg"
-                                                class="text-gray-500 hover:text-red-500 h-5 w-5 transition-colors duration-300"
-                                                fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16">
-                                                </path>
-                                            </svg>
-                                        </button>
-                                        <button title="Mark As Unread" aria-label="Mark as unread">
-                                            <svg xmlns="http://www.w3.org/2000/svg"
-                                                class="text-gray-500 hover:text-yellow-500 h-5 w-5 transition-colors duration-300"
-                                                fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z">
-                                                </path>
-                                            </svg>
-                                        </button>
-
-                                    </div>
-                                    <span x-show="!messageHover" class="text-sm text-gray-500"
-                                        aria-label="Message time">
-                                        3:05 PM
-                                    </span>
-                                </div>
-                            </div>
-                        </li>
-                        <li
-                            class="flex items-center border-y hover:bg-gray-200 dark:hover:bg-gray-700 px-2 py-3 transition-all duration-300">
-                            <input type="checkbox" class="focus:ring-0 border-2 border-gray-400 rounded-sm"
-                                aria-label="Select All">
-
-                            <div x-data="{ messageHover: false }" mouseover="messageHover = true"
-                                mouseleave="messageHover = false"
-                                class="w-full flex items-center justify-between p-1 my-1 cursor-pointer">
-
-                                <!-- Left Section: Icon and Text -->
-                                <div class="flex items-center space-x-4">
-                                    <div class="flex items-center space-x-2 mr-4 ml-1">
-                                        <!-- Starred/Important Button -->
-                                        <button title="Not starred" aria-label="Mark as not starred">
-                                            <svg xmlns="http://www.w3.org/2000/svg"
-                                                class="text-gray-500 hover:text-yellow-500 h-5 w-5 transition-colors duration-300"
-                                                fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z">
-                                                </path>
-                                            </svg>
-                                        </button>
-                                        <button title="Click to mark this email as important"
-                                            aria-label="Mark as important">
-                                            <svg xmlns="http://www.w3.org/2000/svg"
-                                                class="text-gray-500 hover:text-blue-500 h-5 w-5 transition-colors duration-300"
-                                                fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"></path>
-                                            </svg>
-                                        </button>
-                                    </div>
-
-                                    <!-- User Details Section -->
-                                    <div class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2">
-                                        <span class="w-56 pr-2 truncate dark:text-gray-500 text-gray-900 font-semibold"
-                                            aria-label="User Name">William Livingston</span>
-                                        <span class="w-64 truncate text-gray-700 dark:text-gray-500"
-                                            aria-label="Short description">Lorem ipsum dolor sit amet</span>
-                                        <span class="mx-1 text-gray-500 dark:text-gray-500">-</span>
-                                        <span class="w-96 text-gray-600 dark:text-gray-500 text-sm truncate"
-                                            aria-label="Full description">Sed ut perspiciatis unde omnis iste natus
-                                            error sit voluptatem</span>
-                                    </div>
-                                </div>
-
-                                <!-- Right Section: Time and Actions -->
-                                <div class="flex items-center space-x-2 sm:space-x-4">
-                                    <div x-show="messageHover"
-                                        class="flex items-center space-x-3 opacity-0 transition-opacity duration-200"
-                                        :class="messageHover ? 'opacity-100' : ''">
-                                        <!-- Archive, Delete, Mark Unread, Snooze Buttons -->
-
-                                        <button title="Delete" aria-label="Delete email">
-                                            <svg xmlns="http://www.w3.org/2000/svg"
-                                                class="text-gray-500 hover:text-red-500 h-5 w-5 transition-colors duration-300"
-                                                fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16">
-                                                </path>
-                                            </svg>
-                                        </button>
-                                        <button title="Mark As Unread" aria-label="Mark as unread">
-                                            <svg xmlns="http://www.w3.org/2000/svg"
-                                                class="text-gray-500 hover:text-yellow-500 h-5 w-5 transition-colors duration-300"
-                                                fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z">
-                                                </path>
-                                            </svg>
-                                        </button>
-
-                                    </div>
-                                    <span x-show="!messageHover" class="text-sm text-gray-500"
-                                        aria-label="Message time">
-                                        3:05 PM
-                                    </span>
-                                </div>
-                            </div>
-                        </li>
-                        <li
-                            class="flex items-center border-y hover:bg-gray-200 dark:hover:bg-gray-700 px-2 py-3 transition-all duration-300">
-                            <input type="checkbox" class="focus:ring-0 border-2 border-gray-400 rounded-sm"
-                                aria-label="Select All">
-
-                            <div x-data="{ messageHover: false }" mouseover="messageHover = true"
-                                mouseleave="messageHover = false"
-                                class="w-full flex items-center justify-between p-1 my-1 cursor-pointer">
-
-                                <!-- Left Section: Icon and Text -->
-                                <div class="flex items-center space-x-4">
-                                    <div class="flex items-center space-x-2 mr-4 ml-1">
-                                        <!-- Starred/Important Button -->
-                                        <button title="Not starred" aria-label="Mark as not starred">
-                                            <svg xmlns="http://www.w3.org/2000/svg"
-                                                class="text-gray-500 hover:text-yellow-500 h-5 w-5 transition-colors duration-300"
-                                                fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z">
-                                                </path>
-                                            </svg>
-                                        </button>
-                                        <button title="Click to mark this email as important"
-                                            aria-label="Mark as important">
-                                            <svg xmlns="http://www.w3.org/2000/svg"
-                                                class="text-gray-500 hover:text-blue-500 h-5 w-5 transition-colors duration-300"
-                                                fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"></path>
-                                            </svg>
-                                        </button>
-                                    </div>
-
-                                    <!-- User Details Section -->
-                                    <div class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2">
-                                        <span class="w-56 pr-2 truncate dark:text-gray-500 text-gray-900 font-semibold"
-                                            aria-label="User Name">William Livingston</span>
-                                        <span class="w-64 truncate text-gray-700 dark:text-gray-500"
-                                            aria-label="Short description">Lorem ipsum dolor sit amet</span>
-                                        <span class="mx-1 text-gray-500 dark:text-gray-500">-</span>
-                                        <span class="w-96 text-gray-600 dark:text-gray-500 text-sm truncate"
-                                            aria-label="Full description">Sed ut perspiciatis unde omnis iste natus
-                                            error sit voluptatem</span>
-                                    </div>
-                                </div>
-
-                                <!-- Right Section: Time and Actions -->
-                                <div class="flex items-center space-x-2 sm:space-x-4">
-                                    <div x-show="messageHover"
-                                        class="flex items-center space-x-3 opacity-0 transition-opacity duration-200"
-                                        :class="messageHover ? 'opacity-100' : ''">
-                                        <!-- Archive, Delete, Mark Unread, Snooze Buttons -->
-
-                                        <button title="Delete" aria-label="Delete email">
-                                            <svg xmlns="http://www.w3.org/2000/svg"
-                                                class="text-gray-500 hover:text-red-500 h-5 w-5 transition-colors duration-300"
-                                                fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16">
-                                                </path>
-                                            </svg>
-                                        </button>
-                                        <button title="Mark As Unread" aria-label="Mark as unread">
-                                            <svg xmlns="http://www.w3.org/2000/svg"
-                                                class="text-gray-500 hover:text-yellow-500 h-5 w-5 transition-colors duration-300"
-                                                fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z">
-                                                </path>
-                                            </svg>
-                                        </button>
-
-                                    </div>
-                                    <span x-show="!messageHover" class="text-sm text-gray-500"
-                                        aria-label="Message time">
-                                        3:05 PM
-                                    </span>
-                                </div>
-                            </div>
-                        </li>
-                        <li
-                            class="flex items-center border-y hover:bg-gray-200 dark:hover:bg-gray-700 px-2 py-3 transition-all duration-300">
-                            <input type="checkbox" class="focus:ring-0 border-2 border-gray-400 rounded-sm"
-                                aria-label="Select All">
-
-                            <div x-data="{ messageHover: false }" mouseover="messageHover = true"
-                                mouseleave="messageHover = false"
-                                class="w-full flex items-center justify-between p-1 my-1 cursor-pointer">
-
-                                <!-- Left Section: Icon and Text -->
-                                <div class="flex items-center space-x-4">
-                                    <div class="flex items-center space-x-2 mr-4 ml-1">
-                                        <!-- Starred/Important Button -->
-                                        <button title="Not starred" aria-label="Mark as not starred">
-                                            <svg xmlns="http://www.w3.org/2000/svg"
-                                                class="text-gray-500 hover:text-yellow-500 h-5 w-5 transition-colors duration-300"
-                                                fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z">
-                                                </path>
-                                            </svg>
-                                        </button>
-                                        <button title="Click to mark this email as important"
-                                            aria-label="Mark as important">
-                                            <svg xmlns="http://www.w3.org/2000/svg"
-                                                class="text-gray-500 hover:text-blue-500 h-5 w-5 transition-colors duration-300"
-                                                fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"></path>
-                                            </svg>
-                                        </button>
-                                    </div>
-
-                                    <!-- User Details Section -->
-                                    <div class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2">
-                                        <span class="w-56 pr-2 truncate dark:text-gray-500 text-gray-900 font-semibold"
-                                            aria-label="User Name">William Livingston</span>
-                                        <span class="w-64 truncate text-gray-700 dark:text-gray-500"
-                                            aria-label="Short description">Lorem ipsum dolor sit amet</span>
-                                        <span class="mx-1 text-gray-500 dark:text-gray-500">-</span>
-                                        <span class="w-96 text-gray-600 dark:text-gray-500 text-sm truncate"
-                                            aria-label="Full description">Sed ut perspiciatis unde omnis iste natus
-                                            error sit voluptatem</span>
-                                    </div>
-                                </div>
-
-                                <!-- Right Section: Time and Actions -->
-                                <div class="flex items-center space-x-2 sm:space-x-4">
-                                    <div x-show="messageHover"
-                                        class="flex items-center space-x-3 opacity-0 transition-opacity duration-200"
-                                        :class="messageHover ? 'opacity-100' : ''">
-                                        <!-- Archive, Delete, Mark Unread, Snooze Buttons -->
-
-                                        <button title="Delete" aria-label="Delete email">
-                                            <svg xmlns="http://www.w3.org/2000/svg"
-                                                class="text-gray-500 hover:text-red-500 h-5 w-5 transition-colors duration-300"
-                                                fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16">
-                                                </path>
-                                            </svg>
-                                        </button>
-                                        <button title="Mark As Unread" aria-label="Mark as unread">
-                                            <svg xmlns="http://www.w3.org/2000/svg"
-                                                class="text-gray-500 hover:text-yellow-500 h-5 w-5 transition-colors duration-300"
-                                                fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z">
-                                                </path>
-                                            </svg>
-                                        </button>
-
-                                    </div>
-                                    <span x-show="!messageHover" class="text-sm text-gray-500"
-                                        aria-label="Message time">
-                                        3:05 PM
-                                    </span>
-                                </div>
-                            </div>
-                        </li>
-                        <li
-                            class="flex items-center border-y hover:bg-gray-200 dark:hover:bg-gray-700 px-2 py-3 transition-all duration-300">
-                            <input type="checkbox" class="focus:ring-0 border-2 border-gray-400 rounded-sm"
-                                aria-label="Select All">
-
-                            <div x-data="{ messageHover: false }" mouseover="messageHover = true"
-                                mouseleave="messageHover = false"
-                                class="w-full flex items-center justify-between p-1 my-1 cursor-pointer">
-
-                                <!-- Left Section: Icon and Text -->
-                                <div class="flex items-center space-x-4">
-                                    <div class="flex items-center space-x-2 mr-4 ml-1">
-                                        <!-- Starred/Important Button -->
-                                        <button title="Not starred" aria-label="Mark as not starred">
-                                            <svg xmlns="http://www.w3.org/2000/svg"
-                                                class="text-gray-500 hover:text-yellow-500 h-5 w-5 transition-colors duration-300"
-                                                fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z">
-                                                </path>
-                                            </svg>
-                                        </button>
-                                        <button title="Click to mark this email as important"
-                                            aria-label="Mark as important">
-                                            <svg xmlns="http://www.w3.org/2000/svg"
-                                                class="text-gray-500 hover:text-blue-500 h-5 w-5 transition-colors duration-300"
-                                                fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"></path>
-                                            </svg>
-                                        </button>
-                                    </div>
-
-                                    <!-- User Details Section -->
-                                    <div class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2">
-                                        <span class="w-56 pr-2 truncate dark:text-gray-500 text-gray-900 font-semibold"
-                                            aria-label="User Name">William Livingston</span>
-                                        <span class="w-64 truncate text-gray-700 dark:text-gray-500"
-                                            aria-label="Short description">Lorem ipsum dolor sit amet</span>
-                                        <span class="mx-1 text-gray-500 dark:text-gray-500">-</span>
-                                        <span class="w-96 text-gray-600 dark:text-gray-500 text-sm truncate"
-                                            aria-label="Full description">Sed ut perspiciatis unde omnis iste natus
-                                            error sit voluptatem</span>
-                                    </div>
-                                </div>
-
-                                <!-- Right Section: Time and Actions -->
-                                <div class="flex items-center space-x-2 sm:space-x-4">
-                                    <div x-show="messageHover"
-                                        class="flex items-center space-x-3 opacity-0 transition-opacity duration-200"
-                                        :class="messageHover ? 'opacity-100' : ''">
-                                        <!-- Archive, Delete, Mark Unread, Snooze Buttons -->
-
-                                        <button title="Delete" aria-label="Delete email">
-                                            <svg xmlns="http://www.w3.org/2000/svg"
-                                                class="text-gray-500 hover:text-red-500 h-5 w-5 transition-colors duration-300"
-                                                fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16">
-                                                </path>
-                                            </svg>
-                                        </button>
-                                        <button title="Mark As Unread" aria-label="Mark as unread">
-                                            <svg xmlns="http://www.w3.org/2000/svg"
-                                                class="text-gray-500 hover:text-yellow-500 h-5 w-5 transition-colors duration-300"
-                                                fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z">
-                                                </path>
-                                            </svg>
-                                        </button>
-
-                                    </div>
-                                    <span x-show="!messageHover" class="text-sm text-gray-500"
-                                        aria-label="Message time">
-                                        3:05 PM
-                                    </span>
-                                </div>
-                            </div>
-                        </li>
-                        <li
-                            class="flex items-center border-y hover:bg-gray-200 dark:hover:bg-gray-700 px-2 py-3 transition-all duration-300">
-                            <input type="checkbox" class="focus:ring-0 border-2 border-gray-400 rounded-sm"
-                                aria-label="Select All">
-
-                            <div x-data="{ messageHover: false }" mouseover="messageHover = true"
-                                mouseleave="messageHover = false"
-                                class="w-full flex items-center justify-between p-1 my-1 cursor-pointer">
-
-                                <!-- Left Section: Icon and Text -->
-                                <div class="flex items-center space-x-4">
-                                    <div class="flex items-center space-x-2 mr-4 ml-1">
-                                        <!-- Starred/Important Button -->
-                                        <button title="Not starred" aria-label="Mark as not starred">
-                                            <svg xmlns="http://www.w3.org/2000/svg"
-                                                class="text-gray-500 hover:text-yellow-500 h-5 w-5 transition-colors duration-300"
-                                                fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z">
-                                                </path>
-                                            </svg>
-                                        </button>
-                                        <button title="Click to mark this email as important"
-                                            aria-label="Mark as important">
-                                            <svg xmlns="http://www.w3.org/2000/svg"
-                                                class="text-gray-500 hover:text-blue-500 h-5 w-5 transition-colors duration-300"
-                                                fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"></path>
-                                            </svg>
-                                        </button>
-                                    </div>
-
-                                    <!-- User Details Section -->
-                                    <div class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2">
-                                        <span class="w-56 pr-2 truncate dark:text-gray-500 text-gray-900 font-semibold"
-                                            aria-label="User Name">William Livingston</span>
-                                        <span class="w-64 truncate text-gray-700 dark:text-gray-500"
-                                            aria-label="Short description">Lorem ipsum dolor sit amet</span>
-                                        <span class="mx-1 text-gray-500 dark:text-gray-500">-</span>
-                                        <span class="w-96 text-gray-600 dark:text-gray-500 text-sm truncate"
-                                            aria-label="Full description">Sed ut perspiciatis unde omnis iste natus
-                                            error sit voluptatem</span>
-                                    </div>
-                                </div>
-
-                                <!-- Right Section: Time and Actions -->
-                                <div class="flex items-center space-x-2 sm:space-x-4">
-                                    <div x-show="messageHover"
-                                        class="flex items-center space-x-3 opacity-0 transition-opacity duration-200"
-                                        :class="messageHover ? 'opacity-100' : ''">
-                                        <!-- Archive, Delete, Mark Unread, Snooze Buttons -->
-
-                                        <button title="Delete" aria-label="Delete email">
-                                            <svg xmlns="http://www.w3.org/2000/svg"
-                                                class="text-gray-500 hover:text-red-500 h-5 w-5 transition-colors duration-300"
-                                                fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16">
-                                                </path>
-                                            </svg>
-                                        </button>
-                                        <button title="Mark As Unread" aria-label="Mark as unread">
-                                            <svg xmlns="http://www.w3.org/2000/svg"
-                                                class="text-gray-500 hover:text-yellow-500 h-5 w-5 transition-colors duration-300"
-                                                fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z">
-                                                </path>
-                                            </svg>
-                                        </button>
-
-                                    </div>
-                                    <span x-show="!messageHover" class="text-sm text-gray-500"
-                                        aria-label="Message time">
-                                        3:05 PM
-                                    </span>
-                                </div>
-                            </div>
-                        </li>
+                        }
+                        }
 
 
 
@@ -1002,6 +285,8 @@
                 </div>
             </div>
         </div>
+
+        
     </div>
 </div>
 
@@ -1434,7 +719,7 @@
                                                 <li>
                                                     <button data-font-family="Georgia, serif" type="button"
                                                         class="flex justify-between items-center w-full text-sm rounded px-3 py-2 hover:bg-gray-100 text-gray-900 dark:hover:bg-gray-600 dark:text-white"
-                                                            style="font-family: Georgia, serif;">Georgia
+                                                        style="font-family: Georgia, serif;">Georgia
                                                     </button>
                                                 </li>
                                                 <li>
@@ -1495,6 +780,41 @@
                     Add new email
                 </button>
             </form>
+        </div>
+    </div>
+</div>
+
+
+<div id="popup-modal" tabindex="-1"
+    class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+    <div class="relative p-4 w-full max-w-md max-h-full">
+        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+            <button type="button"
+                class="absolute top-3 end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                data-modal-hide="popup-modal">
+                <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                    viewBox="0 0 14 14">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                </svg>
+                <span class="sr-only">Close modal</span>
+            </button>
+            <div class="p-4 md:p-5 text-center">
+                <svg class="mx-auto mb-4 text-gray-400 w-12 h-12 dark:text-gray-200" aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                </svg>
+                <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">Are you sure you want to delete
+                    this product?</h3>
+                <button (click)="onDeleteMessageSubmit()" data-modal-hide="popup-modal" type="button"
+                    class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center">
+                    Yes, I'm sure
+                </button>
+                <button data-modal-hide="popup-modal" type="button"
+                    class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">No,
+                    cancel</button>
+            </div>
         </div>
     </div>
 </div>

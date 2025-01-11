@@ -1,13 +1,18 @@
 import { isPlatformBrowser } from '@angular/common';
 import { inject, Inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { environment } from '../../environments/environment.development';
+import { HttpClient } from '@angular/common/http';
+import { ReadHero } from '../admin/core/Models/hero/heroCrud';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CoreService {
-  private flowbiteLoaded = false;
-
+  // private flowbiteLoaded = false;
+  public LanguageObservable = new BehaviorSubject<string>(null);
+  lang$ = this.LanguageObservable.asObservable();
   // Dependency Injection of Spinner Service
   constructor(@Inject(PLATFORM_ID) private platformId: any) {}
 
@@ -16,9 +21,9 @@ export class CoreService {
 
   loadFlowbite(callback: (flowbite: any) => void) {
     if (isPlatformBrowser(this.platformId)) {
-      import('flowbite').then(flowbite => {
+      import('flowbite').then((flowbite) => {
         callback(flowbite);
-   
+        
       });
     }
   }

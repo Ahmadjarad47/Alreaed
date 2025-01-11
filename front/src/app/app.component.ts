@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, inject } from '@angular/core';
+import { AfterViewInit, Component, OnInit, inject } from '@angular/core';
 import { CoreService } from './core/core.service';
 import {
   Router,
@@ -6,7 +6,9 @@ import {
   NavigationEnd,
   NavigationCancel,
   NavigationError,
+  Event as RouterEvent,
 } from '@angular/router';
+
 declare var AOS: any;
 
 @Component({
@@ -14,58 +16,80 @@ declare var AOS: any;
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
-export class AppComponent implements AfterViewInit {
-  flowbiteServiceAndSpin = inject(CoreService);
-  router = inject(Router);
+export class AppComponent implements OnInit, AfterViewInit {
+  private flowbiteServiceAndSpin = inject(CoreService);
+  private router = inject(Router);
+
+  ngOnInit(): void {
+    if (typeof localStorage != 'undefined') {
+      this.setLanguageDirection();
+      this.initializeRouterEvents();
+    }
+  }
 
   ngAfterViewInit(): void {
-    // Load Flowbite
-    this.flowbiteServiceAndSpin.loadFlowbite((flowbite) => {});
-
-    // Initialize AOS if it's available
-    if (typeof AOS !== 'undefined') {
-      AOS.init({
-        duration: 800,
-        easing: 'ease-in-out',
-        once: true,
-        mirror: false,
-      });
+    if (typeof localStorage != 'undefined') {
+      this.initializeFlowbite();
+      this.initializeAOS();
     }
+  
+  }
 
-    // Optionally, subscribe to router events for loading spinner and AOS refresh
-    this.router.events.subscribe({
-      next: (ev) => {
-        if (ev instanceof NavigationStart) {
-          this.flowbiteServiceAndSpin.loading();
-        } else if (
-          ev instanceof NavigationEnd ||
-          ev instanceof NavigationCancel ||
-          ev instanceof NavigationError
-        ) {
-          this.flowbiteServiceAndSpin.loadFlowbite((f) => {
-            if (f) {
-              f.initFlowbite();
-            } else {
-              console.error('Flowbite is not initialized correctly');
-            }
-          });
+  private setLanguageDirection(): void {
+    const language = localStorage?.getItem('language') || 'en';
+    document.documentElement.setAttribute('lang', language);
+    document.documentElement.dir = language === 'en' ? 'ltr' : 'rtl';
+  }
 
-          this.flowbiteServiceAndSpin.hideLoader();
-        }
-
-        if (typeof AOS !== 'undefined') {
-          AOS.refresh();
-        }
-      },
-      error: (err) => {
-        console.error('Router event error:', err);
-      },
+  private initializeFlowbite(): void {
+    this.flowbiteServiceAndSpin.loadFlowbite((flowbite) => {
+      flowbite.initFlowbite();
     });
   }
 
-  isAccountPages(): boolean {
-    return (
-      this.router.url.includes('/account') || this.router.url.includes('/admin')
+  private initializeAOS(): void {
+    if (typeof AOS !== 'undefined') {
+      AOS.init({
+        duration: 600, // Reduced for better performance
+        easing: 'ease-in-out',
+        once: true, // Only animate once
+        mirror: false,
+      });
+    }
+  }
+
+  private initializeRouterEvents(): void {
+    this.router.events.subscribe({
+      next: (event: RouterEvent) => this.handleRouterEvent(event),
+      error: (err) => console.error('Router event error:', err),
+    });
+  }
+
+  private handleRouterEvent(event: RouterEvent): void {
+    if (event instanceof NavigationStart) {
+      this.flowbiteServiceAndSpin.loading();
+    } else if (
+      event instanceof NavigationEnd ||
+      event instanceof NavigationCancel ||
+      event instanceof NavigationError
+    ) {
+      this.onNavigationComplete();
+    }
+  }
+
+  private onNavigationComplete(): void {
+    this.flowbiteServiceAndSpin.hideLoader();
+    this.flowbiteServiceAndSpin.loadFlowbite((flowbite) =>
+      flowbite?.initFlowbite()
     );
+
+    if (typeof AOS !== 'undefined') {
+      AOS.refreshHard(); // Use `refreshHard` for better animation recalculation
+    }
+  }
+
+  isAccountPages(): boolean {
+    const accountPaths = ['/dashboard','/account', '/admin',];
+    return accountPaths.some((path) => this.router.url.includes(path));
   }
 }

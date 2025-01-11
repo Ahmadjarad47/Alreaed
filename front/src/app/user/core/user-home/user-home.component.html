@@ -1,0 +1,266 @@
+<app-navbar />
+<div class="p-4 sm:ml-64">  
+    <div class="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-14">
+        <div class="grid grid-cols-3 gap-4 mb-4">
+            <div class="card-body p-4 bg-gray-800 rounded-lg shadow-md">
+                <div class="flex items-center justify-between">
+                    <!-- Left Content -->
+                    <div>
+                        <p class="text-sm text-gray-400 font-semibold mb-1 uppercase">Total Credit</p>
+                        <h5 class="text-xl font-bold text-white">
+                            0
+                        </h5>
+                    </div>
+
+                    <!-- Right Content -->
+                    <div class="text-right">
+                        <div class="text-center text-4xl">
+                            <i class="fas fa-coins text-[#2563EB]"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+
+
+            <div class="card-body p-4 bg-gray-800 rounded-lg shadow-md">
+                <div class="flex items-center justify-between">
+                    <!-- Left Content -->
+                    <div>
+                        <p class="text-sm text-gray-400 font-semibold mb-1 uppercase">Total File</p>
+                        <h5 class="text-xl font-bold text-white">
+                            0
+                        </h5>
+                    </div>
+
+                    <!-- Right Content -->
+                    <div class="text-right">
+                        <div class="text-center text-4xl">
+                            <i class="fas fa-file-alt text-[#2563EB]"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+            <div class="card-body p-4 bg-gray-800 rounded-lg shadow-md">
+                <div class="flex items-center justify-between">
+                    <!-- Left Content -->
+                    <div>
+                        <p class="text-sm text-gray-400 font-semibold mb-1 uppercase">Notification Not Read</p>
+                        <h5 class="text-xl font-bold text-white">
+                            0
+                        </h5>
+                    </div>
+
+                    <!-- Right Content -->
+                    <div class="text-right">
+                        <div class="text-center text-4xl">
+                            <i class="fas fa-bell text-[#2563EB]"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @if (lastOrder) {
+        <div
+            class="flex items-center justify-center min-h-screen p-6 bg-gradient-to-r from-black via-gray-900 to-black">
+            <div class="relative w-full max-w-4xl p-6 bg-black rounded-3xl shadow-2xl overflow-hidden">
+                <!-- Animated Glow Border -->
+                <div
+                    class="absolute inset-0 rounded-3xl bg-gradient-to-r from-gray-800 via-gray-700 to-gray-900 blur-xl opacity-40 animate-pulse">
+                </div>
+                <div class="relative z-10">
+                    <!-- Header -->
+                    <div class="flex justify-between items-center mb-8">
+                        <h2
+                            class="text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-gray-500 to-gray-300 drop-shadow-lg">
+                            Last Order Details
+                        </h2>
+                        <span
+                            class="px-5 py-2 rounded-lg text-sm font-semibold bg-gradient-to-r from-gray-600 to-gray-500 text-white shadow-md transform hover:scale-105 transition-transform hover:shadow-lg">
+                            Status: {{ lastOrder.status }}
+                        </span>
+                    </div>
+
+                    <!-- Order Summary -->
+                    <div
+                        class="p-6 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-700 rounded-2xl shadow-lg hover:shadow-2xl hover:scale-105 transition-transform transform hover:-translate-y-1">
+                        <h3 class="text-xl font-semibold text-gray-200 mb-4 border-b border-gray-600 pb-2">
+                            Order Summary
+                        </h3>
+                        <div class="grid grid-cols-2 gap-4 text-gray-400">
+                            <p><strong>Order ID:</strong> {{ lastOrder.id }}</p>
+                            <p><strong>Process:</strong> {{ lastOrder.process }}</p>
+                            <p><strong>Total Price:</strong> ${{ lastOrder.totalPrice }}</p>
+                            <p><strong>Created At:</strong> {{ lastOrder.createdAt | date }}</p>
+                        </div>
+                    </div>
+
+                    <!-- Gearbox & Reading Device -->
+                    <div class="mt-8 grid grid-cols-2 gap-6">
+                        <!-- Gearbox -->
+                        <div
+                            class="p-6 bg-gradient-to-br from-gray-800 via-gray-700 to-gray-900 rounded-2xl shadow-lg transform hover:scale-110 transition-transform hover:shadow-xl">
+                            <h3 class="text-xl font-bold text-gray-300 mb-3">
+                                <span
+                                    class="text-transparent bg-clip-text bg-gradient-to-r from-gray-500 to-gray-400">Gearbox</span>
+                            </h3>
+                            <p class="text-gray-400"><strong>Name:</strong> {{ lastOrder.gearbox.name }}</p>
+                        </div>
+
+                        <!-- Reading Device -->
+                        <div
+                            class="p-6 bg-gradient-to-br from-gray-800 via-gray-700 to-gray-900 rounded-2xl shadow-lg transform hover:scale-110 transition-transform hover:shadow-xl">
+                            <h3 class="text-xl font-bold text-gray-300 mb-3">
+                                <span
+                                    class="text-transparent bg-clip-text bg-gradient-to-r from-gray-500 to-gray-400">Reading
+                                    Device</span>
+                            </h3>
+                            <p class="text-gray-400"><strong>Name:</strong> {{ lastOrder.readingDevice.name }}</p>
+                        </div>
+                    </div>
+
+                    <!-- Vehicle Information -->
+                    <div
+                        class="mt-8 p-6 bg-gradient-to-br from-gray-900 via-gray-800 to-black rounded-2xl shadow-lg hover:shadow-2xl hover:scale-105 transition-all hover:-translate-y-1">
+                        <h3 class="text-xl font-bold text-gray-300 mb-3">
+                            <span
+                                class="text-transparent bg-clip-text bg-gradient-to-r from-gray-500 to-gray-400">Vehicle
+                                Information</span>
+                        </h3>
+                        <div class="grid grid-cols-3 gap-4 text-gray-400">
+                            <p><strong>Model:</strong> {{ lastOrder.vehicle.modelName }}</p>
+                            <p><strong>Brand:</strong> {{ lastOrder.vehicle.brandName }}</p>
+                            <p><strong>Year:</strong> {{ lastOrder.vehicle.year }}</p>
+                        </div>
+                    </div>
+
+                    <!-- User Information -->
+                    <div
+                        class="mt-8 p-6 bg-gradient-to-br from-gray-900 via-gray-800 to-black rounded-2xl shadow-lg hover:shadow-2xl hover:scale-105 transition-all hover:-translate-y-1">
+                        <h3 class="text-xl font-bold text-gray-300 mb-3">
+                            <span class="text-transparent bg-clip-text bg-gradient-to-r from-gray-500 to-gray-400">User
+                                Information</span>
+                        </h3>
+                        <p class="text-gray-400"><strong>User Name:</strong> {{ lastOrder.appUser.userName }}</p>
+                        <p class="text-gray-400"><strong>Email:</strong> {{ lastOrder.appUser.email }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        }
+        @else {
+        <div
+            class="flex items-center justify-center min-h-screen p-6 bg-gradient-to-r from-black via-gray-900 to-black">
+            <div class="relative w-full max-w-3xl p-8 bg-black rounded-3xl shadow-2xl overflow-hidden">
+                <!-- Animated Glow Border -->
+                <div
+                    class="absolute inset-0 rounded-3xl bg-gradient-to-r from-gray-800 via-gray-700 to-gray-900 blur-xl opacity-40 animate-pulse">
+                </div>
+                <div class="relative z-10 text-center">
+                    <!-- No Orders Found -->
+                    <h2
+                        class="text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-gray-500 to-gray-300 drop-shadow-lg mb-4">
+                        No Recent Orders Found
+                    </h2>
+                    <p class="text-gray-400 text-lg mb-8">
+                        It seems like you haven't created any orders yet. Start programming your car by creating a new
+                        order now!
+                    </p>
+                    <!-- Create Order Button -->
+                    <a href="/create-order"
+                        class="px-8 py-4 text-lg font-semibold rounded-xl bg-gradient-to-r from-gray-700 via-gray-600 to-gray-500 text-white shadow-lg transform hover:scale-105 hover:shadow-xl transition-transform">
+                        Create New Order
+                    </a>
+                </div>
+            </div>
+        </div>
+        }
+
+
+        <div
+            class="flex justify-center items-center p-6 bg-gradient-to-r from-gray-800 to-gray-900 rounded-xl shadow-2xl hover:scale-105 transition-transform duration-300 ease-in-out">
+            <div class="w-full max-w-4xl p-8 bg-white dark:bg-gray-800 rounded-lg shadow-xl">
+                <!-- Title -->
+                <div class="text-center space-y-6">
+                    <p
+                        class="text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 to-purple-600">
+                        Working Hours
+                    </p>
+                    <p class="text-2xl text-gray-600 dark:text-gray-300">
+                        Our team is ready to assist you during the following hours:
+                    </p>
+                </div>
+
+                <!-- Clock Icon -->
+                <div class="flex justify-center items-center py-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-28 h-28 text-white" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 6v6l4 2M6 12a6 6 0 1112 0 6 6 0 01-12 0z" />
+                    </svg>
+                </div>
+
+                <!-- Detailed Working Hours with Icons -->
+                <div class="space-y-6">
+                    <div
+                        class="flex items-center justify-between text-lg text-gray-600 dark:text-gray-400 hover:text-indigo-500 transition-all duration-300">
+                        <div class="flex items-center space-x-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-blue-500 animate-bounce"
+                                fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M3 6h18M3 12h18M3 18h18" />
+                            </svg>
+                            <span>Monday - Friday</span>
+                        </div>
+                        <span>9:00 AM - 6:00 PM</span>
+                    </div>
+                    <div
+                        class="flex items-center justify-between text-lg text-gray-600 dark:text-gray-400 hover:text-yellow-500 transition-all duration-300">
+                        <div class="flex items-center space-x-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-yellow-500 animate-pulse"
+                                fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M20.429 4.571a2.5 2.5 0 00-3.536 0L12 10.535l-4.893-4.896a2.5 2.5 0 00-3.536 3.536l4.896 4.893-4.893 4.896a2.5 2.5 0 003.536 3.536l4.893-4.896 4.896 4.893a2.5 2.5 0 003.536-3.536l-4.896-4.893 4.896-4.893a2.5 2.5 0 000-3.536z" />
+                            </svg>
+                            <span>Saturday</span>
+                        </div>
+                        <span>10:00 AM - 4:00 PM</span>
+                    </div>
+                    <div
+                        class="flex items-center justify-between text-lg text-gray-600 dark:text-gray-400 hover:text-red-500 transition-all duration-300">
+                        <div class="flex items-center space-x-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-red-500 animate-wiggle"
+                                fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 8c4.418 0 8 3.582 8 8s-3.582 8-8 8-8-3.582-8-8 3.582-8 8-8z" />
+                            </svg>
+                            <span>Sunday</span>
+                        </div>
+                        <span>Closed</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+    </div>
+</div>

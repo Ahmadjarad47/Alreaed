@@ -1,10 +1,11 @@
 import { HttpClient } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
+import { Inject, inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { environment } from '../../environments/environment.development';
 import { active } from './Models/active';
 import { BehaviorSubject, catchError, map, Observable, throwError } from 'rxjs';
 import { userInfo } from '../core/Models/UserInfo';
+import { isPlatformBrowser } from '@angular/common';
 
 @Injectable({
   providedIn: 'root',
@@ -18,6 +19,11 @@ export class IdentityService {
   userName$ = this.userNameObservable.asObservable();
   http = inject(HttpClient);
   url = environment.baseAccountURL;
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
+  confirmDeleteUser(token: string) {
+    return this.http.post(`${this.url}confirm-delete?token=` + token, {});
+  }
+
   Register(form: FormGroup) {
     return this.http.post(`${this.url}Register`, form);
   }
@@ -35,13 +41,22 @@ export class IdentityService {
   }
 
   getUserInfo() {
-    return this.http.get<userInfo>(`${this.url}get-user-info`).pipe(
-      map((m) => {
-        this.userNameObservable.next(m); // Updates observable with the response
-        console.log(m);
-        
-      })
-    );
+    if (isPlatformBrowser(this.platformId)) {
+      return this.http.get<userInfo>(`${this.url}get-user-info`).pipe(
+        map((m) => {
+          if (m == null) {
+            this.userNameObservable.next(new userInfo()); // Updates observable with the response
+
+            console.log('Not Login', new userInfo());
+          } else {
+            this.userNameObservable.next(m); // Updates observable with the response
+          }
+        })
+      );
+    } else {
+      console.log('SSR: Skipping API call');
+      return null;
+    }
   }
 
   logout() {

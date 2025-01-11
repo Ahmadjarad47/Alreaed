@@ -7,6 +7,7 @@ import { RegisterComponent } from './register/register.component';
 import { ResetPasswrodComponent } from './reset-passwrod/reset-passwrod.component';
 import { ActiveComponent } from './active/active.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { DeleteAccountComponent } from './delete-account/delete-account.component';
 
 @NgModule({
   declarations: [
@@ -14,6 +15,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     RegisterComponent,
     ResetPasswrodComponent,
     ActiveComponent,
+    DeleteAccountComponent,
   ],
   imports: [
     CommonModule,

@@ -1,0 +1,487 @@
+<app-navbar></app-navbar>
+<!-- Create Modal -->
+<!-- Modal toggle -->
+
+
+<div class="p-4 sm:ml-64">
+    <div class="border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-14">
+        <!-- Title and Add Button -->
+        <div class="flex items-center justify-between mb-4">
+            <h2 class="text-2xl font-bold text-gray-800 dark:text-gray-200">Home-Product Management</h2>
+            <button id="AddModalButton" data-modal-target="AddModal" data-modal-toggle="AddModal"
+                class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg shadow-sm flex items-center focus:outline-none dark:bg-blue-500 dark:hover:bg-blue-600">
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+                </svg>
+                Add Home-Product
+            </button>
+        </div>
+        <div class="overflow-x-auto relative shadow-md sm:rounded-lg">
+            <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                    <tr>
+                        <th scope="col" class="px-6 py-3">Property</th>
+                        <th scope="col" class="px-6 py-3">Value</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (item of HomeProducts; track $index) {
+
+
+                    <tr (click)="loadHomeProductForUpdate(item)"
+                        class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+
+                        <td class="px-6 py-4 font-medium text-gray-900 dark:text-white">
+
+                            Name</td>
+
+                        <td class="px-6 py-4 flex justify-between cursor-pointer" id="productName">{{item.name}} <svg
+                                class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+                                viewBox="0 0 24 24">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="2"
+                                    d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z" />
+                            </svg>
+                        </td>
+                    </tr>
+                    <tr class="bg-gray-50 border-b dark:bg-gray-700 dark:border-gray-600">
+                        <td class="px-6 py-4 font-medium text-gray-900 dark:text-white">Description</td>
+                        <td class="px-6 py-4" id="productDescription">{{item.description}}</td>
+                    </tr>
+                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                        <td class="px-6 py-4 font-medium text-gray-900 dark:text-white">Title List</td>
+                        <td class="px-6 py-4" id="titleList">{{item.titleList}}</td>
+                    </tr>
+                    <tr class="bg-gray-50 border-b dark:bg-gray-700 dark:border-gray-600">
+                        <td class="px-6 py-4 font-medium text-gray-900 dark:text-white">List Items</td>
+                        <td class="px-6 py-4" id="listItems">{{item.list}}</td>
+                    </tr>
+                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                        <td class="px-6 py-4 font-medium text-gray-900 dark:text-white">Arabic Name</td>
+                        <td class="px-6 py-4" id="arabicName">{{item.arabicName}}</td>
+                    </tr>
+                    <tr class="bg-gray-50 border-b dark:bg-gray-700 dark:border-gray-600">
+                        <td class="px-6 py-4 font-medium text-gray-900 dark:text-white">Arabic Description</td>
+                        <td class="px-6 py-4" id="arabicDescription">{{item.arabicDescription}}</td>
+                    </tr>
+                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                        <td class="px-6 py-4 font-medium text-gray-900 dark:text-white">Arabic Title List</td>
+                        <td class="px-6 py-4" id="arabicTitleList">{{item.arabicTitleList}}</td>
+                    </tr>
+                    <tr class="bg-gray-50 border-b dark:bg-gray-700 dark:border-gray-600">
+                        <td class="px-6 py-4 font-medium text-gray-900 dark:text-white">Arabic List Items</td>
+                        <td class="px-6 py-4" id="arabicListItems">{{item.arabicList}}</td>
+                    </tr>
+                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                        <td class="px-6 py-4 font-medium text-gray-900 dark:text-white">Created At</td>
+                        <td class="px-6 py-4" id="createdAt">{{item.createdAt|date}}</td>
+                    </tr>
+                    <tr class="bg-gray-50 border-b dark:bg-gray-700 dark:border-gray-600">
+                        <td class="px-6 py-4 font-medium text-gray-900 dark:text-white">Updated At</td>
+                        <td class="px-6 py-4" id="updatedAt">{{item.updatedAt|date}}</td>
+                    </tr>
+                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                        <td class="px-6 py-4 font-medium text-gray-900 dark:text-white">Created By</td>
+                        <td class="px-6 py-4" id="createdBy">{{item.createdByWho}}</td>
+                    </tr>
+                    <tr class="bg-gray-50 border-b dark:bg-gray-700 dark:border-gray-600">
+                        <td class="px-6 py-4 font-medium text-gray-900 dark:text-white">Updated By</td>
+                        <td class="px-6 py-4" id="updatedBy">{{item.updatedByWho}}</td>
+                    </tr>
+                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                        <td class="px-6 py-4 font-medium text-gray-900 dark:text-white">Active</td>
+                        <td class="px-6 py-4" id="isActive"><span [ngClass]="{
+                            'text-green-500': item.isActive,
+                            'text-red-500': !item.isActive,
+                        }" class=" font-semibold">{{item.isActive}}</span>
+                        </td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="AddModal" tabindex="-1" aria-hidden="true"
+    class="hidden overflow-y-scroll overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 md:h-full">
+
+    <div class="relative p-4 w-full max-w-2xl h-full md:h-auto">
+        <!-- Modal content -->
+        <div class="relative p-4 bg-white rounded-lg shadow dark:bg-gray-800 sm:p-5">
+            <!-- Modal header -->
+            <br><br><br><br><br><br><br><br> <br><br><br><br><br><br><br><br>
+            <div class="flex justify-between items-center pb-4 mb-4 rounded-t border-b sm:mb-5 dark:border-gray-600">
+                <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+                    Add Home-Product
+                </h3>
+
+                <button type="button" id="close-modal"
+                    class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                    data-modal-toggle="AddModal">
+                    <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd"
+                            d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                            clip-rule="evenodd"></path>
+                    </svg>
+                    <span class="sr-only">Close modal</span>
+                </button>
+            </div>
+            <!-- Modal body -->
+            <form (ngSubmit)="onSubmit()" #SubServiceForm="ngForm">
+                <!-- Name Field -->
+
+                <div class="mb-4">
+                    <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
+                    <input type="text" id="name" [(ngModel)]="HomeProduct.name" name="name" required
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" />
+                </div>
+
+                <!-- Description Field -->
+                <div class="mb-4">
+                    <label for="description"
+                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description</label>
+                    <textarea id="description" [(ngModel)]="HomeProduct.description" name="description" rows="4"
+                        class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"></textarea>
+                </div>
+
+                <!-- Title List -->
+                <div class="mb-4">
+                    <label for="titleList" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Title
+                        List</label>
+                    <input type="text" id="titleList" [(ngModel)]="HomeProduct.titleList" name="titleList" required
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" />
+                </div>
+
+                <!-- Arabic Section -->
+                <h4 class="text-lg font-semibold text-gray-900 dark:text-white mt-4">In Arabic</h4>
+                <div class="mb-4">
+                    <label for="arabicName" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Arabic
+                        Name</label>
+                    <input type="text" id="arabicName" [(ngModel)]="HomeProduct.arabicName" name="arabicName" required
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" />
+                </div>
+
+                <div class="mb-4">
+                    <label for="arabicDescription"
+                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Arabic Description</label>
+                    <textarea id="arabicDescription" [(ngModel)]="HomeProduct.arabicDescription"
+                        name="arabicDescription" rows="4"
+                        class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"></textarea>
+                </div>
+                <!-- Title List -->
+                <div class="mb-4">
+                    <label for="titleList" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Title
+                        List</label>
+                    <input type="text" id="titleLists" [(ngModel)]="HomeProduct.arabicTitleList" name="titleLists"
+                        required
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" />
+                </div>
+
+                <div class="mb-4">
+                    <label for="listItems" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">List
+                        Items</label>
+                    <div *ngFor="let item of HomeProduct.list; let i = index; trackBy: trackByIndex"
+                        class="flex items-center mb-2">
+                        <input type="text" [(ngModel)]="HomeProduct.list[i]" name="listItem{{ i }}"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" />
+                        <button type="button" (click)="removeListItem(i)" class="ml-2 text-red-500 hover:text-red-700">
+                            Remove
+                        </button>
+                    </div>
+                    <button type="button" (click)="addListItem()"
+                        class="mt-2 text-white bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                        Add Item
+                    </button>
+                </div>
+
+                <!-- Arabic List Items -->
+                <div class="mb-4">
+                    <label for="arabicListItems" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                        Arabic List Items
+                    </label>
+
+                    <div *ngFor="let item of HomeProduct.arabicList; let i = index; trackBy: trackByIndex"
+                        class="flex items-center mb-2">
+                        <input type="text" [(ngModel)]="HomeProduct.arabicList[i]" name="arabicListItem{{ i }}"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" />
+                        <button type="button" (click)="removeArabicListItem(i)"
+                            class="ml-2 text-red-500 hover:text-red-700">
+                            Remove
+                        </button>
+                    </div>
+
+                    <button type="button" (click)="addArabicListItem()"
+                        class="mt-2 text-white bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                        Add Item
+                    </button>
+                </div>
+
+
+
+
+
+
+
+
+                <div class="mb-4">
+                    <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="image">Upload
+                        Image</label>
+                    <input type="file" (change)="onFileChange($event)"
+                        class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" />
+                </div>
+
+                <!-- Progress Bar -->
+                <div *ngIf="uploadProgress !== null" class="mb-4">
+                    <div class="mb-1 text-base font-medium text-red-700 dark:text-red-500">
+                        {{uploadProgress!=100?"Uploading...":"Finish"}}</div>
+                    <div class="w-full bg-gray-200 rounded-full h-2.5 mb-4 dark:bg-gray-700">
+                        <div class="bg-red-600 h-2.5 rounded-full dark:bg-red-500" [style.width.%]="uploadProgress">
+                        </div>
+                    </div>
+                </div>
+                <div class="flex items-center mb-4">
+                    <input type="checkbox" [(ngModel)]="HomeProduct.isActive" name="isActive" id="isActive"
+                        class="w-4 h-4 text-primary-600 bg-gray-100 rounded border-gray-300 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
+                    <label for="isActive" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Is
+                        Active</label>
+                </div>
+
+                <button type="submit"
+                    class="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
+                    Add Home Product
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<div id="update" tabindex="-1" aria-hidden="true"
+    class="fixed overflow-auto inset-0 z-40 flex items-center justify-center bg-black bg-opacity-50"
+    [ngClass]="{'hidden': openUpdateDialog==false}">
+
+    <div class="relative p-4 w-full max-w-2xl h-full md:h-auto">
+        <!-- Modal content -->
+        <div class="relative p-4 bg-white rounded-lg shadow dark:bg-gray-800 sm:p-5">
+            <!-- Modal header -->
+            <br><br><br><br><br><br><br><br> <br><br><br><br><br><br><br><br>
+            <div class="flex justify-between items-center pb-4 mb-4 rounded-t border-b sm:mb-5 dark:border-gray-600">
+                <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+                    update Home-Product
+                </h3>
+
+                <button (click)="openUpdateDialog=false" type="button" id="close-modal"
+                    class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                    data-modal-toggle="update">
+                    <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd"
+                            d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                            clip-rule="evenodd"></path>
+                    </svg>
+                    <span class="sr-only">Close modal</span>
+                </button>
+            </div>
+            <!-- Modal body -->
+            <form (ngSubmit)="onUpdate()" #SubServiceForm="ngForm">
+                <!-- Name Field -->
+
+                <div class="mb-4">
+                    <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
+                    <input type="text" id="name" [(ngModel)]="selectedHomeProduct.name" name="name" required
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" />
+                </div>
+
+                <!-- Description Field -->
+                <div class="mb-4">
+                    <label for="description"
+                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description</label>
+                    <textarea id="description" [(ngModel)]="selectedHomeProduct.description" name="description" rows="4"
+                        class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"></textarea>
+                </div>
+
+                <!-- Title List -->
+                <div class="mb-4">
+                    <label for="titleList" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Title
+                        List</label>
+                    <input type="text" id="titleList" [(ngModel)]="selectedHomeProduct.titleList" name="titleList"
+                        required
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" />
+                </div>
+
+                <!-- Arabic Section -->
+                <h4 class="text-lg font-semibold text-gray-900 dark:text-white mt-4">In Arabic</h4>
+                <div class="mb-4">
+                    <label for="arabicName" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Arabic
+                        Name</label>
+                    <input type="text" id="arabicName" [(ngModel)]="selectedHomeProduct.arabicName" name="arabicName"
+                        required
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" />
+                </div>
+
+                <div class="mb-4">
+                    <label for="arabicDescription"
+                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Arabic Description</label>
+                    <textarea id="arabicDescription" [(ngModel)]="selectedHomeProduct.arabicDescription"
+                        name="arabicDescription" rows="4"
+                        class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"></textarea>
+                </div>
+                <!-- Title List -->
+                <div class="mb-4">
+                    <label for="titleList" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Title
+                        List</label>
+                    <input type="text" id="titleLists" [(ngModel)]="selectedHomeProduct.arabicTitleList"
+                        name="titleLists" required
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" />
+                </div>
+
+                <div class="mb-4">
+                    <label for="listItems" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">List
+                        Items</label>
+                    <div *ngFor="let item of selectedHomeProduct.list; let i = index; trackBy: trackByIndex"
+                        class="flex items-center mb-2">
+                        <input type="text" [(ngModel)]="selectedHomeProduct.list[i]" name="listItem{{ i }}"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" />
+                        <button type="button" (click)="removeListItem(i)" class="ml-2 text-red-500 hover:text-red-700">
+                            Remove
+                        </button>
+                    </div>
+                    <button type="button" (click)="addListItem()"
+                        class="mt-2 text-white bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                        Add Item
+                    </button>
+                </div>
+
+                <!-- Arabic List Items -->
+                <div class="mb-4">
+                    <label for="arabicListItems" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                        Arabic List Items
+                    </label>
+
+                    <div *ngFor="let item of selectedHomeProduct.arabicList; let i = index; trackBy: trackByIndex"
+                        class="flex items-center mb-2">
+                        <input type="text" [(ngModel)]="selectedHomeProduct.arabicList[i]" name="arabicListItem{{ i }}"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" />
+                        <button type="button" (click)="removeArabicListItem(i)"
+                            class="ml-2 text-red-500 hover:text-red-700">
+                            Remove
+                        </button>
+                    </div>
+
+                    <button type="button" (click)="addArabicListItem()"
+                        class="mt-2 text-white bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                        Add Item
+                    </button>
+                </div>
+
+
+
+
+
+
+
+                <div class="mb-4">
+                    <label for="image" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Change
+                        Image</label>
+                    <input type="file" (change)="onUpdateFile($event)"
+                        class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" />
+                </div>
+
+                <!-- Progress Bar -->
+                <div *ngIf="uploadProgress !== null" class="mb-4">
+                    <div class="mb-1 text-base font-medium text-red-700 dark:text-red-500">
+                        {{uploadProgress != 100 ? "Uploading..." : "Finish"}}</div>
+                    <div class="w-full bg-gray-200 rounded-full h-2.5 mb-4 dark:bg-gray-700">
+                        <div class="bg-red-600 h-2.5 rounded-full dark:bg-red-500" [style.width.%]="uploadProgress">
+                        </div>
+                    </div>
+                </div>
+                <div class="flex items-center mb-4">
+                    <input type="checkbox" [(ngModel)]="selectedHomeProduct.isActive" name="isActive" id="isActive"
+                        class="w-4 h-4 text-primary-600 bg-gray-100 rounded border-gray-300 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
+                    <label for="isActive" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Is
+                        Active</label>
+                </div>
+                <div class="flex justify-between">
+                    <button type="submit"
+                        class="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
+                        Update Home Product
+                    </button>
+                    <a (click)="setIdAndOpenDelete(selectedHomeProduct.id)" type="button" class="cursor-pointer flex text-red-700 hover:text-white border
+                         border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none
+                          focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5
+                           text-center me-2 mb-2 dark:border-red-500 dark:text-red-500
+                            dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900">delete <svg
+                            class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z" />
+                        </svg>
+                    </a>
+
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+<div id="popup-modal" tabindex="-1" [ngClass]="{'hidden': openDeleteDialog === false}"
+    class="overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full h-screen flex backdrop-blur-sm bg-black bg-opacity-40 transition-opacity duration-300 ease-in-out">
+
+    <div class="relative p-6 w-full max-w-md max-h-full bg-white rounded-lg shadow-lg dark:bg-gray-700">
+        <!-- Close Button -->
+        <button type="button" (click)="openDeleteDialog = false"
+            class="absolute top-3 right-3 text-gray-400 hover:bg-gray-200 hover:text-gray-900 rounded-full p-2 dark:hover:bg-gray-600 dark:hover:text-white transition duration-200 ease-in-out">
+            <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="m2 2 8 8m0 0 8 8M10 10l8-8M10 10l-8 8" />
+            </svg>
+            <span class="sr-only">Close modal</span>
+        </button>
+
+        <!-- Modal Content -->
+        <div class="text-center">
+            <svg class="mx-auto mb-4 text-gray-400 w-12 h-12 dark:text-gray-200" aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+            </svg>
+            <h3 class="mb-5 text-lg font-medium text-gray-800 dark:text-gray-200">
+                Are you sure you want to delete this product?
+            </h3>
+            <!-- Confirm Button -->
+            <button (click)="onDelete()" type="button"
+                class="text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 transition-all dark:bg-red-500 dark:hover:bg-red-600 dark:focus:ring-red-800">
+                Yes, I'm sure
+            </button>
+            <!-- Cancel Button -->
+            <button (click)="openDeleteDialog = false" type="button"
+                class="text-gray-900 bg-white border border-gray-300 hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 transition-all dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:text-white dark:focus:ring-gray-700">
+                No, cancel
+            </button>
+        </div>
+    </div>
+</div>

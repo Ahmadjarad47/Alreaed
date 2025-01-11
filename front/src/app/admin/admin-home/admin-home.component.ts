@@ -1,16 +1,16 @@
-
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, inject, OnInit } from '@angular/core';
+import { AdminService } from '../admin.service';
 //  import ApexCharts from 'apexcharts';
-declare var simpleDatatables:any
-declare var ApexCharts:any;
+declare var simpleDatatables: any;
+declare var ApexCharts: any;
 @Component({
   selector: 'app-admin-home',
   templateUrl: './admin-home.component.html',
-  styleUrl: './admin-home.component.css'
+  styleUrl: './admin-home.component.css',
 })
 export class AdminHomeComponent implements AfterViewInit {
-
-
+  isSidebarClosed=false
+  _service=inject(AdminService)
   initFirstChart() {
     const options = {
       // add data series via arrays, learn more here: https://apexcharts.com/docs/series/
@@ -291,17 +291,16 @@ export class AdminHomeComponent implements AfterViewInit {
   }
 
   ngAfterViewInit() {
-    
-      if (typeof window !== 'undefined') {
-        this.initFirstChart();
-        this.initSecondChart();
-        this.initThreeChart();
-        const dataTable = new simpleDatatables.DataTable("#sorting-table",{
-          sortable: true,
-        });
-     
-      }
- 
-   
+    if (typeof window !== 'undefined') {
+      this.initFirstChart();
+      this.initSecondChart();
+      this.initThreeChart();
+      const dataTable = new simpleDatatables.DataTable('#sorting-table', {
+        sortable: true,
+      });
+    }
+    this._service.isOpen$.subscribe(p=>{
+      this.isSidebarClosed=p;
+    })
   }
 }

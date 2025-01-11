@@ -11,6 +11,7 @@ import { NotfoundComponent } from './notfound/notfound.component';
 import { ToastrModule } from 'ngx-toastr';
 import { BubbleComponent } from './shared/bubble/bubble.component';
 import { ContactComponent } from './contact/contact.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { ContactComponent } from './contact/contact.component';
       messageClass: 'messageToast',
       toastClass: 'toastToast',
     }),
+    ReactiveFormsModule
   ],
   exports: [NavbarComponent, FooterComponent,BubbleComponent],
 })

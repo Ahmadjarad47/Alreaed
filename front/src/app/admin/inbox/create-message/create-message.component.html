@@ -1,0 +1,75 @@
+<app-navbar></app-navbar>
+
+
+
+<!-- component -->
+<div class="py-8 sm:ml-64">
+    <div class="w-full bg-white rounded-lg shadow dark:bg-gray-800 p-4 md:p-6">
+        <div class="mt-6 flow-root bg-gray-50 dark:bg-gray-900 p-6 rounded-lg shadow-lg">
+            <div class="space-y-6">
+                @for (messages of message; track $index) {
+                <!-- User Message (Right) -->
+                <div class="flex justify-end">
+                    <div
+                        class="relative max-w-lg px-4 py-3 bg-blue-500 text-white rounded-lg shadow-lg rounded-br-none transition-transform duration-300 transform hover:scale-105">
+                        <div class="text-sm text-blue-200 mb-1">
+                            <span>Created At:</span>
+                            <span>{{messages.createdAt | date: 'YYYY/MM/dd HH:mm'}}</span>
+                        </div>
+                        <p class="text-base font-medium mb-2" [innerHTML]="messages.userMessage"></p>
+                        <!-- Read Indicator for Admin -->
+                        <div class="absolute -bottom-5 right-2 text-xs flex items-center">
+                            <span
+                                class="flex items-center px-2 py-0.5 rounded-full {{messages.isReadByAdmin ? 'bg-green-100 text-green-700' : 'bg-gray-200 text-gray-600'}}">
+                                {{messages.isReadByAdmin ? 'Read' : 'Unread'}}
+                                <i
+                                    class="ml-1 {{messages.isReadByAdmin ? 'fas fa-check-circle text-green-500' : 'fas fa-times-circle text-gray-500'}}"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-right text-xs text-gray-500 mt-1">
+                    <span>Asked by:</span>
+                    <a href="#" class="text-blue-400 hover:underline">{{messages.emailForUser}}</a>
+                </div>
+
+                <!-- Admin Message (Left) -->
+                <div class="flex justify-start">
+                    <div
+                        class="relative max-w-lg px-4 py-3 bg-gray-200 text-gray-800 dark:bg-gray-800 dark:text-white rounded-lg shadow-lg rounded-bl-none transition-transform duration-300 transform hover:scale-105">
+                        <h3 class="text-sm font-medium mb-1">Admin Response:</h3>
+                        <p class="text-base font-normal mb-2" [innerHTML]="messages.adminMessage"></p>
+                        <!-- Read Indicator for User -->
+                        <div class="absolute -bottom-5 left-2 text-xs flex items-center">
+                            <span
+                                class="flex items-center px-2 py-0.5 rounded-full {{messages.isReadByUser ? 'bg-green-100 text-green-700' : 'bg-gray-200 text-gray-600'}}">
+                                {{messages.isReadByUser ? 'Read' : 'Unread'}}
+                                <i
+                                    class="ml-1 {{messages.isReadByUser ? 'fas fa-check-circle text-green-500' : 'fas fa-times-circle text-gray-500'}}"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-left text-xs text-gray-500 mt-1">
+                    <span>Admin</span>
+                </div>
+                }
+            </div>
+        </div>
+
+
+
+
+        <div class="mt-6 flex items-center justify-center lg:justify-start">
+            <button type="button" class="w-full rounded-lg border border-gray-200 bg-white px-5 py-2.5 text-sm font-medium text-gray-900 hover:bg-gray-100
+                 hover:text-primary-700 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-100
+                  dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700
+                   dark:hover:text-white dark:focus:ring-gray-700 sm:w-auto">View more questions</button>
+        </div>
+
+
+
+    </div>
+
+
+</div>

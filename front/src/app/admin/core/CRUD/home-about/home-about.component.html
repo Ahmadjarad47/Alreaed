@@ -3,309 +3,100 @@
 <!-- Modal toggle -->
 
 
-<div class="p-4 sm:ml-64">
-    <div class=" border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-14">
+<div class="py-12 sm:ml-64">
+    <div class="border-gray-200 border-dashed rounded-lg dark:border-gray-700 ">
 
-        <section class="bg-gray-50 dark:bg-gray-900 p-3 sm:p-5">
-            <div class="mx-auto max-w-screen-xl px-4 lg:px-12">
-                <!-- Start coding here -->
-                <div class="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
-                    <div
-                        class="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
-
-                        <div
-                            class="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
-                            <button id="defaultModalButton" data-modal-target="defaultModal"
-                                data-modal-toggle="defaultModal" type="button"
-                                class="flex items-center justify-center text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">
-                                <svg class="h-3.5 w-3.5 mr-2" fill="currentColor" viewbox="0 0 20 20"
-                                    xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                                    <path clip-rule="evenodd" fill-rule="evenodd"
-                                        d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" />
-                                </svg>
-                                Add Home-About
-                            </button>
-
-                        </div>
-                    </div>
-                    <div class="overflow-x-auto">
-                        <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                            <thead
-                                class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                                <tr>
-                                    <th scope="col" class="px-4 py-3">Title</th>
-                                    <th scope="col" class="px-4 py-3">Description</th>
-                                    <th scope="col" class="px-4 py-3">img</th>
-                                    <th scope="col" class="px-4 py-3">isActive</th>
-
-                                    <th scope="col" class="px-4 py-3">
-                                        <span class="sr-only">Actions</span>
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @for (item of homeAbout; track $index) {
-
-                                <tr class="border-b dark:border-gray-700">
-
-                                    <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap
-                                         dark:text-white">{{item.title}}</th>
-                                    <td class="px-4 py-3">{{item.description}}</td>
-
-                                    <td class="px-4 py-3"><img width="50" [src]="item.image" alt=""></td>
-                                    <td class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                        <div class="flex items-center">
-                                            <div [ngClass]="{
-                                                'bg-red-700':item.isActive==false,
-                                                'bg-green-700':item.isActive==true
-                                            }" class="inline-block w-4 h-4 mr-2  rounded-full"></div>
-
-                                        </div>
-                                    </td>
-                                    <td class="px-4  flex items-start justify-end ">
-                                        <button id="apple-imac-27-dropdown-button"
-                                            data-dropdown-toggle="apple-imac-27-dropdown"
-                                            class="inline-flex items-center p-0.5 text-sm font-medium text-center text-gray-500 hover:text-gray-800 rounded-lg focus:outline-none dark:text-gray-400 dark:hover:text-gray-100"
-                                            type="button">
-                                            <svg class="w-5 h-5" aria-hidden="true" fill="currentColor"
-                                                viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                                <path
-                                                    d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z" />
-                                            </svg>
-                                        </button>
-                                        <div id="apple-imac-27-dropdown"
-                                            class="hidden  z-50 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
-                                            <ul class=" py-1 text-sm text-gray-700 dark:text-gray-200"
-                                                aria-labelledby="apple-imac-27-dropdown-button">
-                                                <li class="cursor-pointer" id="readHome-AboutButton"
-                                                    data-modal-target="readHome-AboutModal"
-                                                    data-modal-toggle="readHome-AboutModal">
-                                                    <a (click)="SetReadhomeAboutModal(item)"
-                                                        class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Show</a>
-                                                </li>
-
-                                            </ul>
-
-                                        </div>
-                                    </td>
-                                </tr>
-                                }
-
-
-
-                            </tbody>
-                        </table>
-                    </div>
-
-                </div>
-            </div>
-        </section>
-
-
-        <!-- Main modal -->
-        <div id="defaultModal" tabindex="-1" aria-hidden="true"
-            class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-modal md:h-full">
-            <div class="relative p-4 w-full max-w-2xl h-full md:h-auto">
-                <!-- Modal content -->
-                <div class="relative p-4 bg-white rounded-lg shadow dark:bg-gray-800 sm:p-5">
-                    <!-- Modal header -->
-                    <div
-                        class="flex justify-between items-center pb-4 mb-4 rounded-t border-b sm:mb-5 dark:border-gray-600">
-                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
-                            Add Home-About text
-                        </h3>
-                        <button type="button"
-                            class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
-                            data-modal-toggle="defaultModal">
-                            <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd"
-                                    d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                                    clip-rule="evenodd"></path>
-                            </svg>
-                            <span class="sr-only">Close modal</span>
-                        </button>
-                    </div>
-                    <!-- Modal body -->
-                    <form action="#">
-                        <div class="grid gap-2 mb-4 ">
-                            <div>
-                                <label for="name"
-                                    class="block  mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
-                                <input type="text" name="name" id="name"
-                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                    placeholder="Type Home-About name" required="">
-                            </div>
-
-                            <div class="sm:col-span-2">
-                                <label for="description"
-                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description</label>
-                                <textarea id="description" rows="4"
-                                    class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                    placeholder="Write Home-About description here"></textarea>
-                            </div>
-                            <div>
-                                <label class="inline-flex items-center me-5 cursor-pointer">
-                                    <input type="checkbox" value="" class="sr-only peer" checked>
-                                    <div
-                                        class="relative w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-focus:ring-4 peer-focus:ring-purple-300 dark:peer-focus:ring-purple-800 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-purple-600">
-                                    </div>
-                                    <span
-                                        class="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300">active</span>
-                                </label>
-                            </div>
-                            <div class="sm:col-span-2">
-
-                                <div class="flex items-center justify-center w-full">
-                                    <label for="dropzone-file"
-                                        class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-gray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
-                                        <div *ngIf="!uploadedImage; else defaultImage"
-                                            class="flex flex-col items-center justify-center pt-5 pb-6">
-                                            <svg class="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
-                                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
-                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                                    stroke-width="2"
-                                                    d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2" />
-                                            </svg>
-                                            <p class="mb-2 text-sm text-gray-500 dark:text-gray-400">
-                                                <span class="font-semibold">Click to upload</span> or drag and drop
-                                            </p>
-                                            <p class="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF (MAX.
-                                                800x400px)</p>
-                                        </div>
-        
-                                        <!-- If uploadedImage exists, show the uploaded image -->
-                                        <ng-container *ngIf="uploadedImage; else defaultImage">
-                                            <img [src]="uploadedImage" alt="Uploaded Image"
-                                                class="w-full h-full object-contain rounded-lg" />
-                                        </ng-container>
-        
-                                        <!-- If uploadedImage is null, show the image from updatehomeAboutProp -->
-                                        <ng-template #defaultImage>
-                                            <img [src]="updatehomeAboutProp.image" alt="Existing Image"
-                                                class="w-full h-full object-contain rounded-lg" />
-                                        </ng-template>
-        
-                                        <input id="dropzone-file" type="file" class="hidden" (change)="onFileSelected($event)"
-                                            accept="image/*" />
-                                    </label>
-                                </div>
-        
-        
-                            </div>
-                        </div>
-                        <button type="submit"
-                            class="text-white inline-flex items-center bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
-                            <svg class="mr-1 -ml-1 w-6 h-6" fill="currentColor" viewBox="0 0 20 20"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd"
-                                    d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
-                                    clip-rule="evenodd"></path>
-                            </svg>
-                            Add new Home-About
-                        </button>
-                    </form>
-                </div>
-            </div>
+        <!-- Title and Add Button -->
+        <div class="flex items-center justify-between mb-4">
+            <h2 class="text-2xl font-bold text-gray-800 dark:text-gray-200">homeAbout Management</h2>
+            <button id="AddModalButton" data-modal-target="AddModal" data-modal-toggle="AddModal"
+                class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg shadow-sm flex items-center focus:outline-none dark:bg-blue-500 dark:hover:bg-blue-600">
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+                </svg>
+                Add homeAbout
+            </button>
         </div>
 
+        <!-- Table -->
+        <div class="overflow-x-auto">
+            <table class="min-w-full z-20 text-sm text-left text-gray-500 dark:text-gray-400">
+                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                    <tr>
+                        <th scope="col" class="px-4 py-3">ID</th>
+                        <th scope="col" class="px-4 py-3">Name</th>
+                        <th scope="col" class="px-6 py-3">Description</th>
+                        <th scope="col" class="px-4 py-3">Arabic Name</th>
+                        <th scope="col" class="px-6 py-3">Arabic Description</th>
+                        <th scope="col" class="px-6 py-3">Image</th>
+                        <th scope="col" class="px-6 py-3">Created At</th>
+                        <th scope="col" class="px-6 py-3">Updated At</th>
+                        <th scope="col" class="px-6 py-3">Created By</th>
+                        <th scope="col" class="px-6 py-3">Updated By</th>
+                        <th scope="col" class="px-6 py-3">Is Active</th>
+                        <th scope="col" class="px-6 py-3">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (item of homeAbouts; track $index) {
+                    <tr
+                        class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                        <td (click)="openReadModal(item.id)" class="px-3 cursor-pointer py-4">{{ item.id }}</td>
+                        <td (click)="openReadModal(item.id)" class="px-3 cursor-pointer py-4">{{ item.arabicName }}</td>
+                        <td class="px-6 py-4">{{ item.arabicDescription }}</td>
+                        <td (click)="openReadModal(item.id)" class="px-3 cursor-pointer py-4">{{ item.name }}</td>
+                        <td class="px-6 py-4">{{ item.description }}</td>
+                        <td class="px-6 py-4">
+                            <img src="{{ baseUrl+item.image }}" alt="homeAbout Image" class="w-10 h-10 rounded-full">
+                        </td>
+                        <td class="px-6 py-4">{{ item.createdAt | date }}</td>
+                        <td class="px-6 py-4">{{ item.updatedAt | date }}</td>
+                        <td class="px-6 py-4">{{ item.createdByWho }}</td>
+                        <td class="px-6 py-4">{{ item.updatedByWho }}</td>
+                        <td class="px-6 py-4">
+                            <span
+                                class="px-3 py-1 rounded-full text-xs font-medium {{ item.isActive ? 'bg-green-200 text-green-800 dark:bg-green-800 dark:text-green-200' : 'bg-red-200 text-red-800 dark:bg-red-800 dark:text-red-200' }}">
+                                {{ item.isActive ? 'Active' : 'Inactive' }}
+                            </span>
+                        </td>
+                        <td class="px-6 py-4 flex space-x-2">
+                            <!-- Edit Button -->
+                            <button (click)="loadhomeAboutsForUpdate(item)" id="updateProductButton"
+                                data-modal-target="updateProductModal" data-modal-toggle="updateProductModal"
+                                class="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-200 focus:outline-none">
+                                <svg class="w-5 h-5 text-gray-800 dark:text-white" aria-hidden="true"
+                                    xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+                                    viewBox="0 0 24 24">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="2"
+                                        d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z" />
+                                </svg>
+                            </button>
 
 
-        <!-- Read modal -->
-        <!-- Main modal --> -->
-        <div id="readHome-AboutModal" tabindex="-1" aria-hidden="true"
-            class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-modal md:h-full">
-            <div class="relative p-4 w-full max-w-xl h-full md:h-auto">
-                <!-- Modal content -->
-                <div class="relative p-4 bg-white rounded-lg shadow dark:bg-gray-800 sm:p-5">
-                    <!-- Modal header -->
-                    <div class="flex justify-between mb-4 rounded-t sm:mb-5">
-                        <div class="text-lg text-gray-900 md:text-xl dark:text-white">
-                            <h3 class="font-semibold ">
-                                {{readhomeAboutProp.title}}
-                            </h3>
-
-                        </div>
-                        <div>
-                            <button type="button"
-                                class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 inline-flex dark:hover:bg-gray-600 dark:hover:text-white"
-                                data-modal-toggle="readHome-AboutModal">
-                                <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+                            <!-- Delete Button -->
+                            <button (click)="setIdAndOpenDelete(item.id)" data-modal-target="popup-modal"
+                                data-modal-toggle="popup-modal"
+                                class="text-red-600 hover:text-red-800 dark:text-red-400 dark:hover:text-red-200 focus:outline-none">
+                                <svg class="w-5 h-5 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                                     xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd"
-                                        d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                                        clip-rule="evenodd"></path>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M6 18L18 6M6 6l12 12"></path>
                                 </svg>
-                                <span class="sr-only">Close modal</span>
                             </button>
-                        </div>
-                    </div>
-                    <dl>
-                        <dt class="mb-2 font-semibold leading-none text-gray-900 dark:text-white">Details</dt>
-                        <dd class="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400">
-                            {{readhomeAboutProp.description}}</dd>
-                        <dt class="mb-2 font-semibold leading-none text-gray-900 dark:text-white">
-                            <div [ngClass]="{
-                            'bg-red-700':readhomeAboutProp.isActive==false,
-                            'bg-green-700':readhomeAboutProp.isActive==true
-                        }" class="inline-block w-4 h-4 mr-2  rounded-full"></div>
-                        </dt>
-                        <dd class="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400"><img width="50"
-                                [src]="readhomeAboutProp.image" alt=""></dd>
-                    </dl>
-                    <div class="flex justify-between items-center">
-                        <div class="flex items-center space-x-3 sm:space-x-4">
-                            <button id="updateHome-AboutButton" data-modal-target="updateHome-AboutModal"
-                                data-modal-toggle="updateHome-AboutModal" (click)="SetUpdatehomeAboutModal(readhomeAboutProp)"
-                                type="button"
-                                class="text-white inline-flex items-center bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
-                                <svg aria-hidden="true" class="mr-1 -ml-1 w-5 h-5" fill="currentColor"
-                                    viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z">
-                                    </path>
-                                    <path fill-rule="evenodd"
-                                        d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"
-                                        clip-rule="evenodd"></path>
-                                </svg>
-                                Edit
-                            </button>
-                            <button type="button"
-                                class="py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
-                                Preview
-                            </button>
-                        </div>
-                        <button type="button"
-                            class="inline-flex items-center text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-500 dark:hover:bg-red-600 dark:focus:ring-red-900">
-                            <svg aria-hidden="true" class="w-5 h-5 mr-1.5 -ml-1" fill="currentColor" viewBox="0 0 20 20"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd"
-                                    d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
-                                    clip-rule="evenodd"></path>
-                            </svg>
-                            Delete
-                        </button>
-                    </div>
-                </div>
-            </div>
+                        </td>
+                    </tr>}
+                </tbody>
+            </table>
         </div>
-
-
-
-
-
     </div>
 </div>
 
 
 
-
-<!-- update Modal
-  -->
-@if (updatehomeAboutProp) {
-
-
-<div id="updateHome-AboutModal" tabindex="-1" aria-hidden="true"
+<!-- Main modal -->
+<div id="AddModal" tabindex="-1" aria-hidden="true"
     class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-modal md:h-full">
     <div class="relative p-4 w-full max-w-2xl h-full md:h-auto">
         <!-- Modal content -->
@@ -313,11 +104,11 @@
             <!-- Modal header -->
             <div class="flex justify-between items-center pb-4 mb-4 rounded-t border-b sm:mb-5 dark:border-gray-600">
                 <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
-                    Update Home-About
+                    Add homeAbout
                 </h3>
-                <button type="button"
+                <button type="button" id="closeed"
                     class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
-                    data-modal-toggle="updateHome-AboutModal">
+                    data-modal-toggle="AddModal">
                     <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
                         xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd"
@@ -328,82 +119,270 @@
                 </button>
             </div>
             <!-- Modal body -->
-            <form>
-                <div class="grid gap-2 mb-4">
-                    <div>
-                        <label for="name"
-                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
-                        <input type="text" [(ngModel)]="updatehomeAboutProp.title" id="name" name="title"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                            placeholder="Type Home-About name" required />
-                    </div>
+            <form (ngSubmit)="onSubmit()" #homeAboutForm="ngForm">
+                <div class="mb-4">
+                    <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
+                    <input type="text" id="name" [(ngModel)]="AddhomeAbout.name" name="name" required
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" />
+                </div>
+                <div class="mb-4">
+                    <label for="description"
+                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description</label>
+                    <textarea id="description" [(ngModel)]="AddhomeAbout.description" name="description" rows="4"
+                        class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"></textarea>
+                </div>
+                <p class="text-gray-800 dark:text-white">In Arabic:</p>
+                <div class="mb-4">
+                    <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
+                    <input type="text" id="names" [(ngModel)]="AddhomeAbout.arabicName" name="names" required
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" />
+                </div>
 
-                    <div class="sm:col-span-2">
-                        <label for="description"
-                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description</label>
-                        <textarea [(ngModel)]="updatehomeAboutProp.description" id="description" name="description" rows="4"
-                            class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                            placeholder="Write Home-About description here"></textarea>
-                    </div>
-                    <div class="sm:col-span-2">
+                <div class="mb-4">
+                    <label for="description"
+                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description</label>
+                    <textarea id="descriptions" [(ngModel)]="AddhomeAbout.arabicDescription" name="descriptions"
+                        rows="4"
+                        class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"></textarea>
+                </div>
 
-                        <div class="flex items-center justify-center w-full">
-                            <label for="dropzone-file"
-                                class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-gray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
-                                <div *ngIf="!uploadedImage; else defaultImage"
-                                    class="flex flex-col items-center justify-center pt-5 pb-6">
-                                    <svg class="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
-                                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
-                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                            stroke-width="2"
-                                            d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2" />
-                                    </svg>
-                                    <p class="mb-2 text-sm text-gray-500 dark:text-gray-400">
-                                        <span class="font-semibold">Click to upload</span> or drag and drop
-                                    </p>
-                                    <p class="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF (MAX.
-                                        800x400px)</p>
-                                </div>
+                <div class="mb-4">
+                    <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="image">Upload
+                        Image</label>
+                    <input type="file" (change)="onFileChange($event)"
+                        class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" />
+                </div>
 
-                                <!-- If uploadedImage exists, show the uploaded image -->
-                                <ng-container *ngIf="uploadedImage; else defaultImage">
-                                    <img [src]="uploadedImage" alt="Uploaded Image"
-                                        class="w-full h-full object-contain rounded-lg" />
-                                </ng-container>
-
-                                <!-- If uploadedImage is null, show the image from updatehomeAboutProp -->
-                                <ng-template #defaultImage>
-                                    <img [src]="updatehomeAboutProp.image" alt="Existing Image"
-                                        class="w-full h-full object-contain rounded-lg" />
-                                </ng-template>
-
-                                <input id="dropzone-file" type="file" class="hidden" (change)="onFileSelected($event)"
-                                    accept="image/*" />
-                            </label>
+                <!-- Progress Bar -->
+                <div *ngIf="uploadProgress !== null" class="mb-4">
+                    <div class="mb-1 text-base font-medium text-red-700 dark:text-red-500">
+                        {{uploadProgress!=100?"Uploading...":"Finish"}}</div>
+                    <div class="w-full bg-gray-200 rounded-full h-2.5 mb-4 dark:bg-gray-700">
+                        <div class="bg-red-600 h-2.5 rounded-full dark:bg-red-500" [style.width.%]="uploadProgress">
                         </div>
-
-
-                    </div>
-
-                    <div>
-                        <label class="inline-flex items-center me-5 cursor-pointer">
-                            <input type="checkbox" class="sr-only peer" [(ngModel)]="updatehomeAboutProp.isActive"
-                                name="isActive" />
-                            <div
-                                class="relative w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-focus:ring-4 peer-focus:ring-purple-300 dark:peer-focus:ring-purple-800 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-purple-600">
-                            </div>
-                            <span class="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300">Active</span>
-                        </label>
                     </div>
                 </div>
-                <button (click)="viewAfter(updatehomeAboutProp)"
-                    class="text-white inline-flex items-center bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
-                    Update
+
+                <div class="flex items-center mb-4">
+                    <label class="inline-flex items-center me-5 cursor-pointer">
+                        <input type="checkbox" [(ngModel)]="AddhomeAbout.isActive" name="isActive" id="isActive"
+                            class="sr-only peer">
+                        <div
+                            class="relative w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-focus:ring-4 peer-focus:ring-purple-300 dark:peer-focus:ring-purple-800 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-purple-600">
+                        </div>
+                        <span class="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300">is Active</span>
+                    </label>
+                </div>
+
+                <button type="submit"
+                    class="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
+                    Add New homeAbout
                 </button>
             </form>
 
         </div>
     </div>
 </div>
-}
-<br><br><br><br><br><br>
+
+
+<!-- Main modal -->
+<div id="updateProductModal" tabindex="-1" aria-hidden="true"
+    class="overflow-y-auto overflow-x-hidden top-0 right-0 left-0 z-50 absolute justify-center items-center w-full md:inset-0 h-modal md:h-full flex"
+    [ngClass]="{'hidden': openUpdateDailog === false}">
+
+    <div class="relative p-4 w-full max-w-2xl h-full md:h-auto">
+        <div class="relative p-4 bg-white rounded-lg shadow dark:bg-gray-800 sm:p-5">
+            <div class="flex justify-between items-center pb-4 mb-4 rounded-t border-b sm:mb-5 dark:border-gray-600">
+                <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+                    Update homeAbout
+                </h3>
+                <button type="button" (click)="openUpdateDailog=false"
+                    class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white">
+                    <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd"
+                            d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                            clip-rule="evenodd"></path>
+                    </svg>
+                    <span class="sr-only">Close modal</span>
+                </button>
+            </div>
+
+            <!-- Update homeAbout Form -->
+            <form (ngSubmit)="onUpdate()" *ngIf="selectedhomeAbouts" #updatehomeAboutForm="ngForm">
+                <div class="mb-4">
+                    <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
+                    <input type="text" id="name" [(ngModel)]="selectedhomeAbouts.name" name="name" required
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" />
+                </div>
+
+                <div class="mb-4">
+                    <label for="description"
+                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description</label>
+                    <textarea id="description" [(ngModel)]="selectedhomeAbouts.description" name="description" rows="4"
+                        class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"></textarea>
+                </div>
+                <p class="text-gray-800 dark:text-white">In Arabic:</p>
+                <div class="mb-4">
+                    <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
+                    <input type="text" id="names" [(ngModel)]="selectedhomeAbouts.arabicName" name="names" required
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" />
+                </div>
+
+                <div class="mb-4">
+                    <label for="description"
+                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description</label>
+                    <textarea id="descriptions" [(ngModel)]="selectedhomeAbouts.arabicDescription" name="descriptions"
+                        rows="4"
+                        class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"></textarea>
+                </div>
+
+
+                <div class="mb-4">
+                    <label for="image" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Change
+                        Image</label>
+                    <input type="file" (change)="onUpdateFile($event)"
+                        class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" />
+                </div>
+
+                <!-- Progress Bar -->
+                <div *ngIf="uploadProgress !== null" class="mb-4">
+                    <div class="mb-1 text-base font-medium text-red-700 dark:text-red-500">
+                        {{uploadProgress != 100 ? "Uploading..." : "Finish"}}</div>
+                    <div class="w-full bg-gray-200 rounded-full h-2.5 mb-4 dark:bg-gray-700">
+                        <div class="bg-red-600 h-2.5 rounded-full dark:bg-red-500" [style.width.%]="uploadProgress">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex items-center mb-4">
+                    <input type="checkbox" [(ngModel)]="selectedhomeAbouts.isActive" name="isActive" id="isActive"
+                        class="w-4 h-4 text-primary-600 bg-gray-100 rounded border-gray-300 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
+                    <label for="isActive" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Is
+                        Active</label>
+                </div>
+
+                <button type="submit"
+                    class="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
+                    Update homeAbout
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal toggle -->
+
+
+<div id="popup-modal" tabindex="-1" [ngClass]="{'hidden': openDeleteDailog === false}"
+    class="overflow-y-auto overflow-x-hidden top-0 right-0 left-0 z-50 absolute justify-center items-center w-full md:inset-0 h-modal md:h-full flex">
+    <div class="relative p-4 w-full max-w-md max-h-full">
+        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+            <button type="button" (click)="openDeleteDailog=false"
+                class="absolute top-3 end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                data-modal-hide="popup-modal">
+                <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                    viewBox="0 0 14 14">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                </svg>
+                <span class="sr-only">Close modal</span>
+            </button>
+            <div class="p-4 md:p-5 text-center">
+                <svg class="mx-auto mb-4 text-gray-400 w-12 h-12 dark:text-gray-200" aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                </svg>
+                <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">Are you sure you want to delete
+                    this product?</h3>
+                <button (click)="onDelete()" data-modal-hide="popup-modal" type="button"
+                    class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center">
+                    Yes, I'm sure
+                </button>
+                <button (click)="openDeleteDailog=false" data-modal-hide="popup-modal" type="button"
+                    class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">No,
+                    cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- Main modal -->
+<div id="default-modal" tabindex="-1" aria-hidden="true" [ngClass]="{'hidden': openReadDailog === false}"
+    class="overflow-y-auto overflow-x-hidden top-0 right-0 left-0 z-50 absolute justify-center items-center w-full md:inset-0 h-modal md:h-full flex">
+    <div class="relative p-4 w-full max-w-2xl max-h-full">
+        <!-- Modal content -->
+        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+            <!-- Modal header -->
+            <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+                <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+                    Terms of Service
+                </h3>
+                <button (click)="openReadDailog=false" type="button"
+                    class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                    data-modal-hide="default-modal">
+                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                        viewBox="0 0 14 14">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                    </svg>
+                    <span class="sr-only">Close modal</span>
+                </button>
+            </div>
+            <!-- Modal body -->
+            <div class="p-4 md:p-5 space-y-4">
+                <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+                    {{readhomeAboutsModal.name}} </p>
+                <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+                    {{readhomeAboutsModal.description}}
+                </p>
+            </div>
+            <div class="p-4 md:p-5 space-y-4">
+                <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+                    {{readhomeAboutsModal.arabicName}} </p>
+                <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+                    {{readhomeAboutsModal.arabicDescription}}
+                </p>
+            </div>
+            <!-- Modal footer -->
+            <div class="flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600">
+
+                <button (click)="openReadDailog=false" data-modal-hide="default-modal" type="button"
+                    class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Decline</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div [ngClass]="{'hidden': !(openDeleteDailog || openUpdateDailog||openReadDailog)}"
+    class="bg-gray-900/50 dark:bg-gray-900/80 fixed inset-0 z-40"></div>

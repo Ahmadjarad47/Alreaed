@@ -1,0 +1,14 @@
+.mat-stepper-horizontal {
+  margin-top: 8px;
+}
+
+.mat-mdc-form-field {
+  margin-top: 16px;
+}
+.card.active {
+  background: linear-gradient(to bottom right, #1e3a8a, #2563eb);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+#bbg{
+background-color: #0d0822;
+}

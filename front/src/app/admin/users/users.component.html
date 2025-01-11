@@ -1,9 +1,18 @@
 <app-navbar></app-navbar>
-<div class="py-10 sm:ml-64">
+<div class="p-4  mt-12 transition-all duration-300" [ngClass]="{'sm:ml-64': !isSidebarClosed, 'ml-0': isSidebarClosed}">
     <div class="w-full bg-white rounded-lg shadow dark:bg-gray-800 p-4 md:p-6">
 
 
 
+        <button type="button" id="refresh" (click)="refreshDataTable()" class="text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl 
+            focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium 
+            rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">
+            InitalTable</button>
+
+        <button type="button" id="refresh" (click)="initializeTable()" class="text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl 
+            focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium 
+            rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">
+            RefreshUsers</button>
         <div class="flex justify-between pb-4 mb-4 border-b border-gray-200 dark:border-gray-700">
 
             @if (tableData) {
@@ -16,7 +25,7 @@
                     <tr>
                         <th>
                             <span class="flex items-center">
-                                Name
+                                User Name
                                 <svg class="w-4 h-4 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                                     width="24" height="24" fill="none" viewBox="0 0 24 24">
                                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
@@ -30,9 +39,37 @@
 
                             </span>
                         </th>
-                        <th data-type="date" data-format="YYYY/DD/MM">
+                        <th>
+                            <span>
+                                Phone Number
+
+                            </span>
+                        </th>
+                        <th data-type="date" data-format="yyyy/MM/dd">
                             <span class="flex items-center">
-                                Release Date
+                                CreateAt
+
+                            </span>
+                        </th>
+                        <th data-type="datetime" data-format="yyyy/MM/dd HH:mm">
+                            <span class="flex items-center">
+                                LockoutEnd
+                                <svg class="w-4 h-4 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                    width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="2" d="m8 15 4 4 4-4m0-6-4-4-4 4" />
+                                </svg>
+                            </span>
+                        </th>
+                        <th data-type="datetime" data-format="yyyy/MM/dd HH:mm">
+                            <span class="flex items-center">
+                                Is-Block
+
+                            </span>
+                        </th>
+                        <th>
+                            <span class="flex items-center">
+                                emailConfirmed
                                 <svg class="w-4 h-4 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                                     width="24" height="24" fill="none" viewBox="0 0 24 24">
                                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
@@ -42,7 +79,7 @@
                         </th>
                         <th>
                             <span class="flex items-center">
-                                NPM Downloads
+                                city
                                 <svg class="w-4 h-4 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                                     width="24" height="24" fill="none" viewBox="0 0 24 24">
                                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
@@ -50,16 +87,7 @@
                                 </svg>
                             </span>
                         </th>
-                        <th>
-                            <span class="flex items-center">
-                                Growth
-                                <svg class="w-4 h-4 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                    width="24" height="24" fill="none" viewBox="0 0 24 24">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                        stroke-width="2" d="m8 15 4 4 4-4m0-6-4-4-4 4" />
-                                </svg>
-                            </span>
-                        </th>
+
                         <th>
                             <span class="flex items-center">
                                 Edit / Delete /Role
@@ -73,26 +101,36 @@
                     @for (item of tableData; track $index) {
                     <tr
                         class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 cursor-pointer">
-                        <td class="font-medium text-gray-900 whitespace-nowrap dark:text-white">{{item.name}}</td>
+                        <td class="font-medium text-gray-900 whitespace-nowrap dark:text-white">{{item.userName}}</td>
                         <td>
                             <div scope="row"
                                 class="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white">
-                                <img class="w-10 h-10 rounded-full"
-                                    src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
-                                    alt="Jese image">
+                                <img class="w-10 h-10 rounded-full" [src]="item.image" alt="Jese image">
                                 <div class="ps-3">
-                                    <div class="text-base font-semibold">neil.simsflowbite.com</div>
+                                    <div class="text-base font-semibold">{{item.email}}</div>
 
                                 </div>
                             </div>
 
                         </td>
-                        <td>{{item.releaseDate}}</td>
-                        <td>{{item.npmDownloads|currency}}</td>
-                        <td>{{item.growth}}</td>
+                        <td>{{item.phoneNumber}}</td>
+                        <td>{{ item.createAt | date: 'yyyy/MM/dd HH:mm' }}</td>
+                        <td>{{ item.lockoutEnd | date: 'yyyy/MM/dd HH:mm' }}</td>
+                        <td>
+                            @if ((item.lockoutEnd|date)>(currentDate|date)) {
+
+                            True
+                            }@else {
+
+                            False
+                            }
+
+                        </td>
+                        <td>{{item.emailConfirmed}}</td>
+                        <td>{{item.city}}</td>
                         <td class="flex">
-                            <button data-modal-target="static-modal" data-modal-toggle="static-modal"
-                                title="Send Message" type="button"
+                            <button (click)="message.email=item.email" data-modal-target="static-modal"
+                                data-modal-toggle="static-modal" title="Send Message" type="button"
                                 class="text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 shadow-lg shadow-green-500/50 dark:shadow-lg dark:shadow-green-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">
                                 <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
                                     xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
@@ -102,8 +140,8 @@
                                 </svg>
 
                             </button>
-                            <button data-modal-target="popup-modal" data-modal-toggle="popup-modal" title="Delete"
-                                type="button" class="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50
+                            <button (click)="setEmail(item.email)" data-modal-target="popup-modal"
+                                data-modal-toggle="popup-modal" title="Delete" type="button" class="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50
                                  dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm px-5
                                   py-2.5 text-center me-2 mb-2"><svg class="w-6 h-6 text-gray-800 dark:text-white"
                                     aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -113,8 +151,8 @@
                                         d="M16 12h4M4 18v-1a3 3 0 0 1 3-3h4a3 3 0 0 1 3 3v1a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1Zm8-10a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
                                 </svg>
                             </button>
-                            <button data-modal-target="select-modal" data-modal-toggle="select-modal"
-                                title="Change Role" type="button" class="text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none 
+                            <button (click)="role.email=item.email" data-modal-target="select-modal"
+                                data-modal-toggle="select-modal" title="Change Role" type="button" class="text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none 
                             focus:ring-blue-300 dark:focus:ring-blue-800 font-medium 
                             rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">
                                 <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
@@ -145,7 +183,7 @@
     class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
     <div class="relative p-4 w-full max-w-md max-h-full">
         <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-            <button type="button"
+            <button type="button" id="closeBlocker"
                 class="absolute top-3 end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
                 data-modal-hide="popup-modal">
                 <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -156,21 +194,59 @@
                 <span class="sr-only">Close modal</span>
             </button>
             <div class="p-4 md:p-5 text-center">
-                <svg class="mx-auto mb-4 text-gray-400 w-12 h-12 dark:text-gray-200" aria-hidden="true"
-                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                </svg>
-                <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">Are you sure you want to delete
-                    this product?</h3>
-                <button data-modal-hide="popup-modal" type="button"
-                    class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center">
-                    Yes, I'm sure
-                </button>
-                <button data-modal-hide="popup-modal" type="button"
-                    class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">No,
-                    cancel</button>
+                <ng-container *ngIf="isblock; else unblockSection">
+                    <p class="text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400">
+                        Unblock User <br> Email: {{ blocker.email }}
+                    </p>
+
+                    <div class="relative max-w-sm mx-auto">
+                        <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                            <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                <path
+                                    d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
+                            </svg>
+                        </div>
+                    </div>
+
+                    <button (click)="onUnBlockSubmit()" type="button"
+                        class="text-white bg-green-600 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5">
+                        Yes, Unblock
+                    </button>
+                    <button type="button" data-modal-hide="popup-modal"
+                        class="py-2.5 px-5 ml-3 text-sm font-medium text-gray-900 bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+                        No, Cancel
+                    </button>
+                </ng-container>
+
+                <ng-template #unblockSection>
+                    <p class="text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400">Block User</p>
+
+                    <div class="relative max-w-sm mx-auto">
+                        <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                            <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                <path
+                                    d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
+                            </svg>
+                        </div>
+                        <input [(ngModel)]="blocker.blockAt" id="datepicker-actions" datepicker datepicker-buttons
+                            datepicker-autoselect-today type="text"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            placeholder="Select date">
+                    </div>
+
+                    <button (click)="onBlockSubmit()" type="button"
+                        class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5">
+                        Yes, Block
+                    </button>
+                    <button type="button" data-modal-hide="popup-modal"
+                        class="py-2.5 px-5 ml-3 text-sm font-medium text-gray-900 bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+                        No, Cancel
+                    </button>
+                </ng-template>
             </div>
+
         </div>
     </div>
 </div>
@@ -179,7 +255,7 @@
 
 
 
-<!-- Select Role User -->
+<!-- Select Role of User -->
 <div id="select-modal" tabindex="-1" aria-hidden="true"
     class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
     <div class="relative p-4 w-full max-w-md max-h-full">
@@ -190,7 +266,7 @@
                 <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
                     Open positions
                 </h3>
-                <button type="button"
+                <button type="button" id="closeModalRoles"
                     class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm h-8 w-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
                     data-modal-toggle="select-modal">
                     <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -207,7 +283,8 @@
                 <ul class="space-y-4 mb-4">
 
                     <li>
-                        <input type="radio" id="job-2" name="job" value="job-2" class="hidden peer">
+                        <input [(ngModel)]="role.role" type="radio" id="job-2" name="job" value="Admin"
+                            class="hidden peer">
                         <label for="job-2"
                             class="inline-flex items-center justify-between w-full p-5 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500 dark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
                             <div class="block">
@@ -225,7 +302,8 @@
                         </label>
                     </li>
                     <li>
-                        <input type="radio" id="job-3" name="job" value="job-3" class="hidden peer">
+                        <input [(ngModel)]="role.role" type="radio" id="job-3" name="job" value="User"
+                            class="hidden peer">
                         <label for="job-3"
                             class="inline-flex items-center justify-between w-full p-5 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500 dark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
                             <div class="block">
@@ -243,7 +321,7 @@
                         </label>
                     </li>
                 </ul>
-                <button
+                <button (click)="onChangeRoleSubmit()"
                     class="text-white inline-flex w-full justify-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                     Next step
                 </button>
@@ -497,8 +575,9 @@
                                         </li>
                                     </ul>
                                 </div>
-                                <button (click)="isOpenDailogColorView=!isOpenDailogColorView" id="toggleTextColorButton" data-dropdown-toggle="textColorDropdown"
-                                    type="button" data-tooltip-target="tooltip-text-color"
+                                <button (click)="isOpenDailogColorView=!isOpenDailogColorView"
+                                    id="toggleTextColorButton" data-dropdown-toggle="textColorDropdown" type="button"
+                                    data-tooltip-target="tooltip-text-color"
                                     class="p-1.5 text-gray-500 rounded cursor-pointer hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600">
                                     <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                                         width="25" height="24" fill="none" viewBox="0 0 25 24">
@@ -512,10 +591,10 @@
                                     Text color
                                     <div class="tooltip-arrow" data-popper-arrow></div>
                                 </div>
-                                <div id="textColorDropdown" [ngClass]="{'block':isOpenDailogColorView==true,'hidden':isOpenDailogColorView==false,}"
+                                <div id="textColorDropdown"
+                                    [ngClass]="{'block':isOpenDailogColorView==true,'hidden':isOpenDailogColorView==false,}"
                                     class="z-10  w-48 rounded bg-white p-2 shadow dark:bg-gray-700"
-                                    style="position: absolute; inset:60px auto auto 0px; margin: 0px; transform: translate3d(327.2px, 68.8px, 0px);"
-                                    >
+                                    style="position: absolute; inset:60px auto auto 0px; margin: 0px; transform: translate3d(327.2px, 68.8px, 0px);">
                                     <div
                                         class="grid grid-cols-6 gap-2 group mb-3 items-center p-1.5 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600">
                                         <input type="color" id="color" value="#e66465"
@@ -609,8 +688,9 @@
                                         class="py-1.5 text-sm font-medium text-gray-500 focus:outline-none bg-white rounded-lg hover:bg-gray-100 hover:text-gray-900 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-700 dark:text-gray-400 dark:hover:text-white w-full dark:hover:bg-gray-600">Reset
                                         color</button>
                                 </div>
-                                <button (click)="isOpenDailogAaView=!isOpenDailogAaView" id="toggleFontFamilyButton" data-dropdown-toggle="fontFamilyDropdown"
-                                    type="button" data-tooltip-target="tooltip-font-family"
+                                <button (click)="isOpenDailogAaView=!isOpenDailogAaView" id="toggleFontFamilyButton"
+                                    data-dropdown-toggle="fontFamilyDropdown" type="button"
+                                    data-tooltip-target="tooltip-font-family"
                                     class="p-1.5 text-gray-500 rounded cursor-pointer hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600">
                                     <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                                         width="24" height="24" fill="none" viewBox="0 0 24 24">
@@ -625,9 +705,10 @@
                                     Font Family
                                     <div class="tooltip-arrow" data-popper-arrow></div>
                                 </div>
-                                <div id="fontFamilyDropdown" [ngClass]="{'hidden':isOpenDailogAaView==false,'block':isOpenDailogAaView==true}"
-                                style="position: absolute; inset:60px auto auto 0px; margin: 0px; transform: translate3d(327.2px, 68.8px, 0px);"  
-                                class="z-10  w-48 rounded bg-white p-2 shadow dark:bg-gray-700">
+                                <div id="fontFamilyDropdown"
+                                    [ngClass]="{'hidden':isOpenDailogAaView==false,'block':isOpenDailogAaView==true}"
+                                    style="position: absolute; inset:60px auto auto 0px; margin: 0px; transform: translate3d(327.2px, 68.8px, 0px);"
+                                    class="z-10  w-48 rounded bg-white p-2 shadow dark:bg-gray-700">
                                     <ul class="space-y-1 text-sm font-medium" aria-labelledby="toggleFontFamilyButton">
                                         <li>
                                             <button data-font-family="Inter, ui-sans-serif" type="button"
@@ -705,9 +786,9 @@
             </div>
             <!-- Modal footer -->
             <div class="flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600">
-                <button data-modal-hide="static-modal" type="button"
-                    class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">I
-                    accept</button>
+                <button (click)="onMessageSubmit()" data-modal-hide="static-modal" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center
+                     dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Send message
+                </button>
                 <button data-modal-hide="static-modal" type="button"
                     class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Decline</button>
             </div>

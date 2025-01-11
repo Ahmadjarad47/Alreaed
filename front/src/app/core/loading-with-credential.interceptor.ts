@@ -1,35 +1,45 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 import {
   HttpInterceptor,
   HttpRequest,
   HttpHandler,
   HttpEvent,
-  HttpClient,
 } from '@angular/common/http';
 import { finalize } from 'rxjs/operators';
 import { CoreService } from './core.service'; // Adjust the path as needed
 import { Observable } from 'rxjs';
-import { environment } from '../../environments/environment.development';
+import { isPlatformBrowser } from '@angular/common';
 
 @Injectable({
   providedIn: 'root',
 })
 export class loadingWithCredentialInterceptor implements HttpInterceptor {
-  constructor(private _service: CoreService) {}
+  constructor(
+    private _service: CoreService,
+    @Inject(PLATFORM_ID) private platformId: Object
+  ) {}
+
   intercept(
     request: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    this._service.loading();
+    // Add withCredentials flag
+    request = request.clone({
+      withCredentials: true,
+    });
 
-    request=request.clone({
-      withCredentials:true
-    })
+    if (isPlatformBrowser(this.platformId)) {
+      // Only show loader in the browser environment
+      this._service.loading();
 
-    return next.handle(request).pipe(
-      finalize(() => {
-        this._service.hideLoader();
-      })
-    );
+      return next.handle(request).pipe(
+        finalize(() => {
+          this._service.hideLoader();
+        })
+      );
+    } 
+
+    // Handle the request normally on the server
+    return next.handle(request);
   }
 }

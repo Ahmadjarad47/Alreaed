@@ -12,6 +12,11 @@ import { FormsModule } from '@angular/forms';
 import { HomeAboutComponent } from './core/CRUD/home-about/home-about.component';
 import { ServiceComponent } from './core/CRUD/service/service.component';
 import { SubserviceComponent } from './core/CRUD/subservice/subservice.component';
+import { HomeProductComponent } from './core/CRUD/home-product/home-product.component';
+import { CreateMessageComponent } from './inbox/create-message/create-message.component';
+import { OrderComponent } from './order/order.component';
+import { OrderProcessComponent } from './order/order-process/order-process.component';
+import { PagnationComponent } from './core/pagnation/pagnation.component';
 
 
 @NgModule({
@@ -25,7 +30,11 @@ import { SubserviceComponent } from './core/CRUD/subservice/subservice.component
     HomeAboutComponent,
     ServiceComponent,
     SubserviceComponent,
- 
+    HomeProductComponent,
+    CreateMessageComponent,
+    OrderComponent,
+    OrderProcessComponent,
+    PagnationComponent
   ],
   imports: [
     CommonModule,
@@ -34,7 +43,7 @@ import { SubserviceComponent } from './core/CRUD/subservice/subservice.component
     FormsModule
   ],exports:[
     NavbarComponent,
-    // ChartsComponent
+    PagnationComponent
   ]
 })
 export class AdminModule { }

@@ -1,0 +1,14 @@
+a.active {
+    background-color: #4f46e5; /* Indigo background */
+    color: white; /* White text */
+  }
+  
+  a.disabled {
+    pointer-events: none;
+    opacity: 0.5;
+  }
+  
+  a:hover {
+    cursor: pointer;
+  }
+  

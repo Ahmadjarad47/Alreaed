@@ -19,292 +19,237 @@ import FontFamily from '@tiptap/extension-font-family';
 import { Color } from '@tiptap/extension-color';
 import { Bold } from '@tiptap/extension-bold';
 import { CoreService } from '../../core/core.service';
-import { console } from 'node:inspector';
+import { ReturnUserDTO, UserBlock, UserRole } from '../core/Models/User';
+import { AdminService } from '../admin.service';
+import { environment } from '../../../environments/environment.development';
+import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
+import { AddMessageFromAdmin, ReadMessage } from '../core/Models/Message';
 declare var Dropdown: any;
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
   styleUrl: './users.component.css',
 })
-export class UsersComponent implements AfterViewInit {
+export class UsersComponent implements OnInit, AfterViewInit {
+  // Base URL from environment
+  base = environment.base;
+
+  // Flags to manage dialog visibility for various views
   isOpenDailogColorView = false;
   isOpenDailogAaView = false;
-  openColor = false;
   isOpenDailogExportsView = false;
-  flow = inject(CoreService);
-  tableData = [
-    {
-      name: 'Flowbite',
-      releaseDate: '2021/25/09',
-      npmDownloads: 269000,
-      growth: '49%',
-    },
-    {
-      name: 'React',
-      releaseDate: '2013/24/05',
-      npmDownloads: 4500000,
-      growth: '24%',
-    },
-    {
-      name: 'Angular',
-      releaseDate: '2010/20/09',
-      npmDownloads: 2800000,
-      growth: '17%',
-    },
-    {
-      name: 'Vue',
-      releaseDate: '2014/12/02',
-      npmDownloads: 3600000,
-      growth: '30%',
-    },
-    {
-      name: 'Svelte',
-      releaseDate: '2016/26/11',
-      npmDownloads: 1200000,
-      growth: '57%',
-    },
-    {
-      name: 'Ember',
-      releaseDate: '2011/08/12',
-      npmDownloads: 500000,
-      growth: '44%',
-    },
-    {
-      name: 'Backbone',
-      releaseDate: '2010/13/10',
-      npmDownloads: 300000,
-      growth: '9%',
-    },
-    {
-      name: 'jQuery',
-      releaseDate: '2006/28/01',
-      npmDownloads: 6000000,
-      growth: '5%',
-    },
-    {
-      name: 'Bootstrap',
-      releaseDate: '2011/19/08',
-      npmDownloads: 1800000,
-      growth: '12%',
-    },
-    {
-      name: 'Foundation',
-      releaseDate: '2011/23/09',
-      npmDownloads: 700000,
-      growth: '8%',
-    },
-    {
-      name: 'Bulma',
-      releaseDate: '2016/24/10',
-      npmDownloads: 500000,
-      growth: '7%',
-    },
-    {
-      name: 'Flowbite',
-      releaseDate: '2021/25/09',
-      npmDownloads: 269000,
-      growth: '49%',
-    },
-    {
-      name: 'React',
-      releaseDate: '2013/24/05',
-      npmDownloads: 4500000,
-      growth: '24%',
-    },
-    {
-      name: 'Angular',
-      releaseDate: '2010/20/09',
-      npmDownloads: 2800000,
-      growth: '17%',
-    },
-    {
-      name: 'Vue',
-      releaseDate: '2014/12/02',
-      npmDownloads: 3600000,
-      growth: '30%',
-    },
-    {
-      name: 'Svelte',
-      releaseDate: '2016/26/11',
-      npmDownloads: 1200000,
-      growth: '57%',
-    },
-    {
-      name: 'Ember',
-      releaseDate: '2011/08/12',
-      npmDownloads: 500000,
-      growth: '44%',
-    },
-    {
-      name: 'Backbone',
-      releaseDate: '2010/13/10',
-      npmDownloads: 300000,
-      growth: '9%',
-    },
-    {
-      name: 'jQuery',
-      releaseDate: '2006/28/01',
-      npmDownloads: 6000000,
-      growth: '5%',
-    },
-    {
-      name: 'Bootstrap',
-      releaseDate: '2011/19/08',
-      npmDownloads: 1800000,
-      growth: '12%',
-    },
-    {
-      name: 'Foundation',
-      releaseDate: '2011/23/09',
-      npmDownloads: 700000,
-      growth: '8%',
-    },
-    {
-      name: 'Bulma',
-      releaseDate: '2016/24/10',
-      npmDownloads: 500000,
-      growth: '7%',
-    },
-    {
-      name: 'Flowbite',
-      releaseDate: '2021/25/09',
-      npmDownloads: 269000,
-      growth: '49%',
-    },
-    {
-      name: 'React',
-      releaseDate: '2013/24/05',
-      npmDownloads: 4500000,
-      growth: '24%',
-    },
-    {
-      name: 'Angular',
-      releaseDate: '2010/20/09',
-      npmDownloads: 2800000,
-      growth: '17%',
-    },
-    {
-      name: 'Vue',
-      releaseDate: '2014/12/02',
-      npmDownloads: 3600000,
-      growth: '30%',
-    },
-    {
-      name: 'Svelte',
-      releaseDate: '2016/26/11',
-      npmDownloads: 1200000,
-      growth: '57%',
-    },
-    {
-      name: 'Ember',
-      releaseDate: '2011/08/12',
-      npmDownloads: 500000,
-      growth: '44%',
-    },
-    {
-      name: 'Backbone',
-      releaseDate: '2010/13/10',
-      npmDownloads: 300000,
-      growth: '9%',
-    },
-    {
-      name: 'jQuery',
-      releaseDate: '2006/28/01',
-      npmDownloads: 6000000,
-      growth: '5%',
-    },
-    {
-      name: 'Bootstrap',
-      releaseDate: '2011/19/08',
-      npmDownloads: 1800000,
-      growth: '12%',
-    },
-    {
-      name: 'Foundation',
-      releaseDate: '2011/23/09',
-      npmDownloads: 700000,
-      growth: '8%',
-    },
-    {
-      name: 'Bulma',
-      releaseDate: '2016/24/10',
-      npmDownloads: 500000,
-      growth: '7%',
-    },
-    {
-      name: 'Flowbite',
-      releaseDate: '2021/25/09',
-      npmDownloads: 269000,
-      growth: '49%',
-    },
-    {
-      name: 'React',
-      releaseDate: '2013/24/05',
-      npmDownloads: 4500000,
-      growth: '24%',
-    },
-    {
-      name: 'Angular',
-      releaseDate: '2010/20/09',
-      npmDownloads: 2800000,
-      growth: '17%',
-    },
-    {
-      name: 'Vue',
-      releaseDate: '2014/12/02',
-      npmDownloads: 3600000,
-      growth: '30%',
-    },
-    {
-      name: 'Svelte',
-      releaseDate: '2016/26/11',
-      npmDownloads: 1200000,
-      growth: '57%',
-    },
-    {
-      name: 'Ember',
-      releaseDate: '2011/08/12',
-      npmDownloads: 500000,
-      growth: '44%',
-    },
-    {
-      name: 'Backbone',
-      releaseDate: '2010/13/10',
-      npmDownloads: 300000,
-      growth: '9%',
-    },
-    {
-      name: 'jQuery',
-      releaseDate: '2006/28/01',
-      npmDownloads: 6000000,
-      growth: '5%',
-    },
-    {
-      name: 'Bootstrap',
-      releaseDate: '2011/19/08',
-      npmDownloads: 1800000,
-      growth: '12%',
-    },
-    {
-      name: 'Foundation',
-      releaseDate: '2011/23/09',
-      npmDownloads: 700000,
-      growth: '8%',
-    },
-    {
-      name: 'Bulma',
-      releaseDate: '2016/24/10',
-      npmDownloads: 500000,
-      growth: '7%',
-    },
-  ];
+  openColor = false;
+  role = new UserRole();
+  isblock = false;
+  // Dependency injection for services
+  private flow = inject(CoreService); // Service to manage Flowbite UI components
+  private _service = inject(AdminService); // Service to interact with backend APIs
+  private toast = inject(ToastrService); // Service to display toast notifications
+  private router = inject(Router);
+  private navbarToggle=inject(AdminService)
+  isSidebarClosed=false
+  // Data model for blocking a user
+  blocker: UserBlock = new UserBlock();
+  message: AddMessageFromAdmin = new AddMessageFromAdmin();
 
+  // Table data to display users
+  tableData: ReturnUserDTO[] = [];
+
+  // Current date used for lockout comparison
+  currentDate: Date = new Date();
+
+  /**
+   * Lifecycle hook that initializes the component's data.
+   */
+  ngOnInit(): void {
+    this.initializeTable(); // Load the initial table data
+  }
+
+  /**
+   * Lifecycle hook that runs after the component's view has been initialized.
+   */
   ngAfterViewInit(): void {
-    this.inItDateTable();
-    this.flow.loadFlowbite((f) => {
-      f.initModals();
+    this.initializeFlowbiteComponents(); // Initialize Flowbite UI components
+    this._service.isOpen$.subscribe(p=>{
+      this.isSidebarClosed=p;
+    })
+  
+  }
+
+  /**
+   * Initializes the user table by fetching all users.
+   */
+  initializeTable(): void {
+    this.getAllUsers(); // Fetch all users from the backend
+    setTimeout(() => {
+      const s = this.inItDateTable();
+      this.initializeFlowbiteComponents();
+      this.initializeEditor()
+    }, 1000);
+  }
+
+  /**
+   * Fetches all users from the backend and updates the table data.
+   */
+  getAllUsers(): void {
+    this._service.getAllUsers().subscribe({
+      next: (users) => {
+        this.tableData = users;
+        this.toast.info('Users loaded successfully!', 'Success'); // Show success notification
+      },
+      error: (err) => {
+        console.error('Failed to load users:', err);
+        this.toast.error(
+          'Failed to load users. Please try again later.',
+          'Error'
+        ); // Show error notification
+      },
     });
-    this.InitEditor();
+  }
+
+  onChangeRoleSubmit() {
+    this._service.changeRole(this.role).subscribe({
+      next: (res) => {
+        console.log(res);
+        this.toast.info('Role changed successfully!', 'Success'); // Show success notification
+        this.getAllUsers(); // Refresh the user table after changing the role
+        document.getElementById('closeModalRoles').click();
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
+  }
+  /**
+   * Checks if the user is currently locked out by comparing the lockout date with the current date.
+   * @param lockoutEnd - The lockout end date as a string or Date object
+   * @returns true if the user is locked out, false otherwise
+   */
+  isLockedOut(lockoutEnd: Date | string): boolean {
+    return new Date(lockoutEnd) > this.currentDate;
+  }
+
+  /**
+   * Refreshes the data table by reloading the user data.
+   */
+  refreshDataTable(): void {
+    this.inItDateTable();
+    this.toast.info('Data table refreshed.', 'Info'); // Show info notification
+    this.initializeFlowbiteComponents(); // Reinitialize UI components if necessary
+  }
+
+  /**
+   * Sets the email address for the blocker and initializes Flowbite components.
+   * @param email - The email address of the user to block
+   */
+  setEmail(email: string): void {
+    const user = this.tableData.find((user) => user.email === email);
+
+    this.isblock = this.isLockedOut(user.lockoutEnd);
+    this.blocker.email = user.email;
+    this.toast.info(`Email set to ${email}`, 'Info'); // Show info notification
+  }
+
+  /**
+   * Submits the block request to the backend to block the user.
+   */
+
+  onBlockSubmit(): void {
+    if (!this.blocker.email) {
+      this.toast.warning('Please select a user to block.', 'Warning');
+      return;
+    }
+
+    // Validate blockAt date
+
+    this._service.blockUser(this.blocker).subscribe({
+      next: (res) => {
+        console.log('User blocked successfully:', res);
+        this.toast.info(
+          `User ${this.blocker.email} blocked successfully!`,
+          'Success'
+        );
+        this.getAllUsers();
+        document.getElementById('closeBlocker').click();
+        this.router
+          .navigateByUrl('/RefreshComponent', { skipLocationChange: true })
+          .then(() => {
+            this.router.navigate(['/admin/users']);
+          });
+      },
+      error: (err) => {
+        console.error('Failed to block user:', err);
+        this.toast.error('Failed to block user. Please try again.', 'Error');
+      },
+    });
+  }
+
+  /**
+   * Helper function to validate if a given date string is a valid date
+   */
+  isValidDate(date: string): boolean {
+    // Check if date is not empty and is a valid date
+    const parsedDate = Date.parse(date);
+    return !isNaN(parsedDate);
+  }
+
+  onUnBlockSubmit(): void {
+    this._service.unblockUser(this.blocker.email).subscribe({
+      next: (res) => {
+        console.log('User unblocked successfully:', res);
+        this.toast.info(
+          `User ${this.blocker.email} unblocked successfully!`,
+          'Success'
+        );
+
+        this.getAllUsers();
+        document.getElementById('closeBlocker').click();
+        this.router
+          .navigateByUrl('/RefreshComponent', { skipLocationChange: true })
+          .then(() => {
+            this.router.navigate(['/admin/users']);
+          });
+      },
+      error: (err) => {
+        console.error('Failed to unblock user:', err);
+        this.toast.error('Failed to unblock user. Please try again.', 'Error');
+      },
+    });
+  }
+  /**
+   * Initializes Flowbite UI components (modals, datepickers, etc.).
+   */
+  private initializeFlowbiteComponents(): void {
+    this.flow.loadFlowbite((flowbite) => {
+      flowbite.initModals(); // Initialize modals
+      flowbite.initDatepickers(); // Initialize datepickers
+    });
+  }
+
+  /**
+   * Initializes any editor components used in the component.
+   */
+  private initializeEditor(): void {
+    this.InitEditor(); // Initialize editors
+  }
+  /**
+   * send Message for user
+   */
+  onMessageSubmit() {
+    this.message.Content = document.getElementById(
+      'wysiwyg-text-example'
+    ).innerHTML;
+
+    this._service.addNewMessageFromAdmin(this.message).subscribe({
+      next: (res) => {
+        this.toast.info('Message Send Success', 'SUCCESS');
+      },
+      error: (err) => {
+        console.log(err);
+        this.toast.error('Something whent wrong', 'ERROR');
+      },
+    });
   }
 
   exportAsJson() {
@@ -328,8 +273,14 @@ export class UsersComponent implements AfterViewInit {
   exportDataToSQL() {
     const tableName = 'your_table_name';
     const sqlStatements = this.tableData
-      .map((row) => {
-        return `INSERT INTO ${tableName} (name, releaseDate, npmDownloads, growth) VALUES ('${row.name}', '${row.releaseDate}', ${row.npmDownloads}, '${row.growth}');`;
+      .map((row: ReturnUserDTO) => {
+        return `INSERT INTO ${tableName} (userName, email, phoneNumber, createAt, city, emailConfirmed, lockoutEnd) VALUES ('${
+          row.userName
+        }', '${row.email}', '${
+          row.phoneNumber
+        }', '${row.createAt.toISOString()}', '${row.city}', ${
+          row.emailConfirmed
+        }, '${row.lockoutEnd.toISOString()}');`;
       })
       .join('\n');
     this.downloadSQL(sqlStatements, 'data.sql');
@@ -345,7 +296,7 @@ export class UsersComponent implements AfterViewInit {
   inItDateTable() {
     if (typeof window !== 'undefined') {
       if (typeof simpleDatatables.DataTable !== 'undefined') {
-        const table = new simpleDatatables.DataTable('#export-table', {
+        var table = new simpleDatatables.DataTable('#export-table', {
           template: (options, dom) =>
             "<div class='" +
             options.classes.top +
@@ -432,26 +383,12 @@ export class UsersComponent implements AfterViewInit {
             "'></nav>" +
             '</div>',
         });
-        const exportButton = document
-          .getElementById('exportDropdownButton')
-          .addEventListener('click', () => {
-            if (
-              document
-                .getElementById('exportDropdown')
-                .classList.contains('hidden')
-            ) {
-              document
-                .getElementById('exportDropdown')
-                .classList.remove('hidden');
-              document.getElementById('exportDropdown').style.position =
-                'absolute';
-              document.getElementById('exportDropdown').style.top = '14%';
-              document.getElementById('exportDropdown').style.right = '1%';
-            } else {
-              document.getElementById('exportDropdown').classList.add('hidden');
-            }
-          });
       }
+      const $exportButton = document.getElementById('exportDropdownButton');
+      const $exportDropdownEl = document.getElementById('exportDropdown');
+      const dropdown = new Dropdown($exportDropdownEl, $exportButton);
+      console.log(dropdown);
+
       document.getElementById('export-json').addEventListener('click', () => {
         this.exportAsJson();
       });
@@ -462,6 +399,7 @@ export class UsersComponent implements AfterViewInit {
         this.exportDataToSQL();
       });
     }
+    return table;
   }
 
   InitEditor() {
